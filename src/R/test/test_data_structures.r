@@ -55,3 +55,42 @@ test_that("getN_treated",{
   expect_equal(N_treated$`FALSE`,(20))
   
 })
+
+test_that("Counterfactuals",{
+  treated <-NumericTreatmentDictionary(c(1,1,1),c(2,2,2))
+  W <- c(TRUE,TRUE,FALSE)
+  counterfactuals <- Counterfactuals(treated,W)
+  expect_equal(get_index(counterfactuals,3)$treated$`TRUE`,1)
+  expect_equal(get_index(counterfactuals,3)$treated$`FALSE`,2)
+  expect_equal(get_index(counterfactuals,3)$observed$`TRUE`,2)
+  expect_equal(get_index(counterfactuals,3)$observed$`FALSE`,1)
+  
+  expect_equal(get_elements_by_treatment(counterfactuals,W,TRUE,TRUE),c(1,1))
+  expect_equal(get_elements_by_treatment(counterfactuals,W,FALSE,FALSE),1)
+  expect_equal(get_elements_by_treatment(counterfactuals,W,FALSE,TRUE),2)
+  expect_equal(get_elements_by_treatment(counterfactuals,W,TRUE,FALSE),c(2,2))
+})
+
+test_that("get_elements_by_treatment.vector",{
+
+  expect_equal(get_elements_by_treatment(1,TRUE,TRUE),1)
+  expect_equal(get_elements_by_treatment(1,TRUE,FALSE),numeric(0))
+  
+  Y<-c(1,2,3,4,5)
+  W<-c(TRUE,FALSE,TRUE,TRUE,TRUE)
+  exp<-c(1,3,4,5)
+  expect_equal(get_elements_by_treatment(Y,W,TRUE),exp)
+  expect_equal(get_elements_by_treatment(Y,W,FALSE),2)
+})
+
+
+test_that("get_elements_by_treatment.matrix",{
+  m<-rbind(c(1,2),c(3,4),c(5,6))
+  W <- c(TRUE,FALSE,TRUE)
+  exp <-rbind(c(1,2),c(5,6))
+  expect_equal(get_elements_by_treatment(m,W,TRUE),exp)
+  expect_equal(get_elements_by_treatment(m,W,FALSE),c(3,4))
+})
+
+
+

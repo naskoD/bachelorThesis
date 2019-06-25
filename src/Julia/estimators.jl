@@ -158,6 +158,8 @@ function predict(tree::Union{Leaf,Node}, X::Matrix)
     for i in 1:N
         predictions[i] = predict(tree, X[i,:])
     end
+    println("predictions ->")
+    println(predictions)
     if typeof(predictions[1]) <: Float64
         return float(predictions)
     else

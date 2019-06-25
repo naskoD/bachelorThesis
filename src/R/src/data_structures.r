@@ -12,6 +12,7 @@ Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
   value
 }
 
+
 get_index.data <- function(obj,index){
   Data(obj$X[index,],
        obj$W[index],
@@ -37,6 +38,27 @@ Counterfactuals <-function(treated,W){
 
 get_index.counterfactuals <- function(obj,index){
   Counterfactuals(NumericTreatmentDictionary(obj$treated$`TRUE`[index],obj$treated$`FALSE`[index]),obj$W[index])
+}
+
+get_elements_by_treatment.counterfactuals <- function(obj,W,t,o){
+  
+  if(is.null(o)&&is.null(t)){
+    stop("No conditions provided")
+  }
+  else if(is.null(o)){
+    obj$treated[[as.character(t)]]
+  }
+  else if(is.null(t)){
+    obj$treated[[as.character(o)]]
+  }
+  else{
+    if(t){
+      obj$observed[[as.character(o)]][W]
+    }
+    else{
+      obj$observed[[as.character(o)]][!W]
+    }
+  }
 }
 
 TreatmentDictionary <- function(elements_true,elements_false){
@@ -72,9 +94,49 @@ init_observed <- function(treated,W){
 }
 
 get_index <- function(obj,index) {
-  assert_that(is.integer(index))
+  assert_that(is.numeric(index))
   UseMethod("get_index")
 }
+
+get_index.default <- function(obj,index){
+  obj[index]
+}
+
+get_elements_by_treatment <- function(obj,W,t=NULL,o=NULL) {
+  
+  assert_that(is.vector(obj)||is.matrix(obj)||is(obj,"counterfactuals"))
+  
+  assert_that(is.logical(W))              
+  assert_that(is.logical(t)||is.null(t))
+  assert_that(is.logical(o)||is.null(o))
+  
+  UseMethod("get_elements_by_treatment")
+}
+
+get_elements_by_treatment.matrix <- function(obj,W,t=TRUE){
+  
+  if(t){
+    obj[W,]
+  }
+  else{
+    obj[!W,]
+  }
+}
+
+get_elements_by_treatment.default<-function(obj,W,t=TRUE){
+  get_elements_by_treatment.vector(obj,W,t)
+}
+
+
+get_elements_by_treatment.vector <- function(obj,W,t=TRUE){
+  if(t){
+    obj[W]
+  }
+  else{
+    obj[!W]
+  }
+}
+
 
 get_index.default <- function(obj,index){
   obj[index]
