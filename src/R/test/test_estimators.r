@@ -28,39 +28,77 @@ test_that("Leaf",{
 
 test_that("Node",{
   
-  node <- Node(c(TRUE,TRUE),4,"eee",Leaf(4),Leaf(5))
+  node <- Node(c(TRUE,TRUE),4,7,Leaf(4),Leaf(5))
   expect_equal(node$id,3)
   expect_equal(node$feat_id,4)
-  expect_equal(node$featval,"eee")
+  expect_equal(node$featval,7)
   expect_equal(node$left$value,4)
   expect_equal(node$right$value,5)
+  expect_equal(length(node),2)
+  expect_equal(depth(node),1)
   
-  node2 <- Node(c(TRUE,FALSE),4,"eee",node,NULL)
+  node2 <- Node(c(TRUE,FALSE),4,7,node,NULL)
   expect_equal(node2$id,1)
   expect_equal(node2$feat_id,4)
-  expect_equal(node2$featval,"eee")
+  expect_equal(node2$featval,7)
   expect_equal(node2$left$id,3)
   expect_equal(node2$left$left$value,4)
   expect_equal(node2$left$right$value,5)
   expect_equal(node2$right,NULL)
+  expect_equal(length(node2),2)
+  expect_equal(depth(node2),2)
   
+  node2$right<- node
+  expect_equal(length(node2),4)
+  expect_equal(depth(node2),2)
 })
 
-test_that("predict_leaf",{
+test_that("predict_rt",{
   leaf <- Leaf(6)
   
-  expect_error(predict_leaf("dd"),"is(object = leaf, class2 = \"leaf\") is not TRUE",
+  expect_error(predict_rt("dd",6),paste("is(object = tree, class2 = \"leaf\") is not",
+               "TRUE or is(object = tree, class2 = \"node\") is not TRUE"),
                fixed=TRUE)
-  expect_equal(predict_leaf(leaf),6)
+  expect_equal(predict_rt(leaf,1),6)
+  
+  node1 <- Node(c(TRUE,TRUE),1,NULL,Leaf(4),Leaf(5))
+  
+  expect_equal(predict_rt(node1,1),4)
+  
+  node2 <- Node(c(TRUE,TRUE),1,7,Leaf(4),Leaf(5))
+  
+  expect_equal(predict_rt(node2,1),4)
+  expect_equal(predict_rt(node2,7),5)
+  expect_equal(predict_rt(node2,10),5)
+  
+  node3 <- Node(c(TRUE,TRUE),2,7,Leaf(4),Leaf(5))
+  expect_equal(predict_rt(node3,c(1,1)),4)
+  expect_equal(predict_rt(node3,c(1,10)),5)
+  
+  node4 <- Node(c(TRUE,TRUE),1,10,node2,Leaf(100))
+  expect_equal(predict_rt(node4,1),4)
+  expect_equal(predict_rt(node4,7),5)
+  expect_equal(predict_rt(node4,9),5)
+  expect_equal(predict_rt(node4,10),100)
+  expect_equal(predict_rt(node4,11),100)
+  expect_equal(predict_rt(node4,50),100)
 })
 
-test_that("predict_leaf_matrix",{
+test_that("predict_rt_matrix",{
   
+  tree<-Leaf(101)
   matrix <- rbind(c(1,2),c(3,4),c(5,6),c(7,8),c(9,10))
-  values <- predict_leaf_matrix(Leaf(101),matrix)
-  values
+  values <- predict_rt_matrix(tree,matrix)
+  
   expect_equal(length(values),5)
   expect_equal(values[1],101)
+  
+  tree<-Node(c(TRUE,TRUE),1,7,Leaf(4),Leaf(5))
+  values <- predict_rt_matrix(tree,matrix)
+  
+  expect_equal(length(values),5)
+  expect_equal(values[1:3],c(4,4,4))
+  expect_equal(values[4:5],c(5,5))
 })
 
 test_that("predict_treated_dictionary",{

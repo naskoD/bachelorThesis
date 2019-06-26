@@ -1,7 +1,8 @@
 library(assertthat)
 
 Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
-  assert_that(is.numeric(X)&&is.numeric(Y)&&is.numeric(W)&&is.numeric(N))
+  assert_that(is.numeric(X)&&is.numeric(Y)&&is.numeric(W))
+  assert_integer(N)
   assert_that(is(N_treated,"numeric_treatment_dictionary"))
   
   W_bool <- rep(TRUE,times=N)
@@ -94,7 +95,7 @@ init_observed <- function(treated,W){
 }
 
 get_index <- function(obj,index) {
-  assert_that(is.numeric(index))
+  assert_integer(index)
   UseMethod("get_index")
 }
 

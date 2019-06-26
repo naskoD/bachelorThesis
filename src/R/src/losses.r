@@ -1,3 +1,4 @@
+library(assertthat)
 
 evaluate <- function(Y, F){
   assert_loss(Y,F)

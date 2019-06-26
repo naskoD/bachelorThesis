@@ -5,10 +5,10 @@ constrained_boost <- function(data,loss,synth_effect,
                               min_samples_leaf=1){
   assert_that(is(data,"data"))
   assert_that(is.numeric(synth_effect))
-  assert_that(is.numeric(n_trees))
-  assert_that(is.numeric(max_depth))
+  assert_integer(n_trees)
+  assert_integer(max_depth)
   assert_that(is.numeric(regularization))
-  assert_that(is.numeric(min_samples_leaf))
+  assert_that(min_samples_leaf)
   
   const_pair = fit_const_pair(data,synth_effect)
   
