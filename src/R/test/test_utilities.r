@@ -15,3 +15,14 @@ test_that("is.wholenumber",{
   expect_error(is.wholenumber(c(0,1,2,3)))
   expect_error(is.wholenumber(TRUE))
 })
+
+test_that("are_elements_equal",{
+  expect_true(are_elements_equal(1))
+  expect_true(are_elements_equal(c(1,1)))
+  expect_true(are_elements_equal(c(1.22,1.22)))
+  expect_true(are_elements_equal(rep(1,times=1000)))
+  
+  expect_false(are_elements_equal(c(1,2)))
+  expect_false(are_elements_equal(c(-1,1)))
+  
+})

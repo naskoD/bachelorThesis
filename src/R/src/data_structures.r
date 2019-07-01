@@ -1,5 +1,6 @@
 library(assertthat)
 
+
 Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
   assert_that(is.numeric(X)&&is.numeric(Y)&&is.numeric(W))
   assert_integer(N)
@@ -16,10 +17,8 @@ Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
 
 get_index.data <- function(obj,index){
   Data(obj$X[index,],
-       obj$W[index],
-       obj$Y[index],
-       obj$N,
-       obj$N_treated)
+       obj$W[index]*1,
+       obj$Y[index])
 }
 
 getN_treated <- function(W){
@@ -30,9 +29,9 @@ getN_treated <- function(W){
   NumericTreatmentDictionary(number_treated,number_untreated)
 }
 
-Counterfactuals <-function(treated,W){
+Counterfactuals <-function(treated,W,observed=init_observed(treated,W)){
   assert_that(is(treated,"numeric_treatment_dictionary"))
-  value <- list(treated=treated,observed=init_observed(treated,W),W=W)
+  value <- list(treated=treated,observed=observed,W=W)
   attr(value, "class") <- "counterfactuals"
   value
 }
@@ -50,7 +49,7 @@ get_elements_by_treatment.counterfactuals <- function(obj,W,t,o){
     obj$treated[[as.character(t)]]
   }
   else if(is.null(t)){
-    obj$treated[[as.character(o)]]
+    obj$observed[[as.character(o)]]
   }
   else{
     if(t){
@@ -62,8 +61,26 @@ get_elements_by_treatment.counterfactuals <- function(obj,W,t,o){
   }
 }
 
+add_counterfactuals<-function(c1,c2){
+  
+  assert_that(is(c1,"counterfactuals"))
+  assert_that(is(c2,"counterfactuals"))
+  assert_that(length(c1$W)==length(c2$W))
+  
+  treated<-NumericTreatmentDictionary(0,0)
+  observed<-NumericTreatmentDictionary(0,0)
+  
+  for(tr in names(treated)){
+    treated[[tr]]<-c1$treated[[tr]]+c2$treated[[tr]]
+    observed[[tr]]<-c1$observed[[tr]]+c2$observed[[tr]]
+  }
+  
+  return(Counterfactuals(treated,c1$W,observed))
+  
+}
+
 TreatmentDictionary <- function(elements_true,elements_false){
-  assert_that(class(elements_true)==class(elements_false))
+  assert_that(all(class(elements_true)==class(elements_false)))
   assert_that(length(elements_true)==length(elements_false))
   
   dictionary <- vector(mode="list", length=2)
@@ -95,7 +112,6 @@ init_observed <- function(treated,W){
 }
 
 get_index <- function(obj,index) {
-  assert_integer(index)
   UseMethod("get_index")
 }
 
@@ -115,7 +131,6 @@ get_elements_by_treatment <- function(obj,W,t=NULL,o=NULL) {
 }
 
 get_elements_by_treatment.matrix <- function(obj,W,t=TRUE){
-  
   if(t){
     obj[W,]
   }

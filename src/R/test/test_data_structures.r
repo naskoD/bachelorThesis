@@ -4,7 +4,7 @@ source("../src/data_structures.r")
 
 test_that("TreatmentDictionary",{
   expect_error(TreatmentDictionary(TRUE,2),
-               "class(elements_true) not equal to class(elements_false)",fixed=TRUE)
+               "Elements 1 of class(elements_true) == class(elements_false) are not true",fixed=TRUE)
   expect_error(TreatmentDictionary(rep(0.5,times=99),rep(1,times=100)),
                "length(elements_true) not equal to length(elements_false)",fixed=TRUE)
   treated = TreatmentDictionary(rep(0.5,times=100),rep(1,times=100))
@@ -13,13 +13,13 @@ test_that("TreatmentDictionary",{
 
 test_that("NumericTreatmentDictionary",{
   expect_error(NumericTreatmentDictionary(TRUE,2),
-               "class(elements_true) not equal to class(elements_false)",fixed=TRUE)
+               "Elements 1 of class(elements_true) == class(elements_false) are not true",fixed=TRUE)
   expect_error(NumericTreatmentDictionary(3,"string"),
-               "class(elements_true) not equal to class(elements_false)",fixed=TRUE)
+               "Elements 1 of class(elements_true) == class(elements_false) are not true",fixed=TRUE)
   expect_error(NumericTreatmentDictionary(rep(TRUE,times=100),rep(1,times=100)),
-               "class(elements_true) not equal to class(elements_false)",fixed=TRUE)
+               "Elements 1 of class(elements_true) == class(elements_false) are not true",fixed=TRUE)
   expect_error(NumericTreatmentDictionary(rep(0.5,times=100),rep(FALSE,times=100)),
-               "class(elements_true) not equal to class(elements_false)",fixed=TRUE)
+               "Elements 1 of class(elements_true) == class(elements_false) are not true",fixed=TRUE)
   expect_error(NumericTreatmentDictionary(rep(0.5,times=99),rep(1,times=100)),
                "length(elements_true) not equal to length(elements_false)",fixed=TRUE)
   expect_error(NumericTreatmentDictionary("string","string"),
@@ -90,6 +90,25 @@ test_that("get_elements_by_treatment.matrix",{
   exp <-rbind(c(1,2),c(5,6))
   expect_equal(get_elements_by_treatment(m,W,TRUE),exp)
   expect_equal(get_elements_by_treatment(m,W,FALSE),c(3,4))
+})
+
+test_that("add_counterfactuals",{
+  treated <-NumericTreatmentDictionary(c(1,1,1),c(2,2,2))
+  W <- c(TRUE,FALSE,TRUE)
+  c1 <- Counterfactuals(treated,W)
+  c2 <- Counterfactuals(treated,W)
+  
+  sum<-add_counterfactuals(c1,c2)
+  expect_equal(sum$treated$`TRUE`,c(2,2,2))
+  expect_equal(sum$treated$`FALSE`,c(4,4,4))
+  
+  treated <-NumericTreatmentDictionary(c(1,1,1)*2,c(2,2,2)*2)
+  c3<-Counterfactuals(treated,W)
+  
+  expect_equal(sum$treated$`TRUE`,c3$treated$`TRUE`)
+  expect_equal(sum$treated$`FALSE`,c3$treated$`FALSE`)
+  expect_equal(sum$observed$`TRUE`,c3$observed$`TRUE`)
+  expect_equal(sum$observed$`FALSE`,c3$observed$`FALSE`)
 })
 
 

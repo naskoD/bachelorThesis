@@ -33,3 +33,6 @@ F = CausalEffectMorph.constrained_boost(data, CausalEffectMorph.Squared(), τ, n
 # Get the (mean) synthetic potential outcomes (no noise added yet)
 mu1_synth = F[end].treated[true]
 mu0_synth = F[end].treated[false]
+
+ste=(sum(mu1_synth)-sum(mu0_synth))/N
+println(ste)

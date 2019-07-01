@@ -31,8 +31,6 @@ const TF = [true, false]
 
 function fit_const_pair(data::ObsData, loss::Squared, τ::Real)
     Ȳ = mean(data.Y.Y)
-    println("mean -> ")
-    println(Ȳ)
     return Dict(t => Leaf(Ȳ +(2*t-1) * τ * data.N_treated[t]/data.N) for t in TF)
 end
 
@@ -58,6 +56,7 @@ end
 
 function build_leaf_index{T<:Estimators.Estimator}(tree_pair::Dict{Bool,T}, X::Covariates)
     assignments = Dict(t=>assign_leaves(tree_pair[t], X.X) for t in TF)
+    aa = vcat([ls for (t,ls) in assignments]...)
     leaves = Set(vcat([ls for (t,ls) in assignments]...))
     assignment_index_matrix = [(t,l,find(assignments[t].==l)) for l in leaves, t in TF]
     assignment_index = OrderedDict((t,l)=>ind for (t,l,ind) in vec(assignment_index_matrix) if length(ind)>0)
@@ -146,13 +145,7 @@ function constrained_boost{T<:Real, T2<:Real, L<:Loss}(data::ObsData, loss::L, �
     F = Vector{Counterfactuals}(0)
 
     const_pair = fit_const_pair(data[tr], loss, τ)
-    println("data[tr] -> ")
-    println(tr)
-    println("const_pair -> ")
-    println(const_pair)
     predicted_counterfactuals = predict_counterfactuals(const_pair, data)
-    #println("predicted_counterfactuals -> ")
-    #println(predicted_counterfactuals)
     push!(F, predicted_counterfactuals)
     residuals = obs_gradient(loss, data.Y, F[end], idx=tr)
 
@@ -176,6 +169,8 @@ function cross_validate{T<:Real, T2<:Real, L<:Squared}(data::ObsData, loss::L, �
     training_error, test_error = Vector{Vector{Float64}}(0), Vector{Vector{Float64}}(0)
     loss == Binomial() ? folds = StratifiedKfold(data.Y.Y + 2*data.W, nfolds) : folds = StratifiedKfold(data.W, nfolds)
     for tr in folds
+        println("tr")
+        println(tr)
         te = [i for i in 1:data.N if i ∉ tr]
         F = constrained_boost(data, loss, τ, n_trees,
                            max_depth=max_depth, λ=λ, min_samples_leaf=min_samples_leaf,
