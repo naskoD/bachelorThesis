@@ -5,7 +5,9 @@ library(NlcOptim)
 library(mltools)
 library(data.table)
 
-source("../src/data_structures.r")
+source("data_structures.r")
+source("estimators.r")
+source("losses.r")
 
 cross_validate<- function(data,synth_effect,
                           n_trees,max_depth=3,regularization = 2,
@@ -31,8 +33,8 @@ cross_validate<- function(data,synth_effect,
     #first fold for training and the second for test.
     
     fold <- folds(W,nfolds = data$N/n_fold_elements,stratified = TRUE)
-    tr<-which(f==1)
-    te<-which(f==2)
+    tr<-which(fold==1)
+    te<-which(fold==2)
     
     F<-constrained_boost(data,synth_effect,
                          n_trees,max_depth,regularization,
@@ -298,4 +300,21 @@ filter_index<-function(indices, include_subjects){
     filtered_index$set(k,v_in) 
   }
   filtered_index
+}
+
+
+get_n_trees_min_error<-function(test_error){
+  error_matrix<-NULL
+  
+  for(i in 1:length(test_error)){
+    error_matrix<-rbind(error_matrix,test_error[[i]])
+  }
+  
+  means<-vector(mode = "numeric",length = length(error_matrix[1,]))
+  
+  for(i in 1:length(means)){
+    means[[i]]<-mean(error_matrix[,i])
+  }
+  
+  return(which.min(means))
 }

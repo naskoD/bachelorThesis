@@ -69,6 +69,13 @@ test_that("Counterfactuals",{
   expect_equal(get_elements_by_treatment(counterfactuals,W,FALSE,FALSE),1)
   expect_equal(get_elements_by_treatment(counterfactuals,W,FALSE,TRUE),2)
   expect_equal(get_elements_by_treatment(counterfactuals,W,TRUE,FALSE),c(2,2))
+
+  treated <-NumericTreatmentDictionary(c(1,2,3),c(4,5,6))
+  W <- c(TRUE,FALSE,FALSE)
+  counterfactuals <- Counterfactuals(treated,W)
+  
+  expect_equal(get_index(counterfactuals,c(2,1,1))$treated$`TRUE`,c(2,1,1))
+  expect_equal(get_index(counterfactuals,c(2,1,1))$treated$`FALSE`,c(5,4,4))
 })
 
 test_that("get_elements_by_treatment.vector",{
