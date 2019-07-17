@@ -32,7 +32,7 @@ cross_validate<- function(data,synth_effect,
     #In this loop we do nfold(from my function) such splits and always take the
     #first fold for training and the second for test.
     
-    fold <- folds(W,nfolds = data$N/n_fold_elements,stratified = TRUE)
+    fold <- folds(data$W*1,nfolds = data$N/n_fold_elements,stratified = TRUE)
     tr<-which(fold==1)
     te<-which(fold==2)
     
