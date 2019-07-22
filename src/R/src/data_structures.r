@@ -1,5 +1,7 @@
 library(assertthat)
 
+source("utilities.r")
+
 
 Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
   assert_that(is.numeric(X)&&is.numeric(Y)&&is.numeric(W))
@@ -14,6 +16,18 @@ Data <- function(X,W,Y,N = length(W),N_treated=getN_treated(W)) {
   value
 }
 
+Data_to_data_frame<-function(data){
+  assert_that(is(data,"data"))
+  #TODO if needed
+}
+
+data_frame_to_Data<-function(data){
+  assert_that(is.data.frame(data))
+  
+  X<-data.matrix(data[,3:length(data)])
+  return (Data(X,data$W,data$Y))
+  
+}
 
 get_index.data <- function(obj,index){
   Data(obj$X[index,],
@@ -33,6 +47,16 @@ Counterfactuals <-function(treated,W,observed=init_observed(treated,W)){
   assert_that(is(treated,"numeric_treatment_dictionary"))
   value <- list(treated=treated,observed=observed,W=W)
   attr(value, "class") <- "counterfactuals"
+  value
+}
+
+Synth_Validation_Result<-function(ates_methods,index_best){
+  assert_that(is.numeric(ates_methods))
+  assert_integer(index_best)
+  assert_that(index_best>0&&index_best<=length(ates_methods))
+  
+  value <- list(ate=ates_methods[index_best],ates_methods=ates_methods,index_best=index_best)
+  attr(value, "class") <- "synth_validation_result"
   value
 }
 

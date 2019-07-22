@@ -4,6 +4,7 @@ library(MASS)
 library(NlcOptim)
 library(mltools)
 library(data.table)
+library(tictoc)
 
 source("data_structures.r")
 source("estimators.r")
@@ -55,6 +56,8 @@ cross_validate<- function(data,synth_effect,
 constrained_boost <- function(data,synth_effect,
                               n_trees,max_depth=3,regularization = 2,
                               min_samples_leaf=1,tr=TRUE){
+  
+  tic("constrained boosting")
   assert_that(is(data,"data"))
   assert_that(is.numeric(synth_effect))
   assert_integer(n_trees)
@@ -81,6 +84,7 @@ constrained_boost <- function(data,synth_effect,
     
     residuals<-obs_gradient(data$Y,data$W,F[[i+1]],ind=tr)
   }
+  toc()
   return(F)
 }
 
