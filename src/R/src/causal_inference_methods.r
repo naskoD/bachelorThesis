@@ -1,6 +1,7 @@
 library(assertthat)
 library(rlearner)
 library(tictoc)
+library(grf)
 
 source("data_structures.r")
 
@@ -30,17 +31,13 @@ r_lasso<-function(data){
   
   rlasso_fit = rlasso(data$X, data$W*1, data$Y)
   
-  X_tr<-data$X[which(data$W),]
-  X_contr<-data$X[which(!data$W),]
+  predictions<-predict(rlasso_fit)
   
-  rlasso_est_tr = predict(rlasso_fit, X_tr)
-  rlasso_est_contr = predict(rlasso_fit, X_contr)
+  ate<-ate_from_predictions(predictions,data$W)
   
-  m_tr<-mean(rlasso_est_tr)
-  m_contr<-mean(rlasso_est_contr)
   toc()
   
-  return (m_tr-m_contr)
+  return(ate)
 }
 
 
@@ -49,16 +46,42 @@ r_boost<-function(data){
   assert_that(is(data,"data"))
   
   rboost_fit = rboost(data$X, data$W*1, data$Y)
+  predictions<-predict(rboost_fit)
   
-  X_tr<-data$X[which(data$W),]
-  X_contr<-data$X[which(!data$W),]
+  ate<-ate_from_predictions(predictions,data$W)
   
-  rboost_est_tr = predict(rboost_fit, X_tr)
-  rboost_est_contr = predict(rboost_fit, X_contr)
-  
-  m_tr<-mean(rboost_est_tr)
-  m_contr<-mean(rboost_est_contr)
   toc()
+  
+  return(ate)
+}
+
+causal_forest_ate<-function(data){
+  tic("causal_forest")
+  assert_that(is(data,"data"))
+  
+  c_forest = causal_forest(data$X, data$Y, data$W*1)
+  
+  predictions<-predict(c_forest)[["predictions"]]
+  
+  ate<-ate_from_predictions(predictions,data$W)
+  
+  toc()
+  return (ate)
+}
+
+ate_from_predictions<-function(predictions,W){
+  assert_that(is.numeric(predictions))
+  assert_that(is.logical(W))
+  assert_that(length(predictions)==length(W))
+  
+  ind_tr<-which(d$W)
+  ind_contr<-which(!d$W)
+  
+  est_tr = predictions[ind_tr]
+  est_contr = predictions[ind_contr]
+  
+  m_tr<-mean(est_tr)
+  m_contr<-mean(est_contr)
   return (m_tr-m_contr)
 }
 

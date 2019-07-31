@@ -15,7 +15,7 @@ synth_validation<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assign
   assert_that(is.null(data_src)||is.character(data_src))
   assert_integer(N)
   assert_that(is.logical(equal_share_tr_assignment))
-  assert_that(is.logical(equal_share_tr_assignment))
+  assert_that(is.logical(equal_share_tr_assignment_resampling))
   
   tic("loading data")
   data<-load_data(data_src,N,equal_share_tr_assignment)

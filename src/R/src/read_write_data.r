@@ -47,7 +47,7 @@ load_data<-function(data_src,N,equal_share_tr_assignment){
   else{
     data <- read.csv(file=sprintf("../../../data/%s.csv",data_src), header=TRUE, sep=",")
     names(data)[2] <- "W"
-    print(paste("all:",sum(data$W),"tr:",length(data$W)))
+    print(paste("tr:",sum(data$W),"all:",length(data$W)))
   
     if(equal_share_tr_assignment){
       data<-sample_equal_share_data(data,N)
