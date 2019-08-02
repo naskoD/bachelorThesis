@@ -109,3 +109,12 @@ write_benchmark_data<-function(benchmark_data,bench_data_src){
                     row.names=FALSE)
   data
 }
+
+create_benchmark_directory<-function(){
+  setwd("../../../")
+  dir.create("benchmark_data",showWarnings = FALSE)
+  dir.create("benchmark_data/benchmark_random_generated_data", showWarnings = FALSE)
+  dir.create("benchmark_data/benchmark_real_data_raw", showWarnings = FALSE)
+  dir.create("benchmark_data/benchmark_real_data_simulated",showWarnings = FALSE)
+  setwd("src/R/src")
+}

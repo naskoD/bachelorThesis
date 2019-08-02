@@ -12,6 +12,8 @@ benchmark<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TR
   assert_that(is.logical(equal_share_tr_assignment))
   assert_that(is.logical(equal_share_tr_assignment_resampling))
   
+  create_benchmark_directory()
+  
   ate<-load_real_ate(data_src)
   
   data_row_c<-get_data_row_c(ate,data_src,N,n_trees,equal_share_tr_assignment,
