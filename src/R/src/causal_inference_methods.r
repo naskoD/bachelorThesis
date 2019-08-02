@@ -1,4 +1,7 @@
 library(assertthat)
+#use this to install "rlearner" package
+#library(devtools) 
+#install_github("xnie/rlearner")
 library(rlearner)
 library(tictoc)
 library(grf)

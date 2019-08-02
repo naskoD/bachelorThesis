@@ -36,10 +36,11 @@
 ehthumbs.db
 Thumbs.db
 
-# R status files #
+# R status and log files #
 ######################
 .RData
 .Rhistory
+*Rout
 
 # Ignoring benchmark data for now
 **/benchmark_data
