@@ -2,46 +2,86 @@ source("read_write_data.r")
 source("synth_validation.r")
 source("causal_inference_methods.r")
 source("utilities.r")
+source("plots.r")
 
-benchmark<-function(data_src=NULL,N=100,n_trees=2,equal_share_tr_assignment=TRUE,
+benchmark<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TRUE,
                     equal_share_tr_assignment_resampling=TRUE){
   
-  #TODO final version will work with higher n_trees, e.g. 100
   assert_that(is.null(data_src)||is.character(data_src))
   assert_integer(N)
   assert_that(is.logical(equal_share_tr_assignment))
-  assert_that(is.logical(equal_share_tr_assignment))
+  assert_that(is.logical(equal_share_tr_assignment_resampling))
   
   ate<-load_real_ate(data_src)
   
+  data_row_c<-get_data_row_c(ate,data_src,N,n_trees,equal_share_tr_assignment,
+                             equal_share_tr_assignment_resampling)
+  print(data_row_c)
+  
+  #adding result to its group
   b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
                       equal_share_tr_assignment_resampling)
 
-  #Trying to read benchmark data file and
-  #if error => create new data frame
-  b_data = tryCatch({
+  b_data<-add_row_to_file(data_row_c,b_data_src)
+  
+  generate_plots(b_data,b_data_src)
+  
+  #adding result to all results
+  b_data_src<-"all_runs"
+  
+  b_data_all<-add_row_to_file(data_row_c,b_data_src)
+  
+  generate_plots(b_data_all,b_data_src)
+}
+
+add_row_to_file<-function(data_row_c,b_data_src){
+  
+  assert_that(is.numeric(data_row_c))
+  assert_that(is.character(b_data_src))
+  
+  data_available = tryCatch({
     df<-read_benchmark_data(b_data_src)
-    data_row_c<-get_data_row_c(ate,data_src,N,n_trees,equal_share_tr_assignment,
-                               equal_share_tr_assignment_resampling)
-    print(data_row_c)
-    
-    df<-rbind(b_data,as.list(data_row_c))
-    return (df)
+    TRUE
     
   },error = function(e) {
-    data_row_c<-get_data_row_c(ate,data_src,N,n_trees,equal_share_tr_assignment,
-                               equal_share_tr_assignment_resampling)
-    df<-data.frame(as.list(data_row_c))
-    names(df)<-c("oracle","synth_validation",methods_names())
-    
-    return (df)
+    FALSE
   })
+  
+  if(data_available){
+    b_data<-read_benchmark_data(b_data_src)
+    
+    b_data<-rbind(b_data,as.list(data_row_c))
+  }
+  else{
+    b_data<-data.frame(as.list(data_row_c))
+    names(b_data)<-c("oracle","synth_validation",methods_names())
+  }
   
   write_benchmark_data(b_data,b_data_src)
   
   b_data
+}
+
+
+generate_benchmark_data_plots<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TRUE,
+                                       equal_share_tr_assignment_resampling=TRUE,all=FALSE){
+  assert_that(is.null(data_src)||is.character(data_src))
+  assert_integer(N)
+  assert_that(is.logical(equal_share_tr_assignment))
+  assert_that(is.logical(equal_share_tr_assignment))
+  assert_that(is.logical(all))
   
-  #TODO analyse file,create plots
+  if(all){
+    b_data_src<-"all_runs"
+  }
+  else{
+    b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
+                                       equal_share_tr_assignment_resampling)
+  }
+  
+  df<-read_benchmark_data(b_data_src)
+  generate_plots(df,b_data_src)
+  df
 }
 
 get_data_row_c<-function(ate,data_src,N,n_trees,equal_share_tr_assignment,
@@ -51,7 +91,7 @@ get_data_row_c<-function(ate,data_src,N,n_trees,equal_share_tr_assignment,
   assert_that(is.null(data_src)||is.character(data_src))
   assert_integer(N)
   assert_that(is.logical(equal_share_tr_assignment))
-  assert_that(is.logical(equal_share_tr_assignment))
+  assert_that(is.logical(equal_share_tr_assignment_resampling))
   
   res<-synth_validation(data_src,N,n_trees,equal_share_tr_assignment,
                         equal_share_tr_assignment_resampling)

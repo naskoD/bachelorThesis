@@ -65,8 +65,11 @@ sample_equal_share_indices<-function(data,N,replace){
   ind_control<-which(W_int==0)
   
   #sampling from this indices
-  ind_treated<-sample(ind_treated,N_treated,replace = replace)
-  ind_control<-sample(ind_control,N_control,replace = replace)
+  if(length(ind_treated)!=1){
+    #sample samples from 1:x, if one element
+    ind_treated<-sample(ind_treated,N_treated,replace = replace)
+    ind_control<-sample(ind_control,N_control,replace = replace) 
+  }
   
   #getting them together and permutating them 
   indices<-sample(c(ind_treated,ind_control),N,replace = FALSE)

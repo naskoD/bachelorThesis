@@ -6,12 +6,16 @@ library(grf)
 source("data_structures.r")
 
 methods<-function(){
-  #TODO add all methods here 
-  return (c(raw_method,r_boost,r_lasso))
+  #return (c(raw_method,raw_plus_rand,raw_plus_rand,raw_plus_rand))
+  return (c(raw_method,r_boost,r_lasso,causal_forest_ate))
 }
 
+raw_plus_rand<-function(data){
+  r<- runif(1, 3, 10)
+  return (raw_method(data)+r)
+}
 methods_names<-function(){
-  return (c("raw","r_boost","r_lasso"))
+  return (c("raw","r_boost","r_lasso","causal_forest"))
 }
 
 run_methods<-function(data){
@@ -74,8 +78,8 @@ ate_from_predictions<-function(predictions,W){
   assert_that(is.logical(W))
   assert_that(length(predictions)==length(W))
   
-  ind_tr<-which(d$W)
-  ind_contr<-which(!d$W)
+  ind_tr<-which(W)
+  ind_contr<-which(!W)
   
   est_tr = predictions[ind_tr]
   est_contr = predictions[ind_contr]
