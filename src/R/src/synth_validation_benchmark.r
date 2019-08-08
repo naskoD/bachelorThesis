@@ -20,20 +20,25 @@ benchmark<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TR
                              equal_share_tr_assignment_resampling)
   print(data_row_c)
   
-  #adding result to its group
-  b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
-                      equal_share_tr_assignment_resampling)
+  save_entry_into_its_groups_and_regenerate_plots(data_src,N,n_trees,equal_share_tr_assignment,
+                                                   equal_share_tr_assignment_resampling,
+                                                   data_row_c)
+}
 
-  b_data<-add_row_to_file(data_row_c,b_data_src)
+save_entry_into_its_groups_and_regenerate_plots<-function(data_src,N,n_trees,equal_share_tr_assignment,
+                                                           equal_share_tr_assignment_resampling,
+                                                           data_row_c){
   
-  generate_plots(b_data,b_data_src)
+  b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
+                                     equal_share_tr_assignment_resampling)
   
-  #adding result to all results
-  b_data_src<-"all_runs"
+  b_data_src[2]<-ifelse(equal_share_tr_assignment,"equal_share_tr_assignment","population_share_tr_assignment")
+  b_data_src[3]<-"all_runs"
   
-  b_data_all<-add_row_to_file(data_row_c,b_data_src)
-  
-  generate_plots(b_data_all,b_data_src)
+  for(i in 1:length(b_data_src)){
+    b_data<-add_row_to_file(data_row_c,b_data_src[i])
+    generate_plots(b_data,b_data_src[i]) 
+  }
 }
 
 add_row_to_file<-function(data_row_c,b_data_src){
