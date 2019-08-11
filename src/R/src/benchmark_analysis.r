@@ -42,5 +42,7 @@ get_counts<-function(b_data){
       }
     }
   }
+  counts[1,] <- counts[1,]/sum(counts[1,]) 
+  counts[2,] <- counts[2,]/sum(counts[2,]) 
   return (counts)
 }

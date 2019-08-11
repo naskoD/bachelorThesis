@@ -29,11 +29,8 @@ save_entry_into_its_groups_and_regenerate_plots<-function(data_src,N,n_trees,equ
                                                            equal_share_tr_assignment_resampling,
                                                            data_row_c){
   
-  b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
-                                     equal_share_tr_assignment_resampling)
-  
-  b_data_src[2]<-ifelse(equal_share_tr_assignment,"equal_share_tr_assignment","population_share_tr_assignment")
-  b_data_src[3]<-"all_runs"
+  b_data_src<-get_benchmark_data_group_names(data_src,N,n_trees,equal_share_tr_assignment,
+                                             equal_share_tr_assignment_resampling)
   
   for(i in 1:length(b_data_src)){
     b_data<-add_row_to_file(data_row_c,b_data_src[i])
@@ -71,24 +68,32 @@ add_row_to_file<-function(data_row_c,b_data_src){
 
 
 generate_benchmark_data_plots<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TRUE,
-                                       equal_share_tr_assignment_resampling=TRUE,all=FALSE){
+                                       equal_share_tr_assignment_resampling=TRUE){
   assert_that(is.null(data_src)||is.character(data_src))
   assert_integer(N)
   assert_that(is.logical(equal_share_tr_assignment))
   assert_that(is.logical(equal_share_tr_assignment))
-  assert_that(is.logical(all))
   
-  if(all){
-    b_data_src<-"all_runs"
-  }
-  else{
-    b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
-                                       equal_share_tr_assignment_resampling)
-  }
+  b_data_src<-get_benchmark_data_group_names(data_src,N,n_trees,equal_share_tr_assignment,
+                                     equal_share_tr_assignment_resampling)
   
-  df<-read_benchmark_data(b_data_src)
-  generate_plots(df,b_data_src)
-  df
+  for(i in 1:length(b_data_src)){
+    b_data<-read_benchmark_data(b_data_src[i])
+    generate_plots(b_data,b_data_src[i]) 
+  }
+}
+
+get_benchmark_data_group_names<-function(data_src,N,n_trees,equal_share_tr_assignment,
+                                         equal_share_tr_assignment_resampling){
+  
+  b_data_src<-get_benchmark_data_src(data_src,N,n_trees,equal_share_tr_assignment,
+                                     equal_share_tr_assignment_resampling)
+  
+  b_data_src[2]<-ifelse(equal_share_tr_assignment,"equal_share_tr_assignment","population_share_tr_assignment")
+  b_data_src[3]<-"all_runs"
+  b_data_src[4]<-get_benchmark_data_type_src(data_src)
+  
+  return (b_data_src)
 }
 
 get_data_row_c<-function(ate,data_src,N,n_trees,equal_share_tr_assignment,
@@ -103,7 +108,7 @@ get_data_row_c<-function(ate,data_src,N,n_trees,equal_share_tr_assignment,
   res<-synth_validation(data_src,N,n_trees,equal_share_tr_assignment,
                         equal_share_tr_assignment_resampling)
   
-  avg_tr_errors<-sqrt((res$ates_methods-ate)^2)
+  avg_tr_errors<-abs(res$ates_methods-ate)
   
   oracle_error<-min(avg_tr_errors)
   
@@ -127,6 +132,20 @@ get_benchmark_data_src<-function(data_src,N,n_trees,equal_share_tr_assignment,
   str<-sprintf("benchmark_%s_N%d_NTrees%d_eshF%d_eshS%d",
                data_src,N,n_trees,equal_share_tr_assignment*1,
                equal_share_tr_assignment_resampling*1)
+  
+  return (str)
+}
+
+get_benchmark_data_type_src<-function(data_src){
+  if(is.null(data_src)){
+    data_src<-"random_generated_data/random_data"
+  }
+  
+  #e.g random_generated_data
+  data_type<-strsplit(data_src,"/",fixed = TRUE)[[1]][1]
+  
+  str<-sprintf("benchmark_%s/all_runs_%s",
+               data_type,data_type)
   
   return (str)
 }

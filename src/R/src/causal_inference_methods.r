@@ -1,7 +1,4 @@
 library(assertthat)
-#use this to install "rlearner" package
-#library(devtools) 
-#install_github("xnie/rlearner")
 library(rlearner)
 library(tictoc)
 library(grf)
@@ -38,9 +35,9 @@ r_lasso<-function(data){
   
   rlasso_fit = rlasso(data$X, data$W*1, data$Y)
   
-  predictions<-predict(rlasso_fit)
+  predictions <- predict(rlasso_fit,data$X)
   
-  ate<-ate_from_predictions(predictions,data$W)
+  ate <- mean(predictions)
   
   toc()
   
@@ -53,9 +50,9 @@ r_boost<-function(data){
   assert_that(is(data,"data"))
   
   rboost_fit = rboost(data$X, data$W*1, data$Y)
-  predictions<-predict(rboost_fit)
+  predictions <- predict(rboost_fit,data$X)
   
-  ate<-ate_from_predictions(predictions,data$W)
+  ate <- mean(predictions)
   
   toc()
   
@@ -68,9 +65,9 @@ causal_forest_ate<-function(data){
   
   c_forest = causal_forest(data$X, data$Y, data$W*1)
   
-  predictions<-predict(c_forest)[["predictions"]]
+  predictions<-predict(c_forest,data$X)[["predictions"]]
   
-  ate<-ate_from_predictions(predictions,data$W)
+  ate <- mean(predictions)
   
   toc()
   return (ate)

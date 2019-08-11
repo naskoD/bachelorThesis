@@ -15,17 +15,20 @@ my_barplot<-function(counts,add=FALSE){
           col=c("lightsteelblue","gray80"),
           names.arg = names<-methods_names(),
           xlab = "Causal inference methods",
-          ylab = "Number of times method picked by oracle or sv",
+          ylab = "Frequency of method picking by oracle or sv (%)",
           beside=TRUE,
           las=1,
+          axes = FALSE,
+          cex.lab=1.2,
           add=add)
-  legend("topleft", c("oracle","synth-validation"),
+  legend("topright", c("oracle","synth-validation"),
          fil=c("lightsteelblue","gray80"),
          cex=0.8, 
-         horiz=TRUE,
+         horiz=FALSE,
          bg = "ivory2",
          inset = 0.02,
          box.lty=0)
+    axis(2, at=pretty(counts), lab=pretty(counts) * 100, las=TRUE) 
 }
 
 my_boxplot<-function(b_data,add=FALSE,order_means){
@@ -35,13 +38,14 @@ my_boxplot<-function(b_data,add=FALSE,order_means){
   assert_that(is.numeric(order_means))
   
   boxplot(b_data[,order_means], 
-          main = "RMSE of causal inference methods",
+          main = "MAE of causal inference methods",
           at = length(order_means):1,
           names = names(b_data)[order_means],
           las=1,
           col = "lightsteelblue",
           border = "black",
           horizontal = TRUE,
+          outline = FALSE,
           add=add
   )
 }

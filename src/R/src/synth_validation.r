@@ -30,6 +30,7 @@ synth_validation<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assign
   
   synth_effects<-create_synth_effects(ates)
   
+  print("synth_effects")
   print(synth_effects)
   
   tic("generating synthetic data sets")
