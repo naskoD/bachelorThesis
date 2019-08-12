@@ -3,6 +3,7 @@ source("synth_validation.r")
 source("causal_inference_methods.r")
 source("utilities.r")
 source("plots.r")
+source("benchmark_analysis.r")
 
 benchmark<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TRUE,
                     equal_share_tr_assignment_resampling=TRUE){
@@ -34,6 +35,7 @@ save_entry_into_its_groups_and_regenerate_plots<-function(data_src,N,n_trees,equ
   
   for(i in 1:length(b_data_src)){
     b_data<-add_row_to_file(data_row_c,b_data_src[i])
+    update_errors_file(b_data,b_data_src[i])
     generate_plots(b_data,b_data_src[i]) 
   }
 }
@@ -66,6 +68,14 @@ add_row_to_file<-function(data_row_c,b_data_src){
   b_data
 }
 
+update_errors_file<-function(b_data,b_data_src){
+  b_data_src<-paste(b_data_src,"_mean_errors",sep = "")
+  means<-get_means(b_data)
+  mean_errors_data<-data.frame(as.list(means))
+  names(mean_errors_data)<-names(b_data)
+  write_benchmark_data(mean_errors_data,b_data_src)
+}
+
 
 generate_benchmark_data_plots<-function(data_src=NULL,N=100,n_trees=100,equal_share_tr_assignment=TRUE,
                                        equal_share_tr_assignment_resampling=TRUE){
@@ -79,6 +89,7 @@ generate_benchmark_data_plots<-function(data_src=NULL,N=100,n_trees=100,equal_sh
   
   for(i in 1:length(b_data_src)){
     b_data<-read_benchmark_data(b_data_src[i])
+    update_errors_file(b_data,b_data_src[i])
     generate_plots(b_data,b_data_src[i]) 
   }
 }

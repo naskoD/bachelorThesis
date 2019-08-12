@@ -1,12 +1,12 @@
 
-get_means_order<-function(b_data){
+get_means<-function(b_data){
   assert_that(is.data.frame(b_data))
   
   means<-numeric(length(b_data[1,]))
   for(i in 1:length(means)){
     means[i]<-mean(b_data[,i])
   }
-  order(means)
+  means
 }
 
 get_sv_success_rate<-function(b_data){

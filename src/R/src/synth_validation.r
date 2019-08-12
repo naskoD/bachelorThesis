@@ -136,6 +136,7 @@ pick_best_method<-function(synth_data_sets,synth_effects){
     }
     avr_err_method[i]<-avr_err_method[i]/length(synth_effects)
   }
-  
+  print("avg_error_method")
+  print(avr_err_method)
   return (which.min(avr_err_method))
 }

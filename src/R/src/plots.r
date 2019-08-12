@@ -70,7 +70,7 @@ generate_boxplot<-function(b_data,bench_data_src){
   assert_that(is.data.frame(b_data))
   assert_that(is.character(bench_data_src))
   
-  means_order<-get_means_order(b_data)
+  means_order<-order(get_means(b_data))
   
   jpeg(sprintf("../../../benchmark_data/%s.jpeg",paste(bench_data_src,"_avg_error_boxplot")),
        width = 650,
