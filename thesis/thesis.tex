@@ -1,0 +1,338 @@
+\documentclass[12pt,a4paper,twoside]{scrartcl}
+\usepackage[english,ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[tmargin=22mm,bmargin=22mm,lmargin=20mm,rmargin=20mm]{geometry}
+\usepackage{latexsym,amsmath,amssymb,mathtools,textcomp}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\begingroup
+\makeatletter
+\@for\theoremstyle:=definition,remark,plain\do{%
+  \expandafter\g@addto@macro\csname th@\theoremstyle\endcsname{%
+    \addtolength\thm@preskip\parskip
+  }%
+}
+\endgroup
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\numberwithin{equation}{section}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{array,multirow}
+\usepackage{enumitem}
+\setlist[enumerate]{topsep=0pt}
+\setlist[itemize]{topsep=0pt}
+\setlist[description]{font=\normalfont,topsep=0pt}
+
+
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{
+  \setlength\footskip{32pt}
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[LE,RO]{\normalsize\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\usepackage{ctable}
+\fancypagestyle{normal}{
+  \setlength{\headheight}{20pt}
+  \setlength\footskip{32pt}
+  \fancyhead{}
+  \fancyhead[LE]{\normalsize\textsc{\nouppercase{\leftmark}}}
+  \fancyhead[RO]{\normalsize\textsc{\nouppercase{\rightmark}}}
+  \fancyfoot{}
+  \fancyfoot[LE,RO]{\normalsize\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\usepackage{color}
+\usepackage[pagebackref]{hyperref}
+\usepackage[all]{hypcap}
+\usepackage{cleveref}
+\usepackage[font=small,belowskip=6pt]{subcaption}
+\usepackage[section]{placeins}
+
+\usepackage[toc,page]{appendix}
+\usepackage{pdfpages}
+\usepackage[export]{adjustbox}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{boldline}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{varwidth}
+\usepackage{threeparttablex}
+\usepackage{rotating}
+
+
+\hypersetup{
+  pdftitle={Automatische Auswahl von maschinellen Lernverfahren für kausale Inferenz},
+  pdfauthor={Atanas Dimitrov}, 
+  pdfsubject={causal inference,synth validation, machine learning, gradient boosting, lasso, causal forest}
+  colorlinks=true,
+  pdfborder={0 0 0},
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  bookmarksnumbered=true,
+  linkcolor=blue!60!black,
+  % linkcolor=black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  filecolor=green!60!black,
+  pdfpagemode=UseNone,
+  unicode=true,
+}
+\renewcommand{\baselinestretch}{1.2} 
+\renewcommand*{\backreflastsep}{, }
+\renewcommand*{\backreftwosep}{, }
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+  \ifcase #1 %
+  No citations.% use \relax if you do not want the "No citations" message %TODO
+  \or
+  (Page #2).%
+  \else
+  (Pages #2).%
+  \fi%
+}
+\usepackage{import}
+
+\newcommand{\reflst}[1]{\hyperref[#1]{Listing~\ref*{#1}}}
+\newcommand{\refthm}[1]{\hyperref[#1]{Theorem~\ref*{#1}}}
+\newcommand{\refdef}[1]{\hyperref[#1]{Definition~\ref*{#1}}}
+
+\newcommand{\reffig}[1]{\hyperref[#1]{Figure \ref*{#1}}}
+\newcommand{\refsec}[1]{\hyperref[#1]{Section \ref*{#1}}}
+\newcommand{\reftab}[1]{\hyperref[#1]{Table \ref*{#1}}}
+\newcommand{\refapp}[1]{\hyperref[#1]{Appendix \ref*{#1}}}
+
+\renewcommand*{\refeq}[1]{\hyperref[#1]{Equation \ref*{#1}}}
+
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+
+\newcounter{mypagecount}% create a new counter
+\setcounter{mypagecount}{0}% set it to something just in case
+\newenvironment{interlude}{% create a new environment for the unnumbered section(s)
+  \clearpage
+  \setcounter{mypagecount}{\value{page}}% use the new counter we created to hold the page count at the start of the unnumbered section
+  \thispagestyle{empty}% we want this page to be empty (adjust to use a modified page style)
+  \pagestyle{empty}% use the same style for subsequent pages in the unnumbered section
+}{%
+  \clearpage
+  \setcounter{page}{\value{mypagecount}}% restore the incremented value to the official tally of pages so the page numbering continues correctly
+}
+
+% Package for inserting pseudo codes in the document.
+\usepackage[ruled,vlined,linesnumbered,norelsize]{algorithm2e}
+\DontPrintSemicolon
+\def\NlSty#1{\textnormal{\fontsize{8}{10}\selectfont{}#1}}
+\SetKwSty{texttt}
+\SetCommentSty{emph}
+\def\listalgorithmcfname{List of Algorithms}
+\def\algorithmautorefname{Algorithm}
+\let\chapter=\section % resolve a problem with algorithm2
+
+
+\begin{document}
+\boldmath
+\nonfrenchspacing
+
+\pagestyle{empty}
+\pagenumbering{alph}
+
+
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+
+% title page
+\begin{titlepage}
+
+  \begin{center}\large
+
+    {\flushleft\includegraphics[height=17mm, width=45mm]{kit_logo_en.pdf} \hfill}
+    \includegraphics[height=15mm, width=45mm]{group_logo.pdf}\quad\null
+
+    \vspace*{1cm}
+    {\Large Bachelorarbeit}\\
+    \noindent\hfil\rule{0.4\textwidth}{.4pt}\hfil
+    \vspace*{1cm}
+
+    {\bf\huge Automatische Auswahl von maschinellen Lernverfahren für kausale Inferenz\par}
+    \vspace*{5mm}
+
+    von\\
+    \vspace*{3mm}
+    {\huge{Atanas Dimitrov}}
+
+    \vspace*{10mm}
+    Pervasive Computing Systems / TECO\\
+    Institut für Telematik\\
+	Fakultät für Informatik\\
+   
+    \vspace*{15mm}
+
+   	Abgabadatum: 02.09.2019 %TODO
+    \vspace*{10mm}
+
+
+    \begin{tabular}{p{8cm}l}
+     Verantwortlicher Betreuer: &Prof. Dr. Michael Beigl\\
+     Betreuerin: &Ployplearn Ravivanpong\\  
+    \end{tabular}
+
+    \vspace*{8mm}
+
+  \end{center}
+
+\end{titlepage}
+
+\selectlanguage{ngerman}
+
+\centerline{\bf\large Erklärung}
+
+\vspace*{12mm}
+
+{\setstretch{1.5}\large Hiermit erkläre ich, dass ich die vorliegende Bachelorarbeit selbstständig verfasst und keine anderen als die angegebenen Hilfsmittel und Quellen benutzt habe, die wörtlich oder inhaltlich übernommenen Stellen als solche kenntlich gemacht und weiterhin die Richtlinien des KIT zur Sicherung guter wissenschaftlicher Praxis beachtet habe.\par}
+
+\vfill
+\noindent
+{\large Karlsruhe, 02.09.2019}
+\hrule
+
+
+\vspace*{5cm}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\vspace*{0pt}\vfill
+
+\selectlanguage{ngerman}
+
+\begin{abstract}
+  \centerline{\bf Abstract}
+  \vspace*{1cm}
+ Diese Bachelorarbeit beschäftigt sich mit dem Vergleich von Methoden für kausale Inferenz und mit der automatischen Auswahl von dem besten von denen abhängig von dem vorhandenen Datensatz. Dazu benutzen und erweitern wir Synth-Validation - ein Verfahren, mit dem von den echten Daten synthetische Daten mit einem gewünschtem durchschnittlichen Behandlungseffekt erstellt und dann ausgewertet werden. Dabei haben die Datensätze, auf denen wir unsere Experimente durchführen, unterschiedliche Natur - echten Rohdaten mit größeren oder kleineren Zahl von Kovariaten, von Rohdaten synthetisch generierten Daten und zufällig generierten Daten. Die kausale Inferenz Verfahren, von denen Synth-Validation auswählt, benutzen ausschließlich Algorithmen aus dem maschinellem Lernen. Es wird die Fähigkeit von Synth-Validation gemessen, den Verfahren zu wählen, der die nächste Schätzung von dem durchschnittlichen Behandlungseffekt hat. Das wird unter unterschiedlichen Konstellationen unterstellt - nach der Art der Daten, nach der Anzahl der Elementen in der Stichprobe usw.          
+\end{abstract}
+
+\vfill\vfill\vfill
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\selectlanguage{ngerman}
+\pagestyle{plain}
+\pagenumbering{roman}
+
+% markiere sections im Seitenkopf links und subsections rechts
+\renewcommand\sectionmark[1]{\markboth{\thesection\quad\MakeUppercase{#1}}{\thesection\quad\MakeUppercase{#1}}}
+\renewcommand\subsectionmark[1]{\markright{\thesubsection\quad\MakeUppercase{#1}}}
+
+\tableofcontents
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\listoffigures
+\clearpage
+
+\pagestyle{normal}
+\pagenumbering{arabic}
+
+%main content starts here
+\nocite{*} %TODO remove when all references ready 
+\section{Einführung}\label{sec:einführung}
+  	\subsection{Kausalität und kausale Inferenz}\label{subsec:kausalität}
+  	\subsection{Motivation}\label{subsec:motivation}
+  	\subsection{Ziele und Methodik}\label{subsec:zieleUndMethodik}
+\clearpage
+
+\section{Methoden für kausale Inferenz}\label{sec:methoden}
+  	\subsection{Lineare Verfahren}\label{subsec:lineareVerfahren} %TODO when time suffices
+  		\subsubsection{Covariate Matching}\label{subsubsec:covariateMatching}
+  		\subsubsection{Propensity Score Matching}\label{subsubsec:propensityScoreMatching}
+  		\subsubsection{Inverse Probability Weighting}\label{subsubsec:inverseProbabilityWeighting}
+  	\subsection{Maschinelle Lernverfahren}\label{subsec:maschinelleLernverfahren}
+  		\subsubsection{Gradient Boosting}\label{subsubsec:gradientBoosting}
+  		\subsubsection{Lasso}\label{subsubsec:lasso}
+  		\subsubsection{Kausale Wälder}\label{subsubsec:kausaleWälder}
+  		\subsubsection{Targeted Maximum Likelihood Estimation}\label{subsubsec:tmle} %TODO when time suffices
+\clearpage
+
+\section{Synth-Validation}\label{sec:synthValidation}
+  	\subsection{Generierung von synthetischen Daten}\label{subsec:generierungSynthDaten}
+  		\subsubsection{Auswahl von synthetischen Effekten}\label{subsubsec:auswahlSynthEffekten}
+  		\subsubsection{Schätzung von bedingten Erwartungswerten}\label{subsubsec:schätzungBedingtenErwartungswerten}
+  	\subsection{Methodenauswahl}\label{subsec:methodenauswahl}
+\clearpage
+
+\section{Implementierung}\label{sec:implementierung}
+	\subsection{Fremde Bibliotheken}\label{subsec:fremdeBibliotheken}
+  	\subsection{Lesen/Schreiben von Daten}\label{subsec:lesenSchreibenDaten}
+  	\subsection{Ziehen von Stichproben}\label{subsec:ziehenStichproben}
+  	\subsection{Methoden für kausale Inferenz}\label{subsec:methodenKausaleInferenz}
+  	\subsection{Synth-Validation}\label{subsec:synthValidation}
+  		\subsubsection{Datenstrukturen}\label{subsubsec:datenstrukturen}
+  		\subsubsection{Schätzung}\label{subsubsec:schätung}
+  		\subsubsection{Constrained Boosting}\label{subsubsec:constrainedBoosting}
+  		\subsubsection{Methodenauswahl}\label{subsubsec:methodenauswahl}
+  	\subsection{Benchmark von Synth-Validation}\label{subsec:benchmarkSynthValidation}
+  	\subsection{Erstellung von Abbildungen}\label{subsec:erstellungAbbildungen}
+  	\subsection{Experimenten}\label{subsec:experimenten}
+  	\subsection{Anderer Code}\label{subsec:andererCode}
+\clearpage
+
+\section{Ergebnisse und Evaluation}\label{sec:ergebnisseEvaluation}
+  	\subsection{Methodik und Daten}\label{subsec:methodikDaten}
+  	\subsection{TODO}\label{subsec:todo} %TODO
+\clearpage
+
+\section{Schlussfolgerung}\label{sec:schlussfolgerung}
+  	\subsection{Zusammenfassung}\label{subsec:zusammenfassung}
+  	\subsection{Diskussion}\label{subsec:diskussion}
+\clearpage
+	
+%main content ends here
+
+\selectlanguage{english}
+\begin{interlude}
+  
+  \begin{appendices}
+   
+  \end{appendices}
+  \clearpage
+  \addcontentsline{toc}{section}{Referenzen}
+  \bibliographystyle{alpha}
+  \bibliography{references}
+\end{interlude}
+\end{document}
+
+

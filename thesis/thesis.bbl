@@ -1,0 +1,22 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ATW{\etalchar{+}}19}
+
+\bibitem[ATW{\etalchar{+}}19]{athey2019generalized}
+Susan Athey, Julie Tibshirani, Stefan Wager, et~al.
+\newblock Generalized random forests.
+\newblock {\em The Annals of Statistics}, 47(2):1148--1178, 2019.
+
+\bibitem[SJT{\etalchar{+}}17]{schuler2017synth}
+Alejandro Schuler, Ken Jung, Robert Tibshirani, Trevor Hastie, and Nigam Shah.
+\newblock Synth-validation: Selecting the best causal inference method for a
+  given dataset.
+\newblock {\em arXiv preprint arXiv:1711.00083}, 2017.
+
+\bibitem[WA18]{wager2018estimation}
+Stefan Wager and Susan Athey.
+\newblock Estimation and inference of heterogeneous treatment effects using
+  random forests.
+\newblock {\em Journal of the American Statistical Association},
+  113(523):1228--1242, 2018.
+
+\end{thebibliography}
