@@ -66,9 +66,9 @@
   pages   = {556--567},
 }
 
-@Misc{ttest,
-  author       = {{Wikipedia Authoren}},
-  title        = {Zweistichproben-t-Test},
+@Misc{RebBar,
+  author       = {{Rebecca Barter}},
+  title        = {Confounding in causal inference: what is it, and what to do about it?},
   howpublished = {\url{https://de.wikipedia.org/wiki/Zweistichproben-t-Test}},
   note         = {[Online; accessed 16-August-2019]},
   url          = {https://de.wikipedia.org/wiki/Zweistichproben-t-Test},

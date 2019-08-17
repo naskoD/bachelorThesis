@@ -6,11 +6,34 @@ Susan Athey, Julie Tibshirani, Stefan Wager, et~al.
 \newblock Generalized random forests.
 \newblock {\em The Annals of Statistics}, 47(2):1148--1178, 2019.
 
+\bibitem[Lew74]{lewis1974causation}
+David Lewis.
+\newblock Causation.
+\newblock {\em The journal of philosophy}, 70(17):556--567, 1974.
+
+\bibitem[{Mac}]{MacHum}
+{Macartan Humphreys}.
+\newblock 10 things to know about causal inference.
+\newblock
+  \url{https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference}.
+\newblock [Online; accessed 14-August-2019].
+
+\bibitem[{Reb}]{RebBar}
+{Rebecca Barter}.
+\newblock Confounding in causal inference: what is it, and what to do about it?
+\newblock \url{http://www.rebeccabarter.com/blog/2017-07-05-confounding/}.
+\newblock [Online; accessed 16-August-2019].
+
 \bibitem[SJT{\etalchar{+}}17]{schuler2017synth}
 Alejandro Schuler, Ken Jung, Robert Tibshirani, Trevor Hastie, and Nigam Shah.
 \newblock Synth-validation: Selecting the best causal inference method for a
   given dataset.
 \newblock {\em arXiv preprint arXiv:1711.00083}, 2017.
+
+\bibitem[VS13]{vanderweele2013definition}
+Tyler~J VanderWeele and Ilya Shpitser.
+\newblock On the definition of a confounder.
+\newblock {\em Annals of statistics}, 41(1):196, 2013.
 
 \bibitem[WA18]{wager2018estimation}
 Stefan Wager and Susan Athey.
@@ -18,5 +41,11 @@ Stefan Wager and Susan Athey.
   random forests.
 \newblock {\em Journal of the American Statistical Association},
   113(523):1228--1242, 2018.
+
+\bibitem[{Wik}]{ttest}
+{Wikipedia Authoren}.
+\newblock Zweistichproben-t-test.
+\newblock \url{https://de.wikipedia.org/wiki/Zweistichproben-t-Test}.
+\newblock [Online; accessed 16-August-2019].
 
 \end{thebibliography}

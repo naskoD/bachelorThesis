@@ -3,44 +3,46 @@
 \select@language {ngerman}
 \select@language {ngerman}
 \contentsline {section}{\numberline {1}Einf\IeC {\"u}hrung}{1}{section.1}
-\contentsline {subsection}{\numberline {1.1}Kausalit\IeC {\"a}t und kausale Inferenz}{1}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Motivation}{1}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}Ziele und Methodik}{1}{subsection.1.3}
-\contentsline {section}{\numberline {2}Methoden f\IeC {\"u}r kausale Inferenz}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Lineare Verfahren}{2}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}Covariate Matching}{2}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}Propensity Score Matching}{2}{subsubsection.2.1.2}
-\contentsline {subsubsection}{\numberline {2.1.3}Inverse Probability Weighting}{2}{subsubsection.2.1.3}
-\contentsline {subsection}{\numberline {2.2}Maschinelle Lernverfahren}{2}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Gradient Boosting}{2}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Lasso}{2}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Kausale W\IeC {\"a}lder}{2}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Targeted Maximum Likelihood Estimation}{2}{subsubsection.2.2.4}
-\contentsline {section}{\numberline {3}Synth-Validation}{3}{section.3}
-\contentsline {subsection}{\numberline {3.1}Generierung von synthetischen Daten}{3}{subsection.3.1}
-\contentsline {subsubsection}{\numberline {3.1.1}Auswahl von synthetischen Effekten}{3}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}Sch\IeC {\"a}tzung von bedingten Erwartungswerten}{3}{subsubsection.3.1.2}
-\contentsline {subsection}{\numberline {3.2}Methodenauswahl}{3}{subsection.3.2}
-\contentsline {section}{\numberline {4}Implementierung}{4}{section.4}
-\contentsline {subsection}{\numberline {4.1}Fremde Bibliotheken}{4}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Lesen/Schreiben von Daten}{4}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Ziehen von Stichproben}{4}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Methoden f\IeC {\"u}r kausale Inferenz}{4}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Synth-Validation}{4}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Datenstrukturen}{4}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}Sch\IeC {\"a}tzung}{4}{subsubsection.4.5.2}
-\contentsline {subsubsection}{\numberline {4.5.3}Constrained Boosting}{4}{subsubsection.4.5.3}
-\contentsline {subsubsection}{\numberline {4.5.4}Methodenauswahl}{4}{subsubsection.4.5.4}
-\contentsline {subsection}{\numberline {4.6}Benchmark von Synth-Validation}{4}{subsection.4.6}
-\contentsline {subsection}{\numberline {4.7}Erstellung von Abbildungen}{4}{subsection.4.7}
-\contentsline {subsection}{\numberline {4.8}Experimenten}{4}{subsection.4.8}
-\contentsline {subsection}{\numberline {4.9}Anderer Code}{4}{subsection.4.9}
-\contentsline {section}{\numberline {5}Ergebnisse und Evaluation}{5}{section.5}
-\contentsline {subsection}{\numberline {5.1}Methodik und Daten}{5}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}TODO}{5}{subsection.5.2}
-\contentsline {section}{\numberline {6}Schlussfolgerung}{6}{section.6}
-\contentsline {subsection}{\numberline {6.1}Zusammenfassung}{6}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Diskussion}{6}{subsection.6.2}
-\select@language {english}
-\contentsline {section}{Appendices}{7}{section*.3}
-\contentsline {section}{Referenzen}{8}{section*.3}
+\contentsline {subsection}{\numberline {1.1}Kausale Inferenz}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Motivation}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Finden von ATE}{4}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}Experimentdurchf\IeC {\"u}hrung}{4}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}Beobachtungsstudiedurchf\IeC {\"u}hrung}{5}{subsubsection.1.3.2}
+\contentsline {subsection}{\numberline {1.4}Ziele und Methodik}{7}{subsection.1.4}
+\contentsline {section}{\numberline {2}Methoden f\IeC {\"u}r kausale Inferenz}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}Lineare Verfahren}{9}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Covariate Matching}{9}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Propensity Score Matching}{9}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Inverse Probability Weighting}{9}{subsubsection.2.1.3}
+\contentsline {subsection}{\numberline {2.2}Maschinelle Lernverfahren}{9}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Gradient Boosting}{9}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Lasso}{9}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Kausale W\IeC {\"a}lder}{9}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Targeted Maximum Likelihood Estimation}{9}{subsubsection.2.2.4}
+\contentsline {section}{\numberline {3}Synth-Validation}{10}{section.3}
+\contentsline {subsection}{\numberline {3.1}Generierung von synthetischen Daten}{10}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Auswahl von synthetischen Effekten}{10}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Sch\IeC {\"a}tzung von bedingten Erwartungswerten}{10}{subsubsection.3.1.2}
+\contentsline {subsection}{\numberline {3.2}Methodenauswahl}{10}{subsection.3.2}
+\contentsline {section}{\numberline {4}Implementierung}{11}{section.4}
+\contentsline {subsection}{\numberline {4.1}Fremde Bibliotheken}{11}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Lesen/Schreiben von Daten}{11}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Ziehen von Stichproben}{11}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Methoden f\IeC {\"u}r kausale Inferenz}{11}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Synth-Validation}{11}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Datenstrukturen}{11}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Sch\IeC {\"a}tzung}{11}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}Constrained Boosting}{11}{subsubsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.4}Methodenauswahl}{11}{subsubsection.4.5.4}
+\contentsline {subsection}{\numberline {4.6}Benchmark von Synth-Validation}{11}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}Erstellung von Abbildungen}{11}{subsection.4.7}
+\contentsline {subsection}{\numberline {4.8}Experimenten}{11}{subsection.4.8}
+\contentsline {subsection}{\numberline {4.9}Anderer Code}{11}{subsection.4.9}
+\contentsline {section}{\numberline {5}Ergebnisse und Evaluation}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}Methodik und Daten}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}TODO}{12}{subsection.5.2}
+\contentsline {section}{\numberline {6}Schlussfolgerung}{13}{section.6}
+\contentsline {subsection}{\numberline {6.1}Zusammenfassung}{13}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Diskussion}{13}{subsection.6.2}
+\contentsline {section}{Anhang}{14}{section*.7}
+\contentsline {section}{Literatur}{15}{section*.7}
