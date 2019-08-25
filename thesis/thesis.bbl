@@ -1,15 +1,46 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{ATW{\etalchar{+}}19}
+\begin{thebibliography}{SJT{\etalchar{+}}17}
 
-\bibitem[ATW{\etalchar{+}}19]{athey2019generalized}
-Susan Athey, Julie Tibshirani, Stefan Wager, et~al.
-\newblock Generalized random forests.
-\newblock {\em The Annals of Statistics}, 47(2):1148--1178, 2019.
+\bibitem[Bre01]{breiman2001random}
+Leo Breiman.
+\newblock Random forests.
+\newblock {\em Machine learning}, 45(1):5--32, 2001.
+
+\bibitem[CM82a]{cox1982biometrics}
+David~R Cox and Peter McCullagh.
+\newblock A biometrics invited paper with discussion. some aspects of analysis
+  of covariance.
+\newblock {\em Biometrics}, pages 541--561, 1982.
+
+\bibitem[CM82b]{dawid1976properties}
+David~R Cox and Peter McCullagh.
+\newblock A biometrics invited paper with discussion. some aspects of analysis
+  of covariance.
+\newblock {\em Biometrics}, pages 541--561, 1982.
+
+\bibitem[HIR03]{hirano2003efficient}
+Keisuke Hirano, Guido~W Imbens, and Geert Ridder.
+\newblock Efficient estimation of average treatment effects using the estimated
+  propensity score.
+\newblock {\em Econometrica}, 71(4):1161--1189, 2003.
+
+\bibitem[Hol86]{holland1986statistics}
+Paul~W Holland.
+\newblock Statistics and causal inference.
+\newblock {\em Journal of the American statistical Association},
+  81(396):945--960, 1986.
 
 \bibitem[Lew74]{lewis1974causation}
 David Lewis.
 \newblock Causation.
 \newblock {\em The journal of philosophy}, 70(17):556--567, 1974.
+
+\bibitem[{Lin}]{LinDol}
+{Lindsay Dolan}.
+\newblock 10 things to know about covariate adjustment.
+\newblock
+  \url{https://egap.org/methods-guides/10-things-know-about-covariate-adjustment}.
+\newblock [Online; accessed 18-August-2019].
 
 \bibitem[{Mac}]{MacHum}
 {Macartan Humphreys}.
@@ -18,17 +49,57 @@ David Lewis.
   \url{https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference}.
 \newblock [Online; accessed 14-August-2019].
 
+\bibitem[NW17]{nie2017quasi}
+Xinkun Nie and Stefan Wager.
+\newblock Quasi-oracle estimation of heterogeneous treatment effects.
+\newblock {\em arXiv preprint arXiv:1712.04912}, 2017.
+
 \bibitem[{Reb}]{RebBar}
 {Rebecca Barter}.
 \newblock Confounding in causal inference: what is it, and what to do about it?
 \newblock \url{http://www.rebeccabarter.com/blog/2017-07-05-confounding/}.
 \newblock [Online; accessed 16-August-2019].
 
+\bibitem[RHB00]{robins2000marginal}
+James~M Robins, Miguel~Angel Hernan, and Babette Brumback.
+\newblock Marginal structural models and causal inference in epidemiology.
+\newblock {\em Epidemiology}, 2000.
+
+\bibitem[Rob88]{robinson1988root}
+Peter~M Robinson.
+\newblock Root-n-consistent semiparametric regression.
+\newblock {\em Econometrica: Journal of the Econometric Society}, pages
+  931--954, 1988.
+
+\bibitem[RR83]{rosenbaum1983central}
+Paul~R Rosenbaum and Donald~B Rubin.
+\newblock The central role of the propensity score in observational studies for
+  causal effects.
+\newblock {\em Biometrika}, 70(1):41--55, 1983.
+
+\bibitem[Rub74]{rubin1974estimating}
+Donald~B Rubin.
+\newblock Estimating causal effects of treatments in randomized and
+  nonrandomized studies.
+\newblock {\em Journal of educational Psychology}, 66(5):688, 1974.
+
 \bibitem[SJT{\etalchar{+}}17]{schuler2017synth}
 Alejandro Schuler, Ken Jung, Robert Tibshirani, Trevor Hastie, and Nigam Shah.
 \newblock Synth-validation: Selecting the best causal inference method for a
   given dataset.
 \newblock {\em arXiv preprint arXiv:1711.00083}, 2017.
+
+\bibitem[Stu10]{stuart2010matching}
+Elizabeth~A Stuart.
+\newblock Matching methods for causal inference: A review and a look forward.
+\newblock {\em Statistical science: a review journal of the Institute of
+  Mathematical Statistics}, 25(1):1, 2010.
+
+\bibitem[Tib96]{tibshirani1996regression}
+Robert Tibshirani.
+\newblock Regression shrinkage and selection via the lasso.
+\newblock {\em Journal of the Royal Statistical Society: Series B
+  (Methodological)}, 58(1):267--288, 1996.
 
 \bibitem[VS13]{vanderweele2013definition}
 Tyler~J VanderWeele and Ilya Shpitser.
@@ -42,10 +113,24 @@ Stefan Wager and Susan Athey.
 \newblock {\em Journal of the American Statistical Association},
   113(523):1228--1242, 2018.
 
-\bibitem[{Wik}]{ttest}
+\bibitem[{Wik}a]{gradientBoost}
+{Wikipedia Authoren}.
+\newblock Gradient boosting.
+\newblock \url{https://en.wikipedia.org/wiki/Gradient_boosting}.
+\newblock [Online; accessed 24-August-2019].
+
+\bibitem[{Wik}b]{ttest}
 {Wikipedia Authoren}.
 \newblock Zweistichproben-t-test.
 \newblock \url{https://de.wikipedia.org/wiki/Zweistichproben-t-Test}.
 \newblock [Online; accessed 16-August-2019].
+
+\bibitem[{Win}]{WinLin}
+{Winston Lin}.
+\newblock Regression adjustment in randomized experiments: Is the cure really
+  worse than the disease?
+\newblock
+  \url{https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847}.
+\newblock [Online; accessed 18-August-2019].
 
 \end{thebibliography}

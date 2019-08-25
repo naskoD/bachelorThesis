@@ -18,17 +18,6 @@
   publisher = {Taylor \& Francis},
 }
 
-@Article{athey2019generalized,
-  author    = {Athey, Susan and Tibshirani, Julie and Wager, Stefan and others},
-  title     = {Generalized random forests},
-  journal   = {The Annals of Statistics},
-  year      = {2019},
-  volume    = {47},
-  number    = {2},
-  pages     = {1148--1178},
-  publisher = {Institute of Mathematical Statistics},
-}
-
 @Misc{MacHum,
   author       = {{Macartan Humphreys}},
   title        = {10 Things to Know About Causal Inference},
@@ -66,12 +55,154 @@
   pages   = {556--567},
 }
 
-@Misc{RebBar,
-  author       = {{Rebecca Barter}},
-  title        = {Confounding in causal inference: what is it, and what to do about it?},
+@Misc{ttest,
+  author       = {{Wikipedia Authoren}},
+  title        = {Zweistichproben-t-Test},
   howpublished = {\url{https://de.wikipedia.org/wiki/Zweistichproben-t-Test}},
   note         = {[Online; accessed 16-August-2019]},
   url          = {https://de.wikipedia.org/wiki/Zweistichproben-t-Test},
+}
+
+@Article{rubin1974estimating,
+  author    = {Rubin, Donald B},
+  title     = {Estimating causal effects of treatments in randomized and nonrandomized studies.},
+  journal   = {Journal of educational Psychology},
+  year      = {1974},
+  volume    = {66},
+  number    = {5},
+  pages     = {688},
+  publisher = {American Psychological Association},
+}
+
+@Article{holland1986statistics,
+  author    = {Holland, Paul W},
+  title     = {Statistics and causal inference},
+  journal   = {Journal of the American statistical Association},
+  year      = {1986},
+  volume    = {81},
+  number    = {396},
+  pages     = {945--960},
+  publisher = {Taylor \& Francis},
+}
+
+@Article{cox1982biometrics,
+  author    = {Cox, David R and McCullagh, Peter},
+  title     = {A biometrics invited paper with discussion. some aspects of analysis of covariance},
+  journal   = {Biometrics},
+  year      = {1982},
+  pages     = {541--561},
+  publisher = {JSTOR},
+}
+
+@Misc{WinLin,
+  author       = {{Winston Lin}},
+  title        = {Regression adjustment in randomized experiments: Is the cure really worse than the disease?},
+  howpublished = {\url{https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847}},
+  note         = {[Online; accessed 18-August-2019]},
+  url          = {https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847},
+}
+
+@Misc{LinDol,
+  author       = {{Lindsay Dolan}},
+  title        = {10 Things to Know About Covariate Adjustment},
+  howpublished = {\url{https://egap.org/methods-guides/10-things-know-about-covariate-adjustment}},
+  note         = {[Online; accessed 18-August-2019]},
+  url          = {https://egap.org/methods-guides/10-things-know-about-covariate-adjustment},
+}
+
+@Article{dawid1976properties,
+  author    = {Cox, David R and McCullagh, Peter},
+  title     = {A biometrics invited paper with discussion. some aspects of analysis of covariance},
+  journal   = {Biometrics},
+  year      = {1982},
+  pages     = {541--561},
+  publisher = {JSTOR},
+}
+
+@Article{rosenbaum1983central,
+  author    = {Rosenbaum, Paul R and Rubin, Donald B},
+  title     = {The central role of the propensity score in observational studies for causal effects},
+  journal   = {Biometrika},
+  year      = {1983},
+  volume    = {70},
+  number    = {1},
+  pages     = {41--55},
+  publisher = {Oxford University Press},
+}
+
+@Article{stuart2010matching,
+  author    = {Stuart, Elizabeth A},
+  title     = {Matching methods for causal inference: A review and a look forward},
+  journal   = {Statistical science: a review journal of the Institute of Mathematical Statistics},
+  year      = {2010},
+  volume    = {25},
+  number    = {1},
+  pages     = {1},
+  publisher = {NIH Public Access},
+}
+
+@Article{robins2000marginal,
+  author  = {Robins, James M and Hernan, Miguel Angel and Brumback, Babette},
+  title   = {Marginal structural models and causal inference in epidemiology},
+  journal = {Epidemiology},
+  year    = {2000},
+}
+
+@Article{hirano2003efficient,
+  author    = {Hirano, Keisuke and Imbens, Guido W and Ridder, Geert},
+  title     = {Efficient estimation of average treatment effects using the estimated propensity score},
+  journal   = {Econometrica},
+  year      = {2003},
+  volume    = {71},
+  number    = {4},
+  pages     = {1161--1189},
+  publisher = {Wiley Online Library},
+}
+
+@Article{nie2017quasi,
+  author  = {Nie, Xinkun and Wager, Stefan},
+  title   = {Quasi-oracle estimation of heterogeneous treatment effects},
+  journal = {arXiv preprint arXiv:1712.04912},
+  year    = {2017},
+}
+
+@Article{robinson1988root,
+  author    = {Robinson, Peter M},
+  title     = {Root-N-consistent semiparametric regression},
+  journal   = {Econometrica: Journal of the Econometric Society},
+  year      = {1988},
+  pages     = {931--954},
+  publisher = {JSTOR},
+}
+
+@Article{tibshirani1996regression,
+  author    = {Tibshirani, Robert},
+  title     = {Regression shrinkage and selection via the lasso},
+  journal   = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year      = {1996},
+  volume    = {58},
+  number    = {1},
+  pages     = {267--288},
+  publisher = {Wiley Online Library},
+}
+
+@Misc{gradientBoost,
+  author       = {{Wikipedia Authoren}},
+  title        = {Gradient boosting},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Gradient_boosting}},
+  note         = {[Online; accessed 24-August-2019]},
+  url          = {https://en.wikipedia.org/wiki/Gradient_boosting},
+}
+
+@Article{tibshirani1996regression,
+  author    = {Tibshirani, Robert},
+  title     = {Regression shrinkage and selection via the lasso},
+  journal   = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year      = {1996},
+  volume    = {58},
+  number    = {1},
+  pages     = {267--288},
+  publisher = {Wiley Online Library},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
