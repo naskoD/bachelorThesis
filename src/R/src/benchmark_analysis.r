@@ -12,17 +12,25 @@ get_means<-function(b_data){
 get_sv_success_rate<-function(b_data){
   assert_that(is.data.frame(b_data))
   
-  successes<-0
+  succ<-numeric(length(names(b_data))-2)
   for(i in 1:length(b_data[,1])){
-    if(b_data[[i,1]]==b_data[[i,2]]){
-      successes <- successes+1
+    
+    methods_results<-sort(b_data[i,3:length(names(b_data))])
+    
+    for(j in 1:length(succ)){
+      if(b_data[[i,2]]==methods_results[j]){
+        succ[j] <- succ[j]+1
+        break
+      }
     }
   }
-  success_rate<-round(successes/length(b_data[,1])*100,digits = 2)
+  cum_succ <- cumsum(succ)
+  succ_rate<-round(cum_succ/length(b_data[,1])*100,digits = 2)
   
-  df<-data.frame("Runs"=length(b_data[,1]),
-                 "Successes"=successes,
-                 "Success rate"=paste(success_rate,"%",sep = ""),
+  df<-data.frame("Nth best method" = 1:length(succ),
+                 "Times picked"=succ,
+                 "Cumulated picks"=cum_succ,
+                 "Cumulative success rate"=paste(succ_rate,"%",sep = ""),
                  check.names = FALSE)
   
   return (df)

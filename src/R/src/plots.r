@@ -56,12 +56,12 @@ generate_success_rate_grid<-function(b_data,bench_data_src){
   success_rate_df<-get_sv_success_rate(b_data)
   
   jpeg(sprintf("../../../benchmark_data/%s.jpeg",paste(bench_data_src,"_success_rate")),
-       width = 500,
-       height = 100)
+       width = 535,
+       height = 125)
   g<-tableGrob(success_rate_df,
                rows=NULL,
-               theme = ttheme_default(base_size = 15,
-                                      padding = unit(c(15,5),"mm")))
+               theme = ttheme_default(base_size = 13,
+                                      padding = unit(c(8,5),"mm")))
   grid.draw(g)
   dev.off()
 }
