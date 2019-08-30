@@ -502,7 +502,7 @@ Wir müssen nur solche Kovariaten in unseren Modell nehmen, die einen Einfluss a
 Soweit man einen Kovariaten ins Modell nimmt, der von der Behandlung beeinflusst wurde, bekommt man Bias in der Schätzung von dem durchschnittlichen Effekt. Dieses Problem kann bei Experimenten nicht vorkommen, da man die Kovariaten immer vor der Behandlung bemesst. Bei den Beobachtungsstudien muss aufgepasst werden, dass ein Kovariat nicht mit der Behandlung korreliert ist.\cite{LinDol}\par
 
 \subsubsection{Propensity Score Matching}\label{subsubsec:propensityScoreMatching}
-Wenn wir Daten aus einer Beobachtungsstudie zum Finden von kausalen Effekten benutzen, ist es möglich, dass die Objekten, die behandelt sind, sich im Durchschnitt wesentlich oder zumindest in einiger Maßen von den Objekten, die nicht behandelt sind, unterscheiden. Das erklärt sich mit den Confoundingvariablen, die einen Effekt auf den Zustand der Behandlung haben. Wenn wir versuchen, den Behandlungseffekt von diesen qualitativ unterschiedenen Gruppen zu schätzen, bekommen wir ein Ergebnis mit Bias. Aus diesem Grund sind die beiden Gruppen nicht direkt vergleichbar.\par
+Wenn wir Daten aus einer Beobachtungsstudie zum Finden von kausalen Effekten benutzen, ist es möglich, dass die Objekten, die behandelt sind, sich im Durchschnitt wesentlich oder zumindest in einiger Maßen von den Objekten, die nicht behandelt sind, unterscheiden. Das erklärt sich mit den Confoundingvariablen, die einen Effekt auf den Zustand der Behandlung haben. Wenn wir versuchen den Behandlungseffekt von diesen qualitativ unterschiedenen Gruppen zu schätzen, bekommen wir ein Ergebnis mit Bias. Aus diesem Grund sind die beiden Gruppen nicht direkt vergleichbar.\par
 
 \noindent
 Bevor man den Effekt schätzt, ist es sinnvoll, die beiden Gruppen irgendwie in Gleichgewicht zu bringen. Dieses Gleichgewicht werden wir durch zwei Eigenschaften definieren, die unseren beiden Gruppen erfüllen sollen. Diese Eigenschaften sind bei den Gruppen in Experimenten immer erfüllt und sind ausreichend für eine nicht gestreute Schätzung des durchschnittlichen Behandlungseffekts.\par
@@ -696,24 +696,24 @@ $L_n(r(.))$ ist die Verlustfunktion, für die wir $r(.)$ finden wollen, für die
 Die lineare Regression oder genauer gesagt die Methode der kleinsten Quadraten ist im Grunde genommen für eine Datenmenge von  $y_i$ und $x_i$ eine Lösung des folgenden Optimierungsproblems:\par	
 
 \begin{equation}\label{eq:2.22}
-	 \min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 \bigg\}
+	 \arg\min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 \bigg\}
 \end{equation}
 
 \noindent
-Dabei sind die Ergebnisse $\alpha$ und $\beta$, die die Methode angepasst hat, die Koeffizienten von einem linearen Model. Durch Anwendung dieser Koeffizienten kann man weitere $y_i$ für gegebene $x_i$ vorhersagen. Das Fehler dieser Vorhersagen bemesst man mit der Größe des Bias und der Varianz. Und soweit die lineare Regression mit wenig Bias schätzt, hat sie oft viel Varianz. Das liegt daran, dass manche von den Inputvariablen in $x$ in der Tat keinen Einfluss auf das Ergebnis $y$ haben. Diese falsche Modellierung führt dazu, dass die $\alpha$ und $\beta$ nicht im allgemein, sondern nur für den Trainingdatensatz stimmen.\par 
+Dabei sind die Ergebnisse $\alpha$ und $\beta$, die die Methode angepasst hat, die Koeffizienten von einem linearen Model. Durch Anwendung dieser Koeffizienten kann man weitere $y_i$ für gegebene $x_i$ vorhersagen. Der Fehler dieser Vorhersagen bemesst man mit der Größe des Bias und der Varianz. Und soweit die lineare Regression mit wenig Bias schätzt, hat sie oft viel Varianz. Das liegt daran, dass manche von den Inputvariablen in $x$ in der Tat keinen Einfluss auf das Ergebnis $y$ haben. Diese falsche Modellierung führt dazu, dass die $\alpha$ und $\beta$ nicht im allgemein, sondern nur für den Trainingdatensatz stimmen.\par 
 
 \noindent
 Um dieses Problem zu vermindern, kann man die Betas begrenzen oder regulieren, so dass sie nicht beliebig viel wachsen und damit Werte nehmen, die das Optimierungsproblem eigentlich besser lösen, aber in der Tat ungültig sind. Man bestimmt einen Parameter $t$, den die absolute Summe von $\beta$ nicht überschreiten soll\cite{tibshirani1996regression}. Wir fügen diese neue Bedingung in das Optimierungsproblem ein:\par   
 
 \begin{equation}\label{eq:2.23}
-	 \min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 \bigg\} \text{ beschränkt von } \sum_{j=1}^{p} |\beta_j| \leq t
+	\arg\min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 \bigg\} \text{ beschränkt von } \sum_{j=1}^{p} |\beta_j| \leq t
 \end{equation}  
 
 \noindent
 Wir geben das Problem auch in seiner Lagrangeform:\par 
 
 \begin{equation}\label{eq:2.24}
-	 \min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 + \lambda  \sum_{j=1}^{p} |\beta_j| \bigg\}
+	 \arg\min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 + \lambda  \sum_{j=1}^{p} |\beta_j| \bigg\}
 \end{equation} 
 
 \noindent
@@ -780,10 +780,163 @@ Die Daten, die die Kausalen Wälder anpassen müssen, haben außer den üblichen
 \clearpage
 
 \section{Synth-Validation}\label{sec:synthValidation}
+
+\noindent
+\emph{In diesem Abschnitt erzählen wir über die Theorie hinter Synth-Validation - eine Technik, die man zur Auswahl von einer Methode für kausale Inferenz für einen bestimmten Datensatz benutzt und die von Alejandro Schuler, Ken Jung, Robert Tibshirani, Trevor Hastie und Nigam Shah entwickelt wurde\cite{schuler2017synth}. Wir erläutern zuerst die Motivation für die Erstellung von Synth-Validation und gehen grob durch die ganze Methode durch. Dann schauen wir uns die einzelnen Schritte des Verfahrens genauer an und erzählen über die da benutzten Algorithmen und Heuristiken in den Unterabschnitten.}\par
+
+In den vorigen Abschnitten haben wir unser Problem - das Finden von dem durchschnittlichen Behandlungseffekt - definiert und über seine Lösung - unterschiedliche Methoden für kausale Inferenz - erzählt. Wir gehen also davon aus, dass man seine Daten hat und die unterschiedlichen Methoden für kausale Inferenz kennt. Man weiß, dass die Methoden unterschiedliche Schätzwerte liefern werden. Einer von diesen Schätzwerten ist am nächsten zu dem echten Behandlungseffekt, aber man weiß natürlich nicht wer. Noch ist es bekannt, dass es keine allgemeingültige Methode gibt, die für alle Daten der beste Schätzer ist - für die unterschiedlichen Datensätze liefern unterschiedliche Methoden das beste Ergebnis. Das gleiche Problem treffen wir bei den üblichen Schätzverfahren aus dem maschinellen Lernen. Da kann man aber relativ sicher die Erfolgsrate von  jeder Methode ermäßen, indem man ein Teil der Daten bei dem Lernen des Modells verhindert und danach mit diesen Daten die Erfolgsrate des Modells testet. Dieser Trick ist in dem kausalen Fall unmöglich, weil wir den Schätzwert der Methoden (den durchschnittlichen Behandlungseffekt) nicht direkt beobachten können und dementsprechend können wir ihn nicht aus den Testdaten nehmen\cite{schuler2017synth}.\par
+
+\noindent
+Um unterschiedliche Verfahren für kausale Inferenz zu vergleichen, sollte man generative Verteilungen von Hand erstellen. Diese Verteilungen sollen dann Daten generieren, die ähnlich zu den echten Daten sind. Der Behandlungseffekt für die Daten wird von Anfang an vorbestimmt und es werden solche Verteilungen mit solchen Effekten gewählt, die zu den Expertenvermutungen über den Echten entsprechen. Auf den von diesen Verteilungen generierten Daten werden die Methoden ausgeführt und es wird diejenige ausgewählt, die den kleinsten durchschnittlichen Schätzfehler auf  allen Datensätze rausgibt. Diese Vergleichstechnik hat einen großen Nachteil - um gute generative Verteilungen zu erstellen, muss man sowohl sehr gute Statistik-, als auch sehr gute Domainkenntnisse haben. Ansonsten können die generierten Daten nicht an den Echten entsprechen\cite{schuler2017synth}.\par 
+
+\noindent
+Das motivierte die Erstellung von Synth-Validation. Im Unterschied zu der oberen Vorgehensweise erstellt Synth-Validation die generative Verteilungen automatisch, indem sie die echten Daten benutzt. Das vermindert den notwendigen kognitiven Aufwand und führt zu einer besseren Auswahl. Man generiert dann synthetische Daten durch die Verteilungen, führt alle vorhandenen Methoden für kausale Inferenz auf diesen Daten aus und messt den durchschnittlichen Fehler von jeder Methode. Diejenige mit dem kleinsten Fehler wird ausgewählt. \reffig{fig:synthValidation} veranschauligt, wie Synth-Validation funktioniert. \cite{schuler2017synth}.\par 
+
+\begin{center}
+  \vspace{6mm}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/synth-validation.png}
+    \caption[Synth-Validation] {Synth-Validation. Die Daten $(x,w,y)$ und die Methoden für kausale Inferenz $t_A$, $t_B$ und $t_C$ kommen als Eingabe. Man wählt zuerst die synthetischen Effekte $\tau_i$, indem man die Methoden auf die Daten einsetzt. Dann schätzt man für jeden vorgegebenen synthetischen Effekt die bedingten Erwartungswerte $\mu_{0i}(x)$ und $\mu_{1i}(x)$. Man zieht eine Stichprobe von $(x,w)$ und wendet diese auf den bedingten Erwartungswerten. Somit kriegt man die synthetischen Datensätze mit einem vorgegebenen synthetischen Effekt $\tau_i$. Dann werden alle Methoden auf den Daten eingesetzt und da man den Behandlungseffekt von den Daten kennt, wird der durchschnittliche Fehler von jeder Methode ausgerechnet. Am Ende wird diejenige mit dem kleinsten Fehler ausgewählt \cite{schuler2017synth}.}\label{fig:synthValidation}
+  \end{figure}
+\end{center}
+
+\noindent
+In den folgenden \refsec{subsec:generierungSynthDaten} und \refsec{subsec:methodenauswahl} erzählen wir ausführlich wie die synthetischen Daten generiert werden und wie dann mit diesen neuen Daten der beste Methode für kausale Inferenz ausgewählt wird.\par
+
   	\subsection{Generierung von synthetischen Daten}\label{subsec:generierungSynthDaten}
+  	Die generative Verteilung, die wir schätzen möchten, ist nicht die echte Verteilung $P(X,W,Y)$. Wenn man diese schätzen könnte, würden die Auswahl von den Methoden und auch die Methoden an sich umsonst, denn man könnte in diesem Fall den echten Behandlungseffekt direkt berechnen. Stattdessen wählt man zuerst synthetische Behandlungseffekten $\tilde{r_i}$. Wie genau das passiert, erzählen wir im \refsec{subsubsec:auswahlSynthEffekten}. Für unsere generativen Verteilungen  $P(\widetilde{X},\widetilde{W},\widetilde{Y})$ muss gelten, dass die davon generierten Daten maximal ähnlich zu den echten Daten sind und der durchschnittliche Behandlungseffekt von diesen Daten an unseren vorgegebenen $\tilde{r_i}$  entspricht \cite{schuler2017synth}. Formal:\par
+  	
+\begin{equation}\label{eq:3.1}
+  \tilde{\tau} = E_{\widetilde{Y},\widetilde{X}}[\widetilde{Y}|\widetilde{X},\widetilde{W} = 1] - E_{\widetilde{Y},\widetilde{X}}[\widetilde{Y}|\widetilde{X},\widetilde{W} = 0]
+\end{equation} 
+
+\noindent
+Für die Schätzung von $P(\widetilde{X},\widetilde{W},\widetilde{Y})$ benutzten wir die Beobachtung, dass $P(\widetilde{X},\widetilde{W},\widetilde{Y}) = P(\widetilde{Y}|\widetilde{X},\widetilde{W})P(\widetilde{X},\widetilde{W})$ und erstellen die beiden Verteilungen individuell. Für $P(\widetilde{X},\widetilde{W})$ nehmen wir die empirische Verteilung von $(X,W)$. Den Behandlungseffekt von \refeq{eq:3.1} kann man auch durch die von der Behandlung bedingten Erwartungswerten von $\widetilde{Y}$ darstellen\cite{schuler2017synth}:\par 
+
+\begin{equation}\label{eq:3.2}
+ \tau = \frac{1}{n}\sum_i[\mu_1(x_i)-\mu_0(x_i)]
+\end{equation}
+
+\noindent
+$\mu_1(\tilde{x})$ und $\mu_0(\tilde{x})$ sind die von uns angesprochenen bedingten Erwartungswerten, indem für sie gilt:
+
+\begin{equation}\label{eq:3.3}
+\begin{split}
+\mu_0(\tilde{x}) &= E[\widetilde{Y}|\widetilde{X},\widetilde{W} = 0]\\
+\mu_1(\tilde{x}) &= E[\widetilde{Y}|\widetilde{X},\widetilde{W} = 1]
+\end{split}
+\end{equation}
+
+\noindent
+Durch die bedingten Erwartungswerten können wir ein Modell für die Generierung von $\tilde{y_i}$ erstellen:\par
+
+\begin{equation}\label{eq:3.4}
+ \tilde{y_i} = I_0(\tilde{w_i})\mu_0(\tilde{x}) + I_1(\tilde{w_i})\mu_1(\tilde{x}) + \epsilon_i
+\end{equation}
+
+\noindent
+Hier ist $I_w(w_i)$ die Indikatorfunktion für die Behandlung $w_i$, indem $I_w(w_i) = 1$ für $w_i = w$ und $I_w(w_i) = 0$ für $w_i \neq w$. $\epsilon_i$ ist der Restwert von $y_i$, mit dem unsere Schätzungen von $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ von den echten $y_i$ abweichen. Wir müssen also zuerst die bedingten Erwartungswerten schätzen und mit deren Hilfe die Restwerten $r_i = y_i - I_0(w_i)\mu_1(x) - I_1(w_i)\mu_1(x)$ ausrechnen. Wir benutzen dann die empirische Verteilung der Restwerte $P(R^*)$ als Rauschmodell für die Schätzung von den synthetischen $\tilde{y_i}$\cite{schuler2017synth}.\par 
+
+\noindent
+Wir betonen, dass $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ nicht die echten bedingten Erwartungswerten von $Y$ sind, sondern die bedingten Erwartungswerten, für die $\widetilde{X}$ und $\widetilde{Y}$ aus unseren Daten kommen und für die der Behandlungseffekt $\tau$ aus \refeq{eq:3.2} an unserem vorgegebenen synthetischen Behandlungseffekt $\tilde{\tau}$ gleich ist. Wie $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ geschätzt werden, erzählen wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten}.\par 
+
+\noindent
+Zusammenfassend geben wir die Reihenfolge von Aktionen für die Generierung von den synthetischen Daten:\par
+
+\begin{enumerate}
+
+\item Auswahl von synthetischen Behandlungseffekten $\tilde{\tau_1},\tilde{\tau_2}\dots$ (\ref{subsubsec:auswahlSynthEffekten}) 
+
+\item Schätzung von den bedingten Erwartungswerten $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ mit den echten Daten $(x_i,w_i,y_i)$ und den ausgewählten synthetischen Behandlungseffekten $\tilde{\tau_1},\tilde{\tau_2}\dots$ aus Schritt 1  (\ref{subsubsec:schätzungBedingtenErwartungswerten})
+
+\item Stichprobeziehen aus den echten Daten $(x_i,w_i)$ für die Generierten $(\tilde{x_i},\tilde{w_i})$ 
+
+\item Einsetzen von $(\tilde{x_i},\tilde{w_i})$ aus Schritt 3 in $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ aus Schritt 2 für die Schätzung von den Ergebnissen ohne Restwerte
+
+\item Ausrechnung von den Restwerten $r_i$ durch $y_i$ und die Ergebnisse aus Schritt 4; Stichprobeziehen aus den ausgerechneten Restwerten $r_i$ für $\tilde{r_i}$
+
+\item Generierung von $\tilde{y_i}$ durch Addieren von den Ergebnissen aus Schritt 4 mit den gezogenen Restwerten $\tilde{r_i}$ aus Schritt 5
+
+\end{enumerate}
   		\subsubsection{Auswahl von synthetischen Effekten}\label{subsubsec:auswahlSynthEffekten}
-  		\subsubsection{Schätzung von bedingten Erwartungswerten}\label{subsubsec:schätzungBedingtenErwartungswerten}
-  	\subsection{Methodenauswahl}\label{subsec:methodenauswahl}
+  		Damit man die vorhandenen Methoden für kausale Inferenz auf Daten mit bekannten Behandlungseffekten testen kann, muss man zuerst diese Effekten bestimmen. Sie müssen so nah wie möglich an dem echten Behandlungseffekt liegen, damit die Auswahl am Ende sinnvoll ist. Die besten Schätzungen für ihn kriegt man durch den Einsatz von den Methoden. Es ist unklar, welche die Beste ist, deswegen benutzt man eine Heuristik\cite{schuler2017synth}.\par 
+  		
+\noindent
+Die Anzahl aller synthetischen Effekten $Q$ und ein Parameter $\gamma$ kommen als Eingabe, indem wir $Q=5$ und $\gamma = 2$ in unserer Implementierung benutzen. Man führt zuerst jede Methode $t$ auf den Daten aus und kriegt die Schätzungen $\hat{\tau_t}$. Dann wird die Median von allen Schätzungen gefunden. Den kleinsten synthetischen Effekt bestimmt man, indem von der Median der Produkt von der Spannweite $R$ aller Schätzungen und dem Parameter $\gamma$ abgezogen wird. Der größte synthetische Effekt ist die Summe von der Median und dieses Produkt. Für den Rest der Effekten nimmt man die Werte, die auf gleichen Intervallen in dieser Spannweite liegen, sodass alle Effekte insgesamt $Q$ sind\cite{schuler2017synth}.
+
+\begin{equation}\label{eq:3.5}
+\begin{split}
+ \tilde{\tau_1} &= med(\hat{\tau_t}) - \gamma R\\
+ \tilde{\tau_Q} &= med(\hat{\tau_t}) + \gamma R
+\end{split}
+\end{equation}
+	
+\subsubsection{Schätzung von bedingten Erwartungswerten}\label{subsubsec:schätzungBedingtenErwartungswerten}
+Wir müssen die bedingten Erwartungswerten $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ schätzen. Es lohnt sich, noch einmal zu wiederholen, dass sie nicht die echten bedingten Erwartungswerten, sondern diejenige, für die unsere Daten einen vorgegebenen Behandlungseffekt $\tilde{\tau}$ haben. Für die Schätzung soll man das folgende Problem lösen\cite{schuler2017synth}:\par
+
+\begin{equation}\label{eq:3.6}
+\begin{split}
+ \mu_0(\tilde{x}),\mu_1(\tilde{x}) = &\arg\min_{f_0,f_1 \in F} \quad \sum_{S_0} l(y_i,f_0(x_i)) + \sum_{S_1} l(y_i,f_1(x_i))\\
+ &\text{bedingt von: } \frac{1}{n} \sum_i \big [f_1(x_i) - f_0(x_i) \big ] = \tilde{\tau}
+\end{split}
+\end{equation}
+
+\noindent
+Hier ist $l(y_i,f)$  eine Verlustfunktion z.B. $(y-f)^2$. Für die Lösung des Problem wird Constrained Gradient Boosting eingesetzt. Constrained Boosting ist eine Form von Gradient Boosting (\ref{subsubsubsec:gradientBoosting}), die aber eine Nebenbedingung für die geschätzten Funktionen hat. Im Folgenden werden wir das Algorithmus von Constrained Boosting darstellen\cite{schuler2017synth}.\par
+ 
+\noindent
+Man versucht, die bedingten Erwartungswerten als Summe von vielen Basisfunktionen $b_{w_j}(\tilde{x})$ zu berechnen. Formal:\par
+
+\begin{equation}\label{eq:3.7}
+ \mu_{w_m}(\tilde{x}) = \sum_j^m \upsilon_{w_j}b_{w_j}(\tilde{x})
+\end{equation}
+
+\noindent
+Man schätzt die Basisfunktionen in jedem Schritt neu und addiert sie zu dem bisherigen Schätzwert. Die ersten Schätzwerten $b_{0_1}$ und $b_{1_1}$ sind Konstanten und es gilt $\upsilon_{0_1} = \upsilon_{1_1} = 1$. Wir finden sie durch die Lösung vom folgenden Problem\cite{schuler2017synth}: \par 
+
+\begin{equation}\label{eq:3.8}
+\begin{split}
+	\mu_{0_1}(\tilde{x}),\mu_{1_1}(\tilde{x}) = b_{0_1},b_{1_1} = &\arg\min_{c_0,c_1} \quad \sum_{S_0} l(y_i,c_0) + \sum_{S_1} l(y_i,c_1)\\
+ &\text{bedingt von: } \tilde{\tau} = \frac{1}{n} \sum_i \big [c_1 - c_0 \big ]
+\end{split}
+\end{equation}
+
+\noindent
+In den weiteren Schritten $m>1$ nimmt man die Restwerte $r_{{m-1}_i}$ von der letzten Schätzung $\mu_{w_m}(x_i)$ und $y_i$ und passt die Basisfunktionen $b_{w_m}(x)$ zu ihnen an. Dafür wird ein Regressionsbaum benutzt. In \refeq{eq:3.9} ist $I_w(w_i)$ die Indikatorfunktion für die Behandlung $w_i$ \cite{schuler2017synth}. Formal:\par
+
+\begin{equation}\label{eq:3.9}
+r_{{m-1}_i} = y_i - I_0(w_i)\mu_{0_{m-1}}(x_i)-I_1(w_i)\mu_{1_{m-1}}(x_i)
+\end{equation}
+
+\begin{equation}\label{eq:3.10}
+\begin{split}
+	 b_{0_m}(x) = &\arg\min_{b \in B} \sum_{S_0} l(r_{{m-1}_i},b(x_i))\\
+	 b_{1_m}(x) = &\arg\min_{b \in B} \sum_{S_1} l(r_{{m-1}_i},b(x_i))
+\end{split}
+\end{equation}
+
+\noindent
+Man merkt, dass die Anpassung von den Basisfunktionen ohne die Bedingung über den synthetischen Behandlungseffekt stattfindet. Aus diesem Grund darf man nicht direkt $\mu_{w_{m-1}}(x_i)$ mit $b_{w_m}(x)$ addieren. Wir suchen deswegen nach den Koeffizienten $\upsilon_{0_m}$ und $\upsilon_{1_m}$, für die der Behandlungseffekt $\tilde{\tau}$ bleibt. Die Bedingung ist im ersten Schritt erfüllt. Soweit der Beitrag zu dem Behandlungseffekt in jedem weiteren Schritt $0$ ist, bleibt die Bedingung erfüllt\cite{schuler2017synth}. Deswegen lösen wir das Optimierungsproblem:\par 
+
+\begin{equation}\label{eq:3.11}
+\begin{split}
+	\upsilon_{0_m},\upsilon_{1_m} = \arg\min_{c_0,c_1} \quad &\sum_{i \in S_0} l \big (y_i,\mu_{0_{m-1}}(x_i) + c_0  b_{{0_i}_m}(x_i) \big ) + \lambda c_0^2 + \\
+ &\sum_{i \in S_1} l \big (y_i,\mu_{1_{m-1}}(x_i) + c_1  b_{{1_i}_m}(x_i) \big ) + \lambda c_0^2\\
+  \text{bedingt}& \text{ von: } \sum_i \big [c_1 b_{{1_i}_m}(x_i) - c_0 b_{{0_i}_m}(x_i) \big ] = 0
+\end{split}
+\end{equation}
+  	
+\noindent
+ $\lambda$ dient zur Regulierung von der Schätzung, sodass sie weniger Varianz hat. Am Ende berechnet man die $\mu_{0_m}(\tilde{x})$ und $\mu_{1_m}(\tilde{x})$ durch \refeq{eq:3.7}. Die Anzahl von Schritten $m$ ist von Anfang an nicht bekannt. Wenn sie zu niedrig ist, wird die Schätzung viel Bias haben. Wenn zu hoch, zu viel Varianz. Deswegen wird die optimale $m$ durch Cross-Validation bestimmt\cite{schuler2017synth}.\par
+    	
+\subsection{Methodenauswahl}\label{subsec:methodenauswahl}
+
+Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische Daten mit bekannten Behandlungseffekten generieren und die Methoden darauf ausführen. Von jeder Verteilung generiert man $K$ Stichproben, was für die $Q$ Verteilungen  insgesamt $Q \times K$ Datensätze $d_{q,k}$ macht. Jeder Methode $t$ wird auf jeden Datensatz $d_{q,k}$ ausgeführt, was insgesamt  $T \times Q \times K$ Schätzungen $\hat{\tilde{\tau}}_{t,q,k}$ von dem synthetischen Behandlungseffekt erzeugt. Es wird dann den absoluten Fehler $\tilde{e_{t,q,k}} = |\tilde{\tau}_q - \hat{\tilde{\tau}}_{t,q,k}|$ von jeder Schätzung  ausgerechnet. Zum Schluss rechnet man den durchschnittlichen Fehler $e_t$ für jede Methode und wählt die Methode mit dem kleinsten Fehler\cite{schuler2017synth}:\par
+
+\begin{equation}\label{eq:3.12}
+ t^{\times} = \arg\min_{t \in T} \sum_{q,k}^{Q,K} \tilde{e}_{t,q,k}
+\end{equation}
 \clearpage
 
 \section{Implementierung}\label{sec:implementierung}
