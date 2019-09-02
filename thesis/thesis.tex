@@ -346,7 +346,7 @@ In der Tat können Confounders auch indirekten Einfluss auf die Behandlung haben
   \begin{figure}[h]
     \centering
     \includegraphics[height=0.4\textwidth, width=0.9\textwidth]{figures/confounder.png}
-    \caption[Einfluss von Confounder auf Behandlung und Ergebnis]{Einfluss von Confounder auf Behandlung und Ergebnis. Hier ist $X$ der Confounder, $T$ - die Behandlung und $Y$ - das Ergebnis. Es wird gezeigt, dass das Ergebniss nicht nur von der Behandlung abhängt, sondern auch vom Confounder. Der Confouder hat auch eine Auswirkung auf die Behandlung.\cite{RebBar} }\label{fig:confounder}
+    \caption[Einfluss von Confounder auf Behandlung und Ergebnis]{Einfluss von Confounder auf Behandlung und Ergebnis\cite{RebBar}. Hier ist $X$ der Confounder, $T$ - die Behandlung und $Y$ - das Ergebnis. Es wird gezeigt, dass das Ergebniss nicht nur von der Behandlung abhängt, sondern auch vom Confounder. Der Confouder hat auch eine Auswirkung auf die Behandlung.}\label{fig:confounder}
   \end{figure}
 \end{center}
 
@@ -758,7 +758,7 @@ $F_m(x) = F_{m-1}(x) + \gamma_m h_m(x)$
 Die kausale Wälder oder Causal Forests sind eine Methode zum Schätzen von dem heterogenen Behandlungseffekt $\tau(x)$ von einer Behandlung. Dabei sind sie von den Random Forests inspiriert und von der Struktur her unterscheiden sich mit ihnen nicht. Das \enquote{Kausale} bei den kausalen Wälder ist die Tatsache, dass wir zwei Arten von Kovariaten in den Blätter haben - von behandelten Objekten und von Kontrollobjekten. Das verlangt von uns, dass wir eine andere finale Schätzung von den Blattelementen nutzen, den Baum etwa anders aufspalten und noch einige Bedingungen einhalten\cite{wager2018estimation}. \par
 
 \noindent
-Random Forest ist eine Technik aus dem maschinellem Lernen, die zur Klassifikation von Objekten oder zur Regression von Funktionen benutzt wird. Der Wald besteht aus $N$ Bäume. Jeder Baum ist ein einzelner Schätzer und der Schätzwert des Waldes ist der durchschnittliche Schätzwert von allen Bäumen. So vermindert man die Varianz, die sonst eine Schätzung eines einzigen Baums hat. Ein Baum besteht aus Knoten und Blätter. Bei einer Modellvorhersage läuft man für ein $x$ den Baum durch und sucht, in welchem Blatt dieses $x$ liegen würde. Dann wird der Durchschnitt von allen Elementen in diesem Blatt als Schätzwert für $y$ herausgegeben. Man muss aber zuerst durch den gegebenen Datensatz $(x_i,y_i)$ den Baum anpassen. Dazu wird der Raum von $x$ abhängig von den Daten in Unterräumen aufgespaltet und die Knoten des Bäumes merken diese Aufspaltungregel. Wenn ein Unterraum eine minimale Anzahl $k$ von Trainingdaten in sich hat oder eine weitere Aufspaltung keine Verbesserung bei der Schätzung verspricht, werden die Elementen in diesem Unterraum in ein Blatt gesteckt. Die Daten für jeden Baum werden durch zufälliges Stichprobeziehen ohne Ersatz von den gemeinsamen Datensatz erstellt \cite{breiman2001random}.\par
+Random Forest ist eine Technik aus dem maschinellem Lernen, die zur Klassifikation von Objekten oder zur Regression von Funktionen benutzt wird. Der Wald besteht aus $N$ Bäume. Jeder Baum ist ein einzelner Schätzer und der Schätzwert des Waldes ist der durchschnittliche Schätzwert von allen Bäumen. So vermindert man die Varianz, die sonst eine Schätzung eines einzigen Baums hat. Ein Baum besteht aus Knoten und Blätter. Bei einer Modellvorhersage läuft man für ein $x$ den Baum durch und sucht, in welchem Blatt dieses $x$ liegen würde. Dann wird der Durchschnitt von allen Elementen in diesem Blatt als Schätzwert für $y$ herausgegeben. Man muss aber zuerst durch den gegebenen Datensatz $(x_i,y_i)$ den Baum anpassen. Dazu wird der Raum von $x$ abhängig von den Daten in Unterräumen aufgespaltet und die Knoten des Bäumes merken diese Aufspaltungregel. Wenn ein Unterraum eine minimale Anzahl $k$ von Trainingdaten in sich hat oder eine weitere Aufspaltung keine Verbesserung bei der Schätzung verspricht, werden die Elementen in diesem Unterraum in ein Blatt gesteckt. Die Daten für jeden Baum werden durch zufälliges Stichprobeziehen ohne Zurücklegen von den gemeinsamen Datensatz erstellt \cite{breiman2001random}.\par
 
 \noindent
 Die Daten, die die Kausalen Wälder anpassen müssen, haben außer den üblichen $(X_i,Y_i)$ auch die Variable der Behandlung $W_i$. Damit die Schätzung von dem heterogenen Behandlungseffekt nicht gestreut ist, muss jedes Blatt eine minimale Anzahl $k$ von Objekten in sich haben, die sowohl behandelt als auch unbehandelt sind. Dann hat die finale Blattschätzung eine andere Form als bei dem normalen Regressionbaum - wir suchen nach der Differenz zwischen den Mittelwerten von den behandelten und unbehandelten Objekten\cite{wager2018estimation}. Wir stellen formal die beiden Varianten dar: \par 
@@ -797,7 +797,7 @@ Das motivierte die Erstellung von Synth-Validation. Im Unterschied zu der oberen
   \begin{figure}[h]
     \centering
     \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/synth-validation.png}
-    \caption[Synth-Validation] {Synth-Validation. Die Daten $(x,w,y)$ und die Methoden für kausale Inferenz $t_A$, $t_B$ und $t_C$ kommen als Eingabe. Man wählt zuerst die synthetischen Effekte $\tau_i$, indem man die Methoden auf die Daten einsetzt. Dann schätzt man für jeden vorgegebenen synthetischen Effekt die bedingten Erwartungswerte $\mu_{0i}(x)$ und $\mu_{1i}(x)$. Man zieht eine Stichprobe von $(x,w)$ und wendet diese auf den bedingten Erwartungswerten. Somit kriegt man die synthetischen Datensätze mit einem vorgegebenen synthetischen Effekt $\tau_i$. Dann werden alle Methoden auf den Daten eingesetzt und da man den Behandlungseffekt von den Daten kennt, wird der durchschnittliche Fehler von jeder Methode ausgerechnet. Am Ende wird diejenige mit dem kleinsten Fehler ausgewählt \cite{schuler2017synth}.}\label{fig:synthValidation}
+    \caption[Synth-Validation] {Synth-Validation\cite{schuler2017synth}. Die Daten $(x,w,y)$ und die Methoden für kausale Inferenz $t_A$, $t_B$ und $t_C$ kommen als Eingabe. Man wählt zuerst die synthetischen Effekte $\tau_i$, indem man die Methoden auf die Daten einsetzt. Dann schätzt man für jeden vorgegebenen synthetischen Effekt die bedingten Erwartungswerte $\mu_{0i}(x)$ und $\mu_{1i}(x)$. Man zieht eine Stichprobe von $(x,w)$ und wendet diese auf den bedingten Erwartungswerten. Somit kriegt man die synthetischen Datensätze mit einem vorgegebenen synthetischen Effekt $\tau_i$. Dann werden alle Methoden auf den Daten eingesetzt und da man den Behandlungseffekt von den Daten kennt, wird der durchschnittliche Fehler von jeder Methode ausgerechnet. Am Ende wird diejenige mit dem kleinsten Fehler ausgewählt \cite{schuler2017synth}.}\label{fig:synthValidation}
   \end{figure}
 \end{center}
 
@@ -940,19 +940,122 @@ Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische D
 \clearpage
 
 \section{Implementierung}\label{sec:implementierung}
-	\subsection{Fremde Bibliotheken}\label{subsec:fremdeBibliotheken}
-  	\subsection{Lesen/Schreiben von Daten}\label{subsec:lesenSchreibenDaten}
-  	\subsection{Ziehen von Stichproben}\label{subsec:ziehenStichproben}
+\noindent
+\emph{In diesem Abschnitt erzählen wir über unsere Implementierung. Wir erläutern zuerst, was wir genau programmiert haben, welche Technologien wir benutzt haben und warum und stellen einige allgemeinen Angaben bereit. Dann gehen wir konkret durch die einzelnen Bestandteile der Implementierung durch und erläutern, wozu sie dienen, welche Algorithmen und Techniken wir benutzt haben und wie sich die Theorie aus den vorigen Abschnitten in der Implementierung abbildet.}\par
+
+Wir haben Synth-Validation\cite{schuler2017synth} implementiert - ein Auswahlverfahren von Methoden für kausale Inferenz, über den wir im vorigen \refsec{sec:synthValidation} erzählt haben. Den Code kann man unter \url{https://github.com/naskoD/bachelorThesis} frei zugreifen. Wir haben einen wesentlichen Teil des Codes von den Autoren von Synth-Validation bekommen. Er war auf Julia geschrieben und wir haben diesen Code direkt mit winzigen Logikänderungen in R übersetzt. In den Unterabschnitten werden wir für die einzelnen Bestandteilen bezeichnen, ob sie übersetzt sind oder rein von uns kommen.\par 
+
+\noindent
+Die Implementierung hat sich aufwändiger als erwartet erwiesen. Am Ende sind wir mit insgesamt 1650 Codezeilen ohne die Tests und 2200 mit den Tests gekommen. Sie sind in 13 Skripte ohne die Tests und 19 mit den Tests verteilt. Wir könnten wegen Zeitmangel und Streben nach Effizienz nicht alle Bestandteile mit Unittests überdecken. Wenn wir auch die Scripte von unseren Experimenten in der Rechnung hinzufügen, wo wir Synth-Validation mit unterschiedlichen Daten und unter unterschiedlichen Bedingungen benchmarken, kommen wir zu insgesamt 2350 Codezeilen in 25 Scripten.\par 
+
+\noindent
+Wir haben R für die Implementierung gewählt, weil diese Scriptsprache sich als Standard für statistikbezogene Projekten durchgesetzt hat. Es gibt eine große Anzahl von fertigen Bibliotheken, die zur Verfügung stehen. Außerdem hat sie einen intuitiven Syntax, der eine schnelle Implementierung erlaubt. Die Sprache wird von vielen Wissenschaftler und Praktiker benutzt und in den seltenen Fällen, in denen eine Bibliothek nicht ausreichend oder gar nicht dokumentiert ist, kann man schnell Unterstützung im Netz finden. R hat natürlich Nachteile -  z.B die niedrigere Geschwindigkeit im Vergleich zu anderen Alternativen wie Python oder Julia. Mehr darüber erzählen wir im \refsec{subsec:methodikDaten}, wo wir unter anderem auch Daten über die Performance von der Implementierung geben.\par    
+
+\subsection{Externe Paketen}\label{subsec:externePaketen}
+
+\noindent
+\emph{In diesem Abschnitt erzählen wir über die externen Paketen, die wir in unserer Implementierung benutzt haben. Wir werden sie in der Reihe des Auftretens im Programm vorstellen.}\par
+
+\noindent
+Das erste Paket ist \textbf{tictoc}. Es dient zur Zeitbemessung bei der Ausführung von einem Script oder einem Codeteil. Da ein Lauf von Synth-Validation sogar mit Standardparameter relativ lange dauert, ist es sinnvoll zu wissen, wie viel Zeit jeder einzelnen Bestandteil braucht. Das gilt sowohl für die Zeit während des Laufs, als auch für die Analyse nach dem Ende. Dementsprechend ist ein Code aus dem Paket an vielen Stellen in unserer Implementierung vertreten.
+\par
+
+\noindent
+Ein weiteres Paket, dessen Code man oft in unserer Implementierung trifft, ist \textbf{assertthat}. Es dient zur Validierung von Argumenten und ist in fast jeder Funktion unseres Codes zu finden.
+\par
+
+\noindent
+Aus dem Paket \textbf{psych} benutzen wir einmalig die logistische Funktion.\par 
+
+\noindent
+An mehreren Stellen (z.B intern in unseren Datenstrukturen und in der Logik von Constrained Boosting) benutzen wir Dictionaries, die wir aus dem Packet \textbf{collections} nehmen. Meistens hat die Dictionary zwei Schlüssel für behandelt und unbehandelt und die Werte sind Arrays mit unterschiedlichen Daten.\par
+
+\noindent
+Wir nutzen einmalig die Funktion \emph{fold} aus dem Paket \textbf{mltools} bei der Cross-Validation, die die optimale Anzahl von Schritten für Constrained Boosting feststellt. \emph{fold} teilt den Datensatz auf Training- und Testdata nach bestimmten Kriterien. Ansonsten enthält das Paket Hilfefunktionen, die man in Techniken aus dem maschinellen Lernen benutzt.\par 
+ 
+\noindent
+Durch Funktionen aus dem Paket \textbf{NlcOptim} kann man Optimierungsproblemen lösen. Wir brauchen es bei der Bestimmung von den Koeffizienten $\upsilon_{0_m}$ und $\upsilon_{1_m}$ für die geschätzten Basisfunktionen in Constrained Boosting.\par 
+ 
+\noindent
+Das Paket \textbf{devtools} dient zur Arbeit mit Paketen z.B. Entwicklung, Installierung, usw. Wir benutzen es, um das Paket \textbf{rlearner} direkt aus Github zu installieren.\par
+
+\noindent
+Mit \textbf{gridExtra} kann man Grids mit Daten schön stilisieren und dann generieren. Wir benutzen es einmal bei der Erstellung von Abbildungen für die Erfolgsrate von Synth-Validation.\par
+
+\noindent
+Mit dem Paket \textbf{testthat} erstellt man Unittests. Wir haben 6 Testskripten, die es benutzen.\par
+
+\noindent
+Vielleicht die wichtigsten externen Paketen, die wir nutzen, sind \textbf{rlearner} und \textbf{grf}. Sie beinhalten die Schätzer von den Methoden für kausale Inferenz, von denen Synth-Validation wählt. Wir haben die Theorie dahinter im \refsec{subsec:methodenInImplementierung} erläutert. \textbf{rlearner} hat den Quasi-Orakel Schätzer mit Gradient Boosting und Lasso und  \textbf{grf} hat die kausale Wälder. Wir benutzen die Funktionen aus diesen Paketen in unseren Wrapper-Funktionen, die die getestete Methoden für kausale Inferenz darstellen.\par
+\subsection{Lesen/Schreiben von Daten}\label{subsec:lesenSchreibenDaten}
+
+\noindent
+Im Script \textbf{read\_write\_data.r} haben wir Funktionen implementiert, die sich um das Lesen und Schreiben von Daten in Dateien kümmern. Wir haben sie selbst entwickelt und nicht aus dem Juliacode übersetzt. Grundsätzlich lesen wir unsere Daten aus .csv Dateien und schreiben dann die Ergebnisse aus dem Benchmark wieder in .csv Dateien. Ab dem Moment, in dem wir angefangen haben, Analyseszenarien für die Evaluation auszudenken, haben wir festgestellt, dass es sehr nützlich wäre, wenn wir ein kleines Datenbank eingesetzt hätten. Die Zeit war aber für solche Änderungen knapp, deswegen sind wir mit der einfachen .csv Abspeicherung geblieben.\par 
+
+\noindent
+Wir haben unterschiedlichen Datenquellen, deren Daten ein unterschiedliches Format hatten, deswegen war die erste Aufgabe, die Daten zu normalisieren. Dann war der echte Behandlungseffekt von einigen Datensätzen nicht direkt gegeben und man sollte ihn aus den echten bedingten Erwartungswerten ausrechnen und in einer Datei abspeichern. Das waren die beiden Vorbereitungsschritten, die wir durchgeführt haben und deren Code im Lauf von Synth-Validation nicht läuft. Dann haben wir Funktionen für das Lesen von den Eingabedaten (Kovariaten, Behandlung, Ergebnisvariable und echten Behandlungseffekt). Weitere Funktionen dienen zum Lesen und Schreiben von Benchmarkdaten. Wenn es einen neuen Dateneintrag gibt, lesen wir zuerst die vorhandenen Daten, fügen ihn dazu ein und speichern alles zusammen. Wir haben eine Funktion, die den normalen Lauf des Programms sichert, indem sie die die Verzeichnisstruktur der Benchmarkdaten neu erstellt, wenn das Programm zum ersten Mal läuft oder wenn man sie gelöscht hat.\par
+
+\subsection{Ziehen von Stichproben}\label{subsec:ziehenStichproben}
+Das Ziehen von Stichproben spielt eine sehr wichtige Rolle in unserer Implementierung. Aus den Daten, die wir gelesen haben, nehmen wir für die Schätzung nicht alle, sondern nur einen Teil davon (Standardwert ist 100). So simulieren wir eine echte Beobachtungsstudie, in der man nicht alle Objekte aus der Grundgesamtheit beobachtet, weil das oft unmöglich ist. Wir kennen den durchschnittlichen Behandlungseffekt von allen Beobachtungen und analysieren nur einen Teil davon. So stellen wir die ganze Datenmenge als die Grundgesamtheit, obwohl sie keine echte Grundgesamtheit ist, über die wir den echten Behandlungseffekt kennen. In einem Experiment im \refsec{sec:ergebnisseEvaluation} bemessen wir die Auswirkung von der Anzahl der analysierten Objekten auf die Schätzung von Synth-Validation.\par
+
+\noindent
+Wir ziehen Stichproben an noch einer Stelle in der Implementierung und zwar bei der Generierung von synthetischen Daten. Nachdem wir die bedingte Erwartungswerte durch Constrained Boosting geschätzt haben und die entsprechenden Restwerte ausgerechnet haben, ziehen wir $2k$ Stichproben mit Zurücklegen mit der gleichen Anzahl von Elementen für die $k$ synthetischen Datensätze. Es gibt also zwei unabhängige Stichproben für jeden Datensatz - die Erste für die $(\tilde{x_i},\tilde{w_i})$, deren Werte wir dann in den geschätzten bedingten Erwartungswerten einsetzen und die Zweite für die Restwerte, die wir dann mit den vorigen Ergebnissen addieren und die fertigen synthetischen $\tilde{y_i}$ bekommen. Dieser Codebestandteil haben wir auch nicht aus den Juliacode übersetzt, sondern selbst implementiert. Die Logik befindet sich im Script \textbf{sampling.r}.
   	\subsection{Methoden für kausale Inferenz}\label{subsec:methodenKausaleInferenz}
-  	\subsection{Synth-Validation}\label{subsec:synthValidation}
-  		\subsubsection{Datenstrukturen}\label{subsubsec:datenstrukturen}
-  		\subsubsection{Schätzung}\label{subsubsec:schätung}
-  		\subsubsection{Constrained Boosting}\label{subsubsec:constrainedBoosting}
-  		\subsubsection{Methodenauswahl}\label{subsubsec:methodenauswahl}
+  	In unserer Implementierung wählt  Synth-Validation aus vier Methoden für kausale Inferenz - die naive Methode, Quasi-Orakel Schätzer mit Gradient Boosting, Quasi-Orakel Schätzer mit Lasso und Kausale Wälder. Wir haben sie außer der naiven Methode nicht selber implementiert, sondern aus den Paketen \textbf{rlearner} und  \textbf{grf} genommen. Wie schon mal im \refsec{subsec:methodenInImplementierung} angesprochen, schätzen die drei Methoden den heterogenen Behandlungseffekt. Deswegen haben wir in \textbf{causal\_inference\_methods.r} für jede Methode eine Wrapperfunktion geschrieben, in der wir den durchschnittlichen Behandlungseffekt aus allen heterogenen Schätzungen ausrechnen. Wir führen die Methoden an zwei Stellen in der Implementierung aus - einmal am Anfang auf den echten Daten, um die synthetischen Effekten zu bestimmen und einmal auf jeden generierten synthetischen Datensatz. \par
+\subsection{Synth-Validation}\label{subsec:synthValidation}
+\noindent
+\emph{Alle in diesem Abschnitt beschriebenen Codebestandteile (ohne diese im  \emph{\hyperref[subsubsec:methodenauswahl]{Unterabschnitt Methodenauswahl}} haben wir nicht selber entworfen, sondern aus dem Juliacode von den Autoren in R übersetzt.} \par
+\subsubsection{Datenstrukturen}\label{subsubsec:datenstrukturen}
+
+Wir könnten für unsere Implementierung nur die einfachen Listen und Vektoren benutzen. So eine Entscheidung würde aber den Code unnötig kompliziert und unleserlich machen. Deswegen haben wir die Datenstrukturen genommen, die im Juliacode waren. Das sind nämlich die Klassen \textbf{Data}, \textbf{Counterfactuals}, \textbf{TreatmentDictionary}, \textbf{NumericTreatmentDictionary} und \textbf{Synth\_Validation\_Result}, die sich im Script \textbf{data\_structures.r} befinden.\par 
+
+\noindent
+Die Klasse \textbf{Data} enthält  eine Matrix $X$ für die Kovariaten, einen logischen Vektor $W$ für die Behandlung und einen Vektor $Y$ für die Ergebnisvaeiable. Wir benutzen die Klasse sowohl für die echten, als auch für die synthetischen Daten.\par 
+
+\noindent
+Ein Objekt aus der Klasse \textbf{Counterfactuals} ist das Ergebnis aus einem Schritt von Constrained Boosting. Es enthält die bedingten Erwartungswerten für alle Elementen aus \textbf{Data}.\par 
+
+\noindent
+\textbf{TreatmentDictionary} hat für die beiden Schlüssel \emph{behandelt} und \emph{unbehandelt} einen Vektor mit irgendwelchen Elementen. Wir benutzen es bei der Schätzung, wo die Elemente z.B. angepasste Regressionsbäume sind.\par	
+
+\noindent
+\textbf{NumericTreatmentDictionary} ist wie \textbf{TreatmentDictionary}, aber seine Elementen dürfen nur numerisch sein. Wir benutzen sie an mehreren Stellen. Ein Objekt aus dieser Klasse ist z.B. das Ergebnis von den Schätzungen der Basisfunktionen bei Constrained Boosting.\par
+
+\noindent
+Die letzte datenbezogene Klasse ist \textbf{Synth\_Validation\_Result} und sie trägt das Ergebnis von Synth-Validation. Wir haben sie selbst entwickelt. Die Klasse enthält drei Felder - der Index der ausgewählten Methode, die Schätzung dieser Methode und ein Vektor mit den Schätzungen von allen Methoden. Wir benutzen sie beim Benchmark. \par
+
+\subsubsection{Schätzung}\label{subsubsec:schätung}
+Im Skript \textbf{estimators.r} haben wir den Regressionsbaum implementiert, den wir im Juliacode gefunden habe. Er schätzt die Basisfunktionen im Constrained Boosting, wobei er die Restwerte von $y_i$ und der vorigen Schätzung nimmt. Wir setzen die minimale Anzahl von Elementen im Blatt auf fünf und die maximale Tiefe des Baums auf drei. Hier haben wir eine winzige Änderung in der Logik des Baums im Vergleich zu dieser im Juliacode - wir haben einen Sonderfall beim Aufspalten behoben, indem wir nicht aufspalten, wenn das maximale MSE null ist und alle $Y$ gleich sind.\par
+
+\subsubsection{Constrained Boosting}\label{subsubsec:constrainedBoosting}
+
+Das Constrained Gradient Boosting Algorithmus und die Cross-Validation dazu implementieren wir im Script \textbf{constrained\_boosting.r}. Grundsätzlich machen wir das, was wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten} theoretisch beschrieben haben. Im ersten Schritt finden wir die beiden Konstanten für die bedingten Erwartungswerten und berechnen die Restwerte für jedes Element. Dann fängt eine Schleife an, wobei jeder Lauf einen weiteren Schritt aus dem Constrained Boosting ist. Im jedem Lauf passen wir zuerst den Regressionbaum für die Schätzung der Basisfunktionen an. Dann erstellen wir eine Dictionaty, die als Schlüssel die einzigartigen Schätzungen des Baums hat. Die Werte für die Schlüssel sind dann die Indexen von den Elementen, die diese Schätzung haben. Wir nehmen dann diese Dictionaty und benutzen sie in unser Optimierungsproblem, indem wir den allgemeinen Verlust als die Summe von den Verlusten von alle einzigartigen Schätzungen und den Verlust von einer einzigartigen Schätzung als die Summe von den Verlusten von den Elementen mit dieser Schätzung. Für das Optimierungsproblem benutzen wir das externe Paket \textbf{NlcOptim} und finden die Ko­ef­fi­zi­enten, für die unsere Bedingung hält. Dann addieren wir die Basisfunktion mit seinen Koeffizienten zu der alten Schätzung und bekommen die neuen bedingten Erwartungswerten.\par 
+
+\noindent
+Bevor wir Constrained Boosting produktiv einsetzen, müssen wir die optimale Anzahl von Schritten bestimmen, sodass die MSE der Schätzung minimal ist. Dazu benutzen wir Cross-Validation. Wir teilen die Daten auf Training- und Testdaten. Dann führen wir Constrained Boosting auf den Trainingdaten mit der Ausnahme, dass wir für die Bedingung über den synthetischen Effekt im Optimierungsproblem alle Daten benutzen. Dann messen wir den Schätzfehler in jedem Schritt mit den Testdaten. Wir wiederholen das vier mal und wählen als Anzahl die Nummer des Schritts mit dem kleinsten durchschnittlichen Testfehler für diese vier Läufe.\par  
+
+\subsubsection{Methodenauswahl}\label{subsubsec:methodenauswahl}
+Die Methodenauswahl findet in der Methode \emph{pick\_best\_method} im Skript \textbf{synth-validation.r} statt. Wir haben sie selber implementiert. Sie nimmt als Argumenten die synthetischen Datensätze und die synthetischen Effekte. Dann führt sie die Methoden für kausale Inferenz auf den Daten aus, bemesst ihren durchschnittlichen Fehler als absoluten Abstand der Schätzung von dem synthetischen Effekt und wählt die Methode mit dem kleinsten Fehler aus.\par 
   	\subsection{Benchmark von Synth-Validation}\label{subsec:benchmarkSynthValidation}
-  	\subsection{Erstellung von Abbildungen}\label{subsec:erstellungAbbildungen}
-  	\subsection{Experimenten}\label{subsec:experimenten}
-  	\subsection{Anderer Code}\label{subsec:andererCode}
+Durch den Benchmark prüfen wir, wie die Schätzungen von Synth-Validation im Vergleich zu den Schätzungen von den anderen Methoden verhalten. Das Maß, die wir nutzen, ist der absolute Fehler von dem echten durchschnittlichen Behandlungseffekt. Aus diesem Grund müssen wir ihn vorher kennen. Wir führen also mehrmals ($n>30$) die Synth-Validation mit gleichen Daten und gleichen Paramerter aus und vergleichen ihren durchschnittlichen Fehler mit den durchschnittlichen Fehlern der Methoden. Noch beobachten wir nebeneinander, wie oft eine Methode die Orakel-Schätzung (die beste Schätzung unter allen Methoden) hat und wie oft sie von Synth-Validation ausgewählt wird. Die Orakel-Schätzung kann für einen bestimmten Datensatz unterschiedlich sein, da wir bei jedem Lauf von Synth-Validation immer eine neue Stichprobe aus diesem gleichen, viel größeren Datensatz (unsere Grundgesamtheit) ziehen. Wir beobachten noch, wie erfolgreich Synth-Validation auswählt. Das machen wir im Sinne davon, wie oft die Schätzung von Synth-Validation mit der besten Schätzung (Orakel-Schätzung), mit der zweitbesten usw übereinstimmt. Diese Analysen führen wir auf unterschiedlichen Ebenen - für einen bestimmten Datensatz, für alle Datensätze aus einer Art und für insgesamt alle Datensätze.\par 
+
+\noindent
+Im Skript \textbf{synth\_validation\_benchmark.r} haben wir die Struktur von dem Benchmark aufgebaut - wir rufen Funktionen aus anderen Skripten, die die Arbeit erledigen. Da berechnen wir natürlich den absoluten Fehler der Schätzungen aus einem Lauf und leiten ihn zum Speichen und zum Erstellen von Abbildungen weiter. Im Skript \textbf{benchmark\_analysis.r} machen wir die Berechnungen für die im oberen Paragraf beschriebenen Analysen. \par 
+
+\subsection{Erstellung von Abbildungen}\label{subsec:erstellungAbbildungen}
+
+Wir nehmen die Daten aus den Skripten \textbf{benchmark\_analysis.r} und \textbf{synth\_\\validation\_benchmark.r} und erstellen damit im Skript \textbf{plots.r} Abbildungen für unsere Analyse. Es gibt drei Arten, die wir generieren - ein Boxplot, der den Schätzfehler von Synth-Validation und allen Methoden zeigt, ein Balkendiagramm, der die Häufigkeit von der Auswahl jeder Methode aus dem Orakel und aus Synth-Validation zeigt und eine Tabelle, die die kumulative Erfolgsrate von Synth-Validation zeigt. Dazu benutzen wir keine externen Pakete, sondern nur die Standardfunktionen in R. Man kann die drei Abbildungsarten im \refsec{sec:ergebnisseEvaluation} oder im \emph{\hyperref[anhang]{Anhang}} anschauen. 
+
+
+\subsection{Experimenten}\label{subsec:experimenten}
+In unserer Evaluation wollen wir unterschiedliche Szenarien testen - wie stellt sich Synth-Validation mit unterschiedlichen Daten, mit einer unterschiedlichen Größe der gezogenen Stichprobe und mit einer unterschiedlichen Anzahl von der maximalen Schritten bei Constrained Boosting vor. Die sechs Skripte der Experimente \textbf{experiments*.r} enthalten ausschließlich Aufrufe von der Funktion \emph{benchmark} aus dem Skript \textbf{synth\_validation\_benchmark.r} mit unterschiedlichen Konfigurationsargumenten. Wir stellen die Ergebnisse aus den Experimenten im \refsec{sec:ergebnisseEvaluation} dar.\par
+
+\subsection{Unittests}\label{subsec:unitTests}
+Wir haben Unittests für die Funktionen aus den Skripten von Synth-Validation geschrieben. Dafür haben wir das externe Paket \textbf{testthat} benutzt. Die Unittest haben keinen besonders großen Nutzen gebracht, aber ihre Entwicklung und vor allem Wartung kosteten Zeit. Und da wir mit unserer Arbeit Effizienz anstreben und die Zeit knapp war, haben wir für den Rest der Implementierung nur manuell getestet.\par 
+      	  	
+\subsection{Anderer Code}\label{subsec:andererCode}
+Wir haben das Skript \textbf{install\_required\_packages.r} geschrieben, das in jedem Experiment als erstes gerufen wird. Er prüft, ob die notwendigen externen Paketen installiert sind und wenn nicht, installiert sie. Im Skript \textbf{utilities.r} haben wir einige allgemein nützliche Funktionen implementiert, die wir an vielen Stellen in der Implementierung nutzen. Eine davon ist z.B. \emph{assert\_integer}.   
+
 \clearpage
 
 \section{Ergebnisse und Evaluation}\label{sec:ergebnisseEvaluation}
@@ -970,6 +1073,7 @@ Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische D
 \begin{interlude}
   
   \begin{appendices}
+  \label{anhang}
    
   \end{appendices}
   \clearpage

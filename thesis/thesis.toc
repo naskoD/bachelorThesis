@@ -25,24 +25,25 @@
 \contentsline {subsubsection}{\numberline {3.1.2}Sch\IeC {\"a}tzung von bedingten Erwartungswerten}{26}{subsubsection.3.1.2}
 \contentsline {subsection}{\numberline {3.2}Methodenauswahl}{27}{subsection.3.2}
 \contentsline {section}{\numberline {4}Implementierung}{28}{section.4}
-\contentsline {subsection}{\numberline {4.1}Fremde Bibliotheken}{28}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Lesen/Schreiben von Daten}{28}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Ziehen von Stichproben}{28}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Methoden f\IeC {\"u}r kausale Inferenz}{28}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Synth-Validation}{28}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Datenstrukturen}{28}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}Sch\IeC {\"a}tzung}{28}{subsubsection.4.5.2}
-\contentsline {subsubsection}{\numberline {4.5.3}Constrained Boosting}{28}{subsubsection.4.5.3}
-\contentsline {subsubsection}{\numberline {4.5.4}Methodenauswahl}{28}{subsubsection.4.5.4}
-\contentsline {subsection}{\numberline {4.6}Benchmark von Synth-Validation}{28}{subsection.4.6}
-\contentsline {subsection}{\numberline {4.7}Erstellung von Abbildungen}{28}{subsection.4.7}
-\contentsline {subsection}{\numberline {4.8}Experimenten}{28}{subsection.4.8}
-\contentsline {subsection}{\numberline {4.9}Anderer Code}{28}{subsection.4.9}
-\contentsline {section}{\numberline {5}Ergebnisse und Evaluation}{29}{section.5}
-\contentsline {subsection}{\numberline {5.1}Methodik und Daten}{29}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}TODO}{29}{subsection.5.2}
-\contentsline {section}{\numberline {6}Schlussfolgerung}{30}{section.6}
-\contentsline {subsection}{\numberline {6.1}Zusammenfassung}{30}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Diskussion}{30}{subsection.6.2}
-\contentsline {section}{Anhang}{31}{section*.6}
-\contentsline {section}{Literatur}{32}{section*.6}
+\contentsline {subsection}{\numberline {4.1}Externe Paketen}{28}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Lesen/Schreiben von Daten}{29}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Ziehen von Stichproben}{30}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Methoden f\IeC {\"u}r kausale Inferenz}{31}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Synth-Validation}{31}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Datenstrukturen}{31}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Sch\IeC {\"a}tzung}{32}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}Constrained Boosting}{32}{subsubsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.4}Methodenauswahl}{33}{subsubsection.4.5.4}
+\contentsline {subsection}{\numberline {4.6}Benchmark von Synth-Validation}{33}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}Erstellung von Abbildungen}{33}{subsection.4.7}
+\contentsline {subsection}{\numberline {4.8}Experimenten}{34}{subsection.4.8}
+\contentsline {subsection}{\numberline {4.9}Unittests}{34}{subsection.4.9}
+\contentsline {subsection}{\numberline {4.10}Anderer Code}{34}{subsection.4.10}
+\contentsline {section}{\numberline {5}Ergebnisse und Evaluation}{35}{section.5}
+\contentsline {subsection}{\numberline {5.1}Methodik und Daten}{35}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}TODO}{35}{subsection.5.2}
+\contentsline {section}{\numberline {6}Schlussfolgerung}{36}{section.6}
+\contentsline {subsection}{\numberline {6.1}Zusammenfassung}{36}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Diskussion}{36}{subsection.6.2}
+\contentsline {section}{Anhang}{37}{section*.6}
+\contentsline {section}{Literatur}{38}{section*.6}

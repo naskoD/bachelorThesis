@@ -1,7 +1,7 @@
 ## Install required packages =============================================================
 
 #install cran packages
-packages = c("tictoc","assertthat","psych","collections","MASS","NlcOptim","mltools","data.table","devtools","grf","gridExtra")
+packages = c("tictoc","assertthat","psych","collections","MASS","NlcOptim","mltools","data.table","devtools","grf","gridExtra","testthat")
 packagecheck <- match( packages, utils::installed.packages()[,1] )
 
 packagestoinstall <- packages[ is.na( packagecheck ) ]
