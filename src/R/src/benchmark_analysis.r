@@ -27,10 +27,10 @@ get_sv_success_rate<-function(b_data){
   cum_succ <- cumsum(succ)
   succ_rate<-round(cum_succ/length(b_data[,1])*100,digits = 2)
   
-  df<-data.frame("Nth best method" = 1:length(succ),
-                 "Times picked"=succ,
-                 "Cumulated picks"=cum_succ,
-                 "Cumulative success rate"=paste(succ_rate,"%",sep = ""),
+  df<-data.frame("N-te beste Sch\344tzung" = 1:length(succ),
+                 "# ausgew\344hlt"=succ,
+                 "# ausgew\344hlt (kumuliert)"=cum_succ,
+                 "Kumulierte Erfolgsrate"=paste(succ_rate,"%",sep = ""),
                  check.names = FALSE)
   
   return (df)
