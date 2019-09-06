@@ -41,6 +41,3 @@ Thumbs.db
 .RData
 .Rhistory
 *Rout
-
-# Ignoring benchmark data for now
-**/benchmark_data
