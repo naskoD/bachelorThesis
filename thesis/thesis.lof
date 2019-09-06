@@ -4,3 +4,15 @@
 \select@language {ngerman}
 \contentsline {figure}{\numberline {1}{\ignorespaces Einfluss von Confounder auf Behandlung und Ergebnis}}{3}{figure.caption.1}
 \contentsline {figure}{\numberline {2}{\ignorespaces Synth-Validation}}{23}{figure.caption.5}
+\contentsline {figure}{\numberline {3}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r alle Daten}}{37}{figure.caption.6}
+\contentsline {figure}{\numberline {4}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r alle Daten}}{39}{figure.caption.7}
+\contentsline {figure}{\numberline {5}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r alle Daten}}{40}{figure.caption.8}
+\contentsline {figure}{\numberline {6}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r Rohdaten}}{41}{figure.caption.9}
+\contentsline {figure}{\numberline {7}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r Rohdaten}}{42}{figure.caption.10}
+\contentsline {figure}{\numberline {8}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r Rohdaten}}{42}{figure.caption.11}
+\contentsline {figure}{\numberline {9}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r synthetisch generiete Daten}}{43}{figure.caption.12}
+\contentsline {figure}{\numberline {10}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r synthetisch generiete Daten}}{44}{figure.caption.13}
+\contentsline {figure}{\numberline {11}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r synthetisch generiete Daten}}{45}{figure.caption.14}
+\contentsline {figure}{\numberline {12}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{46}{figure.caption.15}
+\contentsline {figure}{\numberline {13}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{47}{figure.caption.16}
+\contentsline {figure}{\numberline {14}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{47}{figure.caption.17}

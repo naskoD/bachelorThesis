@@ -277,7 +277,7 @@
 \begin{abstract}
   \centerline{\bf Abstract}
   \vspace*{1cm}
- Diese Bachelorarbeit beschäftigt sich mit dem Vergleich von Methoden für kausale Inferenz und mit der automatischen Auswahl von dem besten von denen abhängig von dem vorhandenen Datensatz. Dazu benutzen und erweitern wir Synth-Validation - ein Verfahren, mit dem von den echten Daten synthetische Daten mit einem gewünschtem durchschnittlichen Behandlungseffekt erstellt und dann ausgewertet werden. Dabei haben die Datensätze, auf denen wir unsere Experimente durchführen, unterschiedliche Natur - echten Rohdaten mit größeren oder kleineren Zahl von Kovariaten, von Rohdaten synthetisch generierten Daten und zufällig generierten Daten. Die kausale Inferenz Verfahren, von denen Synth-Validation auswählt, benutzen ausschließlich Algorithmen aus dem maschinellem Lernen. Es wird die Fähigkeit von Synth-Validation gemessen, den Verfahren zu wählen, der die nächste Schätzung von dem durchschnittlichen Behandlungseffekt hat. Das wird unter unterschiedlichen Konstellationen unterstellt - nach der Art der Daten, nach der Anzahl der Elementen in der Stichprobe usw.          
+ Diese Bachelorarbeit beschäftigt sich mit dem Vergleich von Methoden für kausale Inferenz und mit der automatischen Auswahl von dem besten von denen abhängig von dem vorhandenen Datensatz. Dazu benutzen und erweitern wir Synth-Validation - ein Verfahren, mit dem von den echten Daten synthetische Daten mit einem gewünschtem durchschnittlichen Behandlungseffekt erstellt und dann ausgewertet werden. Dabei haben die Datensätze, auf denen wir unsere Experimente durchführen, unterschiedliche Natur - echte Rohdaten, synthetisch generierte Daten aus Rohdaten und zufällig generierte Daten. Die Verfahren für kausale Inferenz, von denen Synth-Validation auswählt, benutzen ausschließlich Algorithmen aus dem maschinellem Lernen. Es wird die Fähigkeit von Synth-Validation gemessen, den Verfahren zu wählen, der die beste Schätzung von dem durchschnittlichen Behandlungseffekt hat. Das wird unter unterschiedlichen Konstellationen unterstellt - nach der Art der Daten, nach der Anzahl der Elementen in der Stichprobe usw.          
 \end{abstract}
 
 \vfill\vfill\vfill
@@ -302,15 +302,14 @@
 \pagenumbering{arabic}
 
 %main content starts here
-\nocite{*} %TODO remove when all references ready 
 \section{Einführung}\label{sec:einführung}
-Um die Welt besser zu verstehen, haben die Menschen immer die Antwort auf der folgenden Frage gesucht: Was passiert, wenn eine bestimmte Tat oder Handlung durchgeführt wird? Manche Handlungen kann man als \enquote{einfach} qualifizieren und bei denen ist diese Antwort leicht zu erreichen. Wenn man einen Apfel nach oben wirft, fällt er wieder nach unten. Es kostet (fast) nichts, diese Tatsache zu prüfen. Fast jeder kann dieses Ergebnis vorhersagen, weil man irgendwann mal ein fallendes Objekt beobachtet hat, unabhängig davon, ob man weiß, warum die Objekte fallen. Handlungen können aber deutlich komplexer sein wie z.B. Einnahme einer neuen Steuerpolitik oder die medizinische Behandlung mit einem Medikamenten. Diese Handlungen sind schwerer durchzuführen, sind von mehreren Faktoren oder Naturgesetzen betroffen, sind \enquote{abhängiger}. Auf Basis früherer Erfahrung im Bereich können Experten Rahmen davon setzen, was passieren wird. Sicher kann man nur dann sein, wenn die Handlung durchführt ist und man beobachtet und bemesst, was passiert hat. Die letzte Schlussfolgerung gilt sowohl für die \enquote{einfacheren}, als auch für die \enquote{komplexeren} Handlungen. Also um eine sichere Kenntnis zu erschaffen, brauchen wir Erfahrung - in dem Fall mit dem Apfel entweder werfen wir den alleine oder beobachten wir jemanden, der das macht oder der das irgendwann mal gemacht hat. Bei den \enquote{komplexeren} Handlungen ist meistens die Antwort auf der Frage \enquote{Was?}  nicht ausreichend - man braucht \enquote{Wie viel?}. Das führt uns langsam zu dem Sachverhalt der kausalen Inferenz.      
+Um die Welt besser zu verstehen, haben die Menschen immer die Antwort auf die folgenden Frage gesucht: Was passiert, wenn eine bestimmte Tat oder Handlung durchgeführt wird? Manche Handlungen kann man als \enquote{einfach} qualifizieren und bei denen ist diese Antwort leicht zu erreichen. Wenn man einen Apfel nach oben wirft, fällt er wieder nach unten. Es kostet (fast) nichts, diese Tatsache zu prüfen. Fast jeder kann dieses Ergebnis vorhersagen, weil man irgendwann mal ein fallendes Objekt beobachtet hat, unabhängig davon, ob man weiß, warum die Objekte fallen. Handlungen können aber deutlich komplexer sein wie z.B. die Einnahme einer neuen Steuerpolitik oder die medizinische Behandlung mit einem Medikamenten. Diese Handlungen sind schwerer durchzuführen, sind von mehreren Faktoren oder Naturgesetzen betroffen, sind \enquote{abhängiger}. Auf Basis früherer Erfahrung im Bereich können Experten Rahmen davon setzen, was passieren wird. Sicher kann man nur dann sein, wenn die Handlung durchführt ist und man beobachtet und bemisst, was passiert ist. Die letzte Schlussfolgerung gilt sowohl für die \enquote{einfacheren}, als auch für die \enquote{komplexeren} Handlungen. Also um eine sichere Kenntnis zu erschaffen, brauchen wir Erfahrung - in dem Fall mit dem Apfel entweder werfen wir den alleine oder beobachten wir jemanden, der das macht oder der das irgendwann mal gemacht hat. Bei den \enquote{komplexeren} Handlungen ist meistens die Antwort auf der Frage \enquote{Was?}  nicht ausreichend - man braucht \enquote{Wie viel?}. Das führt uns langsam zu dem Sachverhalt der kausalen Inferenz.      
   	\subsection{Kausale Inferenz}\label{subsec:kausalität}
-  	Wenn wir über die Kausalität in ihrem wissenschaftlichen Sinn sprechen, muss es klar sein, dass \enquote{\textbf{\textit{A}} verursacht \textbf{\textit{B}}} nicht bedeutet, dass \textbf{\textit{A}} der Hauptgrund ist, warum \textbf{\textit{B}} passiert hat. Es bedeutet, dass \textbf{\textit{A}} den Unterschied oder die Differenz gemacht hat, die zu \textbf{\textit{B}} geführt haben. Es existieren möglicherweise noch weitere Gründe z.B. \textbf{\textit{C}} und \textbf{\textit{D}}, ohne deren Existenz und ohne deren verursachten Differenz \textbf{\textit{B}} nicht möglich war oder nicht den Wert halten würde, den es hält. \textbf{\textit{A}} soll man nicht als eine Zuschreibung von \textbf{\textit{B}} anschauen, sondern als einen Beitrag\cite{MacHum}.  Dabei sollen wir unter \textbf{kausale Inferenz} ähnlich wie bei der statistischen Inferenz den Prozess und die Methodiken zum Finden von Kenntnissen über die Kausalität von irgendeiner Handlung, insbesondere das Finden von der Differenz, die sie verursacht.\par
+  	Wenn wir über die Kausalität in ihrem wissenschaftlichen Sinn sprechen, muss es klar sein, dass \enquote{\textbf{\textit{A}} verursacht \textbf{\textit{B}}} nicht bedeutet, dass \textbf{\textit{A}} der Hauptgrund ist, warum \textbf{\textit{B}} passiert ist. Es bedeutet, dass \textbf{\textit{A}} den Unterschied oder die Differenz gemacht hat, die zu \textbf{\textit{B}} geführt haben. Es existieren möglicherweise noch weitere Gründe z.B. \textbf{\textit{C}} und \textbf{\textit{D}}, ohne deren Existenz und ohne deren verursachten Differenz \textbf{\textit{B}} nicht möglich wäre oder nicht den Wert halten würde, den es hält. \textbf{\textit{A}} soll man nicht als eine Zuschreibung von \textbf{\textit{B}} anschauen, sondern als einen Beitrag\cite{MacHum}.  Dabei sollen wir unter \textbf{kausale Inferenz} ähnlich wie bei der statistischen Inferenz den Prozess und die Methodiken zum Finden von Kenntnissen über die Kausalität von irgendeiner Handlung, insbesondere das Finden von der Differenz, die sie verursacht.\par
   	
 
 \noindent	
-Die kausale Inferenz hat aber ein fundamentales Problem. Wenn wir den Effekt von einer Handlung wissen wollen, führen wir diese Handlung aus und bemessen den Wert von irgendeine Variable, die uns interessiert. Der echte Effekt ist aber die Differenz zwischen dieser Variable bedingt, dass wir die Handlung durchgeführt haben und die gleiche Variable, bedingt, dass wir die Handlung nicht durchgeführt haben\cite{holland1986statistics}. Natürlich ist nur eine der beiden Optionen direkt beobachtbar. Formal kann man es so dargestellt: \par
+Die kausale Inferenz hat aber ein fundamentales Problem. Wenn wir den Effekt von einer Handlung wissen wollen, führen wir diese Handlung aus und bemessen den Wert von irgendeiner Variable, die uns interessiert. Der echte Effekt ist aber die Differenz zwischen dieser Variable, bedingt, dass wir die Handlung durchgeführt haben, und der gleichen Variable, bedingt, dass wir die Handlung nicht durchgeführt haben\cite{holland1986statistics}. Natürlich ist nur eine der beiden Optionen direkt beobachtbar. Formal kann man es so darstellen: \par
   	
 \begin{equation}
   TE = (Y|W = 1) - (Y|W = 0)
@@ -320,27 +319,27 @@ Die kausale Inferenz hat aber ein fundamentales Problem. Wenn wir den Effekt von
 Hier bezeichnet \textbf{\textit{TE}} das Behandlungseffekt, \textbf{\textit{Y}} ist die beobachtete Variable und \textbf{\textit{W}} ist eine binäre Variable, die bezeichnet, ob die Handlung durchgeführt wurde oder nicht.\par
 
 \noindent	  	
-Obwohl wir den Behandlungseffekt von einer Handlung individuell nicht beobachten können, können wir schätzen, wie hoch durchschnittlich diesen Effekt ist, wenn wir die Handlung auf mehreren Objekten durchführen beziehungsweise auch auf mehreren nicht durchführen und die Differenz zwischen diesen beiden Ergebnissen als \textbf{durchschnittliches Behandlungseffekt} oder auf Englisch \textbf{average treatment effekt(ATE)} bezeichnen. Meistens können wir die Behandlung nicht auf allen (oder eigentlich auf der Hälfte von allen) Objekten durchführen, sondern müssen wir eine Stichprobe ziehen.  Formal stellen wir das so dar: \par
+Obwohl wir den Behandlungseffekt von einer Handlung individuell nicht beobachten können, können wir schätzen, wie hoch durchschnittlich dieser Effekt ist, wenn wir die Handlung auf mehrere Objekten durchführen beziehungsweise auch auf mehrere nicht durchführen und die Differenz zwischen diesen beiden Ergebnissen als \textbf{durchschnittlichen Behandlungseffekt} oder auf Englisch \textbf{average treatment effekt(ATE)} bezeichnen. Meistens können wir die Behandlung nicht auf allen (oder eigentlich auf der Hälfte von allen) Objekten durchführen, sondern müssen wir eine Stichprobe ziehen.  Formal stellen wir das so dar: \par
 
 \begin{equation}\label{eq:1.2}
   \tau = E_Y[Y|W = 1] - E_Y[Y|W = 0]
 \end{equation}
 
 \noindent
-In dieser Modelldarstellung sind $W$ und $Y$ Zufallsvariablen. $W$ ist binär, wo \textbf{1} für eine Behandlung und \textbf{0} für keine Behandlung steht. $Y$ ist die Zufallsvariable von einem gewünschten Wert nach der potenziellen Behandlung. $E_Y$ steht für den Erwartungswert von \textbf{Y}. Schon in dieser Darstellung treffen wir allen Problemen, die man sonst in der statistischen Inferenz trifft - damit unsere Schätzung über die Stichprobe näher zu der echten ATE der Gesamtpopulation liegt, müssen bestimmte Regeln eingehalten werden.\par
+In dieser Modelldarstellung sind $W$ und $Y$ Zufallsvariablen. $W$ ist binär, wo \textbf{1} für eine Behandlung und \textbf{0} für keine Behandlung steht. $Y$ ist die Zufallsvariable von einem gewünschten Wert nach der potenziellen Behandlung. $E_Y$ steht für den Erwartungswert von \textbf{Y}. Schon in dieser Darstellung treffen wir alle Probleme, die man sonst in der statistischen Inferenz trifft - damit unsere Schätzung über die Stichprobe näher zu der echten ATE der Gesamtpopulation liegt, müssen bestimmte Regeln eingehalten werden.\par
 
 \noindent
-\refeq{eq:1.2} ist immer noch kein gutes Model der Wirklichkeit, weil es oft der Fall ist, dass die Objekten, die wir behandeln, sich durch einigen Merkmalen unterscheiden. Diese andere Differenzen können Einfluss auf $Y$ sowohl bedingt $W$, als auch unbedingt $W$ haben und diese Tatsache soll in der Gleichung einbezogen werden:\par
+\refeq{eq:1.2} ist immer noch kein gutes Modell der Wirklichkeit, weil es oft der Fall ist, dass die Objekte, die wir behandeln, sich durch einige Merkmale unterscheiden. Diese andere Differenzen können Einfluss auf $Y$ sowohl bedingt $W$, als auch unbedingt $W$ haben und diese Tatsache soll in der Gleichung einbezogen werden:\par
 
 \begin{equation}\label{eq:1.3}
   \tau = E_{Y,X}[Y|X,W = 1] - E_{Y,X}[Y|X,W = 0]
 \end{equation}       	
 
 \noindent 
-$X$ ist eine Zufallsvariable für die so genannten \textbf{Kovariaten}. $X$ ist mehrdimensional und stellt den Zustand, in dem sich ein Objekt oder allgemeiner gesagt eine Welt befindet. Die Kovariaten sollen nicht, aber können einen Einfluss auf das Ergebnis $Y$ haben. Diejenigen mit Einfluss nennen wir \textbf{Confounders} oder \textbf{confounding Variablen}. Auf Deutsch kann man den Begriff am nächsten mit dem Wort Verwirrungsvariablen übersetzen. Die Existenz von Confounders erschwert unsere Aufgabe, den Effekt zu finden, den die Behandlung verursacht.\cite{vanderweele2013definition}. \par
+$X$ ist eine Zufallsvariable für die so genannten \textbf{Kovariaten}. $X$ ist mehrdimensional und stellt den Zustand dar, in dem sich ein Objekt oder allgemeiner gesagt eine Welt befindet. Die Kovariaten sollen nicht, aber können einen Einfluss auf das Ergebnis $Y$ haben. Diejenige mit Einfluss nennen wir \textbf{Confounders} oder \textbf{confounding Variablen}. Auf Deutsch kann man den Begriff am nächsten mit dem Wort Verwirrungsvariablen übersetzen. Die Existenz von Confounders erschwert unsere Aufgabe, den Effekt zu finden, den die Behandlung verursacht.\cite{vanderweele2013definition}. \par
 
 \noindent
-In der Tat können Confounders auch indirekten Einfluss auf die Behandlung haben. Beispiel: Sei $X$ das Alter sein, $W$ - ob man raucht oder nicht und $Y$ - eine Gesundheitsmaß. Es ist klar, dass das Alter an sich einen Effekt auf der Gesundheit hat. Die empirische Daten zeigen aber auch, dass das Rauchen unter älteren Menschen verbreiteter ist als unter jüngeren, d.h das Alter bewirkt sowohl das Rauchen, als auch die Gesundheit, die an sich vom Rauchen bewirkt wird. Diese Abhängigkeiten werden in \reffig{fig:confounder} veranschaulicht.\par   	
+In der Tat können Confounders auch indirekten Einfluss auf die Behandlung haben. Beispiel: Sei $X$ das Alter, $W$ - ob man raucht oder nicht und $Y$ - ein Gesundheitsmaß. Es ist klar, dass das Alter an sich einen Effekt auf die Gesundheit hat. Die empirischen Daten zeigen aber auch, dass das Rauchen unter älteren Menschen verbreiteter ist als unter jüngeren, d.h das Alter bewirkt sowohl das Rauchen, als auch die Gesundheit, die an sich vom Rauchen bewirkt wird. Diese Abhängigkeiten werden in \reffig{fig:confounder} veranschaulicht.\par   	
 \begin{center}
   \vspace{6mm}
   \begin{figure}[h]
@@ -351,19 +350,19 @@ In der Tat können Confounders auch indirekten Einfluss auf die Behandlung haben
 \end{center}
 
 \noindent
-Wir schließen diesen Abschnitt mit der Gedanke von dem Philosophen David Lewis über die Kausalität, der sie folgendermaßen beschreibt: \enquote{etwas, was einen Unterschied verursacht und der Unterschied, den dieses etwas verursacht, soll der Unterschied  davon sein, was ohne dieses etwas passieren würde} \cite{lewis1974causation}.\par
+Wir schließen diesen Abschnitt mit dem Gedanken von dem Philosophen David Lewis über die Kausalität, der sie folgendermaßen beschreibt: \enquote{etwas, was einen Unterschied verursacht und der Unterschied, den dieses etwas verursacht, soll der Unterschied  davon sein, was ohne dieses etwas passieren würde} \cite{lewis1974causation}.\par
 
 \subsection{Motivation}\label{subsec:motivation}
-Es ist wichtig zu wissen, was genau eine Handlung verursacht oder welche Differenz sie macht. Mit diesen Kenntnissen können wir besser die passenden Handlungen und deren genauen Maßen zum Erreichen unseres Ziels einschätzen und dann auswählen. Diese Behauptungen sind allgemeingültig und wir betrachten konkret drei Beispiele von unterschiedlichen Bereichen, wo das Kennen von dem durchschnittlichen Behandlungseffekt von großer Bedeutung ist.\par
+Es ist wichtig zu wissen, was genau eine Handlung verursacht oder welche Differenz sie ausmacht. Mit diesen Kenntnissen können wir besser die passenden Handlungen und deren genauen Maße zum Erreichen unseres Ziels einschätzen und dann auswählen. Diese Behauptungen sind allgemeingültig und wir betrachten konkret drei Beispiele von unterschiedlichen Bereichen, wo das Kennen von dem durchschnittlichen Behandlungseffekt von großer Bedeutung ist.\par
 
 \noindent
-\textbf{Beispiel 1}\phantomsection\label{motivationBeispiel1} In der Pharmazie spielt die Kausalität eine besonders große Rolle. Wenn man einen Medikamenten entwickelt, soll man ganz genau wissen, welchen durchschnittlichen Effekt dieses Medikament auf unterschiedenen variablen körperlichen Werten hat - sowohl für wohltuende, als auch für schädliche Effekte. Hier ist das Nutzen, das die kausale Inferenz bringt, die Gesundheit der Menschen.\par
+\textbf{Beispiel 1}\phantomsection\label{motivationBeispiel1} In der Pharmazie spielt die Kausalität eine besonders große Rolle. Wenn man ein Medikament entwickelt, soll man ganz genau wissen, welchen durchschnittlichen Effekt dieses Medikament auf unterschiedene variable körperliche Werte hat - sowohl für wohltuende, als auch für schädliche Effekte. Hier ist das Nutzen, das die kausale Inferenz bringt, die Gesundheit der Menschen.\par
 
 \noindent
-\textbf{Beispiel 2}\phantomsection\label{motivationBeispiel2} Weitere Bedeutung hat die kausale Inferenz im Marketing und in der Bewertung von Werbungen. Eine Werbung kann eine Kette von unterschiedlichen Zielen haben, aber am Ende steht die Erhöhung von tatsächlichen Einkäufen von dem geworbenen Produkt oder Dienstleistung. Natürlich ist die Werbung nicht der einzige Treiber des Umsatzes. Also man muss nur den Effekt der Werbung einschätzen. Dann abhängig von diesem durchschnittlichen Effekt und dem Preis der Werbung stellt man fest, ob eine Werbung Nutzen bringt bzw. welche Werbung am nützlichsten ist.\par
+\textbf{Beispiel 2}\phantomsection\label{motivationBeispiel2} Weitere Bedeutung hat die kausale Inferenz im Marketing und in der Bewertung von Werbungen. Eine Werbung kann eine Kette von unterschiedlichen Zielen haben, aber am Ende steht die Erhöhung von tatsächlichen Einkäufen von dem geworbenen Produkt oder Dienstleistung. Natürlich ist die Werbung nicht der einzige Treiber des Umsatzes. Also muss man nur den Effekt der Werbung einschätzen. Dann stellt man abhängig von diesem durchschnittlichen Effekt und dem Preis der Werbung fest, ob eine Werbung Nutzen bringt bzw. welche Werbung am nützlichsten ist.\par
 
 \noindent
-\textbf{Beispiel 3}\phantomsection\label{motivationBeispiel3} Die kausale Inferenz ist bedeutend für die Auswahl vom eigenen Verhalten sein. Zum Beispiel kann man den Einfluss vom regelmäßigen Rauchen von Rauschgift auf die mentalen Fähigkeiten untersuchen. Wenn man diesen durchschnittlichen Effekt kennt, sollte es wahrscheinlicher sein, dass man auf diese schlechte Sucht verzichtet oder am besten gar nicht damit anfängt. Diese deutliche wissenschaftliche Daten können durch den Gesetzgeber als Rechtfertigung für einen Verbot von diesem Stoff benutzt werden.\par
+\textbf{Beispiel 3}\phantomsection\label{motivationBeispiel3} Die kausale Inferenz ist bedeutend für die Auswahl vom eigenen Verhalten sein. Zum Beispiel kann man den Einfluss vom regelmäßigen Rauchen von Rauschgift auf die mentalen Fähigkeiten untersuchen. Wenn man diesen durchschnittlichen Effekt kennt, sollte es wahrscheinlicher sein, dass man auf diese schlechte Sucht verzichtet oder am besten gar nicht damit anfängt. Diese deutlichen wissenschaftlichen Daten können durch den Gesetzgeber als Rechtfertigung für einen Verbot von diesem Stoff benutzt werden.\par
 \subsection{Finden von ATE}\label{subsec:findenATE}
 \noindent
 \textit{Wir gehen davon aus, dass unser Problem schon klar definiert ist: Welchen durchschnittlichen Effekt(ATE) verursacht eine Behandlung? In diesem Abschnitt erläutern wir, wie man genau mit diesem Problem in den unterschiedlichen Situationen umgeht.}\par
@@ -381,15 +380,15 @@ Dazu gibt es zwei Vorgehensweisen, die sich durch die Art von Datensammlung unte
 
 \subsubsection{Experimentdurchführung}\label{subsubsec:experimentdurchführung}
 
-Es gilt, dass der durch Daten von Experimenten geschätzte Behandlungseffekt weniger Bias hat und deswegen näher zu dem echten durchschnittlichen Effekt der Population  liegt. Der Grund dafür ist, dass die Objekten für die beiden Gruppen zufällig ausgewählt sind und somit wie die Population verteilt sind.\cite{rubin1974estimating} Man soll immer diese Art von Datensammlung für kausale Inferenz wählen, wenn sie möglich ist. Von den im \refsec{subsec:motivation} erwähnten Beispielen ist es bei Beispielen 1 und 2 möglich. 
+Es gilt, dass der durch Daten von Experimenten geschätzte Behandlungseffekt weniger Bias hat und deswegen näher zu dem echten durchschnittlichen Effekt der Population  liegt. Der Grund dafür ist, dass die Objekten für die beiden Gruppen zufällig ausgewählt sind und somit wie die Population verteilt sind\cite{rubin1974estimating}. Man soll immer diese Art von Datensammlung für kausale Inferenz wählen, wenn sie möglich ist. Von den im \refsec{subsec:motivation} erwähnten Beispielen ist eine Experimentdurchführung bei Beispielen 1 und 2 möglich. 
 
 \clearpage
 \noindent
-Das Experiment läuft folgendermaßen durch: zwei Gruppen von Objekten  werden gebildet. Die erste Gruppe heißt Behandlungsgruppe und die zweite  - Kontrollgruppe. Die Objekten von der ersten Gruppe werden mit irgendetwas z.B. einem Medikamenten behandelt, diese in der zweite jedoch nicht. Alle anderen Konditionen, auf die die Objekten in der Kontrollgruppe unterlegt sind, sollen sich nicht unterscheiden. Natürlich bleiben aber die einzelnen Objekten unterschiedlich, was zu unterschiedlichen Ergebnissen bei den individuell gemessenen Werten  führt. Uns interessiert aber der durchschnittliche Wert von jeder Gruppe. Deswegen muss sichergestellt werden, dass die Objekte in jeder Gruppe gleichmäßig verteilt sind. Es gibt unterschiedliche Strategien das zu erreichen. Eine der besten, wenn sie richtig durchgeführt wird, ist die zufällige Auswahl von Objekten aus der Population für jede Gruppe. Am Ende wird für jedes Objekt der Wert von Bedeutung gemessen. Die Mittelwerten von diesen Werten werden für jede Gruppe berechnet und die Differenz dazwischen ist der erwartete durchschnittliche Behandlungseffekt.  
+Das Experiment läuft folgendermaßen durch: zwei Gruppen von Objekten  werden gebildet. Die erste Gruppe heißt Behandlungsgruppe und die zweite  - Kontrollgruppe. Die Objekten von der ersten Gruppe werden mit irgendetwas z.B. einem Medikamenten behandelt, diese in der zweiten jedoch nicht. Alle anderen Konditionen, auf die die Objekten in der Kontrollgruppe unterlegt sind, sollen sich nicht unterscheiden. Natürlich bleiben aber die einzelnen Objekte unterschiedlich, was zu unterschiedlichen Ergebnissen bei den individuell gemessenen Werten  führt. Uns interessiert aber der durchschnittliche Wert von jeder Gruppe. Deswegen muss sichergestellt werden, dass die Objekte in jeder Gruppe gleichmäßig verteilt sind. Es gibt unterschiedliche Strategien das zu erreichen. Eine der besten, wenn sie richtig durchgeführt wird, ist die zufällige Auswahl von Objekten aus der Population für jede Gruppe. Am Ende wird für jedes Objekt der Wert von Bedeutung gemessen. Die Mittelwerte von diesen Werten werden für jede Gruppe berechnet und die Differenz dazwischen ist der erwartete durchschnittliche Behandlungseffekt.  
 \par
 
 \noindent
-Man kann auch Daten von den beiden Gruppen benutzen, um signifikanten Aussagen über den durchschnittlichen Behandlungseffekt mit einer bestimmten Konfidenz zu treffen. Dazu führt man meistens einen statistischen $t$-test durch. Man erstellt erstmal eine Nullhypothese und prüft, ob diese abzulehnen ist. Dafür berechnet man erstmal die Teststatistik $t$, die hier dargestellt ist:\par
+Man kann auch Daten von den beiden Gruppen benutzen, um signifikante Aussagen über den durchschnittlichen Behandlungseffekt mit einer bestimmten Konfidenz zu treffen. Dazu führt man meistens einen statistischen $t$-test durch. Man erstellt erstmal eine Nullhypothese und prüft, ob diese abzulehnen ist. Dafür berechnet man erstmal die Teststatistik $t$, die hier dargestellt ist:\par
 
 \begin{equation}
   t = \sqrt{\frac{n_0n_1}{n_0+n_1}}\frac{\overline{Y_1}-\overline{Y_0}-\omega}{s}
@@ -400,7 +399,7 @@ Man kann auch Daten von den beiden Gruppen benutzen, um signifikanten Aussagen �
 \end{equation} 
 
 \noindent
-$n_0$ und $n_1$ sind die Anzahl von Objekten in den beiden Gruppen, $\overline{Y_1}$ und $\overline{Y_0}$ - die Mittelwerte von den Ergebnissen, $s_0^2$ und $s_1^2$ - die Varianzen, $s$ - die gewichtete Abweichung, $\omega$ - den Wert von dem durchschnittlichen Behandlungseffekt, den man für die Nullhypothese genommen hat. Dann abhängig davon, was man testen will und mit welcher Konfidenz die Behauptung gültig sein soll, vergleicht man den Wert von $t$ mit dem Wert von einem Quantil von der studentischen $t$-Verteilung. Am Ende hat man eine Behauptung, die mit irgendeiner Signifikanz wahr ist.\cite{ttest}    
+$n_0$ und $n_1$ sind die Anzahl von Objekten in den beiden Gruppen, $\overline{Y_1}$ und $\overline{Y_0}$ - die Mittelwerte von den Ergebnissen, $s_0^2$ und $s_1^2$ - die Varianzen, $s$ - die gewichtete Abweichung, $\omega$ - der Wert von dem durchschnittlichen Behandlungseffekt, den man für die Nullhypothese genommen hat. Dann abhängig davon, was man testen will und mit welcher Konfidenz die Behauptung gültig sein soll, vergleicht man den Wert von $t$ mit dem Wert von einem Quantil von der studentischen $t$-Verteilung. Am Ende hat man eine Behauptung, die mit irgendeiner Signifikanz wahr ist.\cite{ttest}    
 \par    
 
 \subsubsection{Beobachtungsstudiedurchführung}\label{subsubsec:beobachtungsstudietedurchführung}
@@ -408,7 +407,7 @@ $n_0$ und $n_1$ sind die Anzahl von Objekten in den beiden Gruppen, $\overline{Y
 Wir wiederholen noch mal, dass man lieber ein Experiment anstatt einer Beobachtungsstudie durchführen muss, um die Daten zu sammeln, wenn es möglich ist. Und natürlich ist es wegen unterschiedlichen Gründen nicht immer so.\par 
 
 \noindent
-Grundsätzlich kann ein Experiment viel mehr als eine Beobachtungsstudie kosten, weil man die Objekten (die Leuten) in experimentellen Bedingungen haben möchte. Man hat (höhere) Kosten für:\par
+Grundsätzlich kann ein Experiment viel mehr als eine Beobachtungsstudie kosten, weil man die Objekte (die Leute) in experimentellen Bedingungen haben möchte. Man hat (höhere) Kosten für:\par
 
 \begin{itemize}
   \item Vergütung der Leute
@@ -421,45 +420,45 @@ Grundsätzlich kann ein Experiment viel mehr als eine Beobachtungsstudie kosten,
 Bei manchen Studien kann der Prozess der Behandlung sogar länger dauern, was die obengenannten Kosten multipliziert.\par    
 
 \noindent   
-Es gibt Behandlungen, wo es klar ist, dass sie einen negativen Effekt haben; man weiß doch nicht genau, wie hoch er ist. In diesem Fall ist es unethisch, Leuten auf diese negative Behandlung in Rahmen eines Experiments zu unterlegen. Vielleicht ist die Behandlung auch durchs Gesetz verboten. Genauso das ist die Situation im Beispiel 3 vom \refsec{subsec:motivation}. Man darf nicht die Gesundheit der Leuten opfern, um etwas zu erfahren. In diesem Fall führt man eine Beobachtungsstudie unter Menschen durch, die auf die Behandlung unterlegt sind und zur Kontrolle auch unter solchen, die nicht unterlegt sind.\par
+Es gibt Behandlungen, wo es klar ist, dass sie einen negativen Effekt haben; man weiß doch nicht genau, wie hoch er ist. In diesem Fall ist es unethisch, Leute auf diese negative Behandlung in Rahmen eines Experiments zu unterlegen. Vielleicht ist die Behandlung auch durchs Gesetz verboten. Das ist die Situation im Beispiel 3 vom \refsec{subsec:motivation}. Man darf nicht die Gesundheit der Leute opfern, um etwas zu erfahren. In diesem Fall führt man eine Beobachtungsstudie unter Menschen durch, die auf die Behandlung unterlegt sind und zur Kontrolle auch unter solchen, die nicht unterlegt sind.\par
 
 \noindent
-Und hier kommt ein großes Problem. Die Objekten, die behandelt sind, können anders verteilt sein als die ganze Population. Beispielsweise gibt es unter den Behandelten viel mehr Männer als Frauen. Die Behandlung auf Männer könnte aber einen anderen Effekt haben als diesen auf Frauen. Also wenn man seine Stichprobe durch zufälliges Ziehen bildet, bekommt man einen geschätzten durchschnittlichen Effekt, der von der höheren Anwesenheit von Männern gestreut ist und nicht an dem durchschnittlichen Effekt der Population entspricht. Man kann sich die \reffig{fig:confounder} noch mal anschauen und feststellen, dass die Behandlung $T$ von den Confounders $X$ abhängt. In einem Experiment ist das ausgeschlossen, da es bedingt ist, dass am Anfang niemand behandelt war.\par
+Und hier kommt ein großes Problem. Die Objekte, die behandelt sind, können anders verteilt sein als die ganze Population. Beispielsweise gibt es unter den Behandelten viel mehr Männer als Frauen. Die Behandlung auf Männer könnte aber einen anderen Effekt haben als diesen auf Frauen. Also wenn man seine Stichprobe durch zufälliges Ziehen bildet, bekommt man einen geschätzten durchschnittlichen Effekt, der von der höheren Anwesenheit von Männern gestreut ist und nicht dem durchschnittlichen Effekt der Population entspricht. Man kann sich die \reffig{fig:confounder} noch mal anschauen und feststellen, dass die Behandlung $T$ von den Confounders $X$ abhängt. In einem Experiment ist das ausgeschlossen, da es bedingt ist, dass am Anfang niemand behandelt war.\par
 
 
 \noindent
-Weil die Daten aus Beobachtungsstudien viel Bias haben, würde eine bloße Berechnung von den Mittelwerten von den beiden Gruppen nicht ausreichend gut sein. Deswegen hat man unterschiedliche Methoden entwickelt, die wir ab hier \textbf{Methoden für kausale Inferenz} nennen, die grundsätzlich das Ziel haben, die Behandlugs- und die Kontrollgruppe zu normaliesieren, damit die vergleichbar sind und damit das Ergebnis näher am Ergebnis der Population liegt. In dieser Bachelorarbeit haben wir über einige dieser Methoden im \refsec{sec:methoden} erzählt. Es ist natürlich zu erwarten, dass diese Methoden unterschiedliche Ergebnisse liefern. Dabei gibt es keine allgemein Beste - in unterschiedlichen Situationen funktioniert die eine besser als die anderen. Deswegen wurde ein Verfahren entwickelt, den die Methode für einen Datensatz automatisch wählt und auf diesen Verfahren basieren wir diese Bachelorarbeit.\par   
+Weil die Daten aus Beobachtungsstudien viel Bias haben, würde eine bloße Berechnung von den Mittelwerten von den beiden Gruppen nicht ausreichend gut sein. Deswegen hat man unterschiedliche Methoden entwickelt, die wir ab hier \textbf{Methoden für kausale Inferenz} nennen, die grundsätzlich das Ziel haben, die Behandlugs- und die Kontrollgruppe zu normalisieren, damit die vergleichbar sind und damit das Ergebnis näher am Ergebnis der Population liegt. In dieser Bachelorarbeit haben wir über einige dieser Methoden im \refsec{sec:methoden} erzählt. Es ist natürlich zu erwarten, dass diese Methoden unterschiedliche Ergebnisse liefern. Dabei gibt es keine allgemein beste - in unterschiedlichen Situationen funktioniert die eine besser als die anderen. Deswegen wurde ein Verfahren entwickelt, das die Methode für einen Datensatz automatisch wählt und auf dieses Verfahren basieren wir diese Bachelorarbeit.\par   
 
 \subsection{Ziele und Methodik}\label{subsec:zieleUndMethodik}
 
 \noindent
 \textit{Nachdem wir in das Thema \enquote{Kausale Inferenz} eingestiegen sind, werden wir im folgenden Abschnitt die Arbeitsmethodik dieser Bachelorarbeit erläutern. Dabei nennen wir auch die Ziele und Aufgaben, die wir uns setzen.}\par
 
-Wir basieren unsere Arbeit auf den Synth-Validation Verfahren\cite{schuler2017synth}.  Synth-Validation ist ein Verfahren, der für einen bestimmten Datensatz, zu dem wir den durchschnittlichen Behandlungseffekt schätzen wollen, versucht, von einer Menge von Methoden für kausale Inferenz, die Beste auszuwählen und setzt diese ein. Im \refsec{sec:synthValidation} erzählen wir ausführlicher darüber. Wir arbeiten grundsätzlich an den Aufgaben, die im Abschnitt \textbf{Future work} im Artikel über Synth-Validation\cite{schuler2017synth} genannt sind.\par
+Wir basieren unsere Arbeit auf das Synth-Validation Verfahren\cite{schuler2017synth}.  Synth-Validation ist ein Verfahren, das für einen bestimmten Datensatz, zu dem wir den durchschnittlichen Behandlungseffekt schätzen wollen, versucht, von einer Menge von Methoden für kausale Inferenz, die beste auszuwählen und setzt diese ein. Im \refsec{sec:synthValidation} erzählen wir ausführlicher darüber. Wir arbeiten grundsätzlich an den Aufgaben, die im Abschnitt \textbf{Future work} im Artikel über Synth-Validation\cite{schuler2017synth} genannt sind.\par
 
 \noindent
-Das erste Ziel, die wir uns setzen, ist Synth-Validation auf R zu implementieren. Dazu verfügen wir über einen großen Teil des Codes. Der ist auf Julia geschrieben und wir haben den persönlich von einem der Authoren von Synth-Validation bekommen. Außer dem Übersetzen von Julia auf R müssen einige Teile von Synth-Validation, die im Artikel beschrieben sind, aber im vorgegebenen Julia Code jedoch fehlen, neu geschrieben werden. Darunter sind das Lesen von echten Daten, die Wahl von synthetischen Effekten, die finale Auswahl von einer Methode für kausale Inferenz von den synthetischen Daten und den ganzen Benchmarkprozess von Synth-Validation. Wir erzählen mehr darüber im \refsec{sec:implementierung}.\par
+Das erste Ziel, das wir uns setzen, ist Synth-Validation auf R zu implementieren. Dazu verfügen wir über einen großen Teil des Codes. Der ist auf Julia geschrieben und wir haben den persönlich von einem der Autoren von Synth-Validation bekommen. Außer dem Übersetzen von Julia auf R müssen einige Teile von Synth-Validation, die im Artikel beschrieben sind, aber im vorgegebenen Julia Code jedoch fehlen, neu geschrieben werden. Darunter sind das Lesen von echten Daten, die Wahl von synthetischen Effekten, die finale Auswahl von einer Methode für kausale Inferenz von den synthetischen Daten und der ganzen Benchmarkprozess von Synth-Validation. Wir erzählen mehr darüber im \refsec{sec:implementierung}.\par
 
 \noindent
-Wir wählen R als Implementierungssprache, weil sie sehr verbreitet und ein Standard für statistikbasierte Ausarbeitungen ist. Es gibt eine große Gemeinschaft (auch unter Wissenschaftlern), die sie benutzt und deswegen sind auch viele Bibliotheken verfügbar. Dabei bietet die Scriptsprache einen einfachen Syntax, der erlaubt schnell einzusteigen und ein Basis für kürzere Implementierungszeit ist. Wir kennen natürlich auch die potentiellen Nachteilen, die die Sprache hat und die dazu geführt haben, dass man am Anfang entschieden hat, Synth-Validation auf Julia anstatt auf R zu implementieren. Diese besprechen wir im \refsec{sec:ergebnisseEvaluation}.\par
+Wir wählen R als Implementierungssprache, weil sie sehr verbreitet und ein Standard für statistikbasierte Ausarbeitungen ist. Es gibt eine große Gemeinschaft (auch unter Wissenschaftlern), die sie benutzt und deswegen sind auch viele Bibliotheken verfügbar. Dabei bietet die Skriptsprache eine einfache Syntax, die erlaubt schnell einzusteigen und eine Basis für kürzere Implementierungszeit ist. Wir kennen natürlich auch die potentiellen Nachteile, die die Sprache hat und die dazu geführt haben, dass man am Anfang entschieden hat, Synth-Validation auf Julia anstatt auf R zu implementieren. Diese besprechen wir im \refsec{sec:evaluation}.\par
    
 \noindent
-Eine weitere Aufgabe ist zu testen, wie Synth-Validation funktioniert, wenn sie auf echten Daten eingesetzt ist. Im Artikel von Synth-Validation wird beschrieben, dass sie nur mit zufälliggenerierten Daten getestet wurde. Das Finden von solchen Daten ist keine triviale Aufgabe, weil der echte Behandlungseffekt mit einer großer Sicherheit bekannt sein muss, damit wir Synth-Validation benchmarken können. Bei den automatischgenerierten Daten kann man natürlich immer einen beliebigen Effekt haben, aber bei den echten ist das Finden von diesem Effekt eigentlich das, was wir von Anfang an erzielen wollen.\par
+Eine weitere Aufgabe ist zu testen, wie Synth-Validation funktioniert, wenn sie auf echten Daten eingesetzt ist. Das Finden von solchen Daten ist keine triviale Aufgabe, weil der echte Behandlungseffekt mit einer großer Sicherheit bekannt sein muss, damit wir Synth-Validation benchmarken können. Im Artikel von Synth-Validation wird beschrieben, dass sie nur mit zufällig generierten Daten getestet wurde. Bei diesen Daten kann man natürlich immer einen beliebigen Effekt haben, aber bei den echten ist das Finden von diesem Effekt eigentlich das, was wir von Anfang an erzielen wollen.\par
 
 \noindent
-Die Daten, über die wir verfügen, kommen aus Wettbewerben für kausale Inferenz, deswegen haben sie einen bekannten durchschnittlichen Behandlungseffekt. Dabei unterscheiden wir zwischen Daten, die roh oder gar nicht bearbeitet wurden und solche, die durch echten Daten generiert wurden. Die Datensätze haben auch eine unterschiedliche Anzahl von Beobachtungen und eine unterschiedliche Anzahl von Kovariaten. Neben diesen echten Daten testen wir auch mit solchen, die zufälliggeneriet sind und vergleichen unsere Ergebnisse mit diesen von den Authoren von Synth-Validation, soweit es möglich ist. Mehr über die Ergebnisse, ihre Auswertung und den Sachverhalt der Daten erzählen wir im \refsec{sec:ergebnisseEvaluation}.\par 
+Die Daten, über die wir verfügen, kommen aus Wettbewerben für kausale Inferenz, deswegen haben sie einen bekannten durchschnittlichen Behandlungseffekt. Dabei unterscheiden wir zwischen Daten, die roh oder gar nicht verarbeitet wurden und solche, die durch echten Daten generiert wurden. Die Datensätze haben auch eine unterschiedliche Anzahl von Beobachtungen und eine unterschiedliche Anzahl von Kovariaten. Neben diesen echten Daten testen wir auch mit solchen, die zufällig generiert sind und vergleichen unsere Ergebnisse mit diesen von den Authoren von Synth-Validation, soweit es möglich ist. Mehr über die Ergebnisse, ihre Auswertung und den Sachverhalt der Daten erzählen wir im \refsec{sec:evaluation}.\par 
 
 \noindent
-Eine weitere Aufgabe ist Synth-Validation mit neuen Methoden zu testen. Seitdem Synth-Validation entwickelt und den Artikel darüber geschrieben wurde, sind einige neuen Methoden für kausale Inferenz entstanden, die bessere Ergebnisse im Allgemein aufweisen. Diese Methoden benutzen Algorithmen aus dem maschinellen Lernen. Es wird nützlich zu wissen, ob Synth-Validation immer noch erfolgreich unter denen wählt oder ob eine von denen sich besser als Synth-Validation vorstellt.\par
+Eine weitere Aufgabe ist Synth-Validation mit neuen Methoden zu testen. Seitdem Synth-Validation entwickelt und der Artikel darüber geschrieben wurde, sind einige neuen Methoden für kausale Inferenz entstanden, die bessere Ergebnisse im Allgemein aufweisen. Diese Methoden benutzen Algorithmen aus dem maschinellen Lernen. Es wird nützlich sein, wenn man weiß, ob Synth-Validation immer noch erfolgreich unter denen wählt oder ob eine von denen sich besser als Synth-Validation vorstellt.\par
 
 \clearpage
 
 \section{Methoden für kausale Inferenz}\label{sec:methoden}
 
-Man kann den durchschnittlichen Behandlungseffekt einer Handlung am einfachsten schätzen, indem man von dem Mittelwert der Ergebnisvariable der Behandlungsgruppe den Mittelwert der Ergebnisvariable der Kontrollgruppe abzieht. Diese einfache Schätzung ist sehr gut, wenn wir davon ausgehen, dass die beiden Gruppen homogen aneinander sind. Also wenn in der ersten Gruppe es keine Untergruppe von Objekten mit spezifischen Kovariaten gibt, die in der zweiten nicht vorgestellt sind. In diesem Fall sind die Daten im Gefallen von dieser Untergruppe gestreut und dieses Bias wird auf die Schätzung übertragen. Um das auszuschließen, wählt man zufällig Objekten aus, die nicht behandelt sind und führt ein Experiment mit diesen Objekten durch, in dem man die Hälfte behandelt und erst dann die Ergebbnisvariable bemesst. Es gibt aber zu teure, unmögliche oder unethische Behandlungen, was dazu führt, dass die Daten darüber nur aus Beobachtungsstudien kommen. Diese Daten sind oft gestreut, was nämlich zu einer gestreuten Schätzung von der allereinfachste Methode führt\cite{cox1982biometrics}.\par 
+Man kann den durchschnittlichen Behandlungseffekt einer Handlung am einfachsten schätzen, indem man von dem Mittelwert der Ergebnisvariable der Behandlungsgruppe den Mittelwert der Ergebnisvariable der Kontrollgruppe abzieht. Diese einfache Schätzung ist sehr gut, wenn wir davon ausgehen, dass die beiden Gruppen homogen zueinander sind. Also wenn in der ersten Gruppe es keine Untergruppe von Objekten mit spezifischen Kovariaten gibt, die in der zweiten nicht vorgestellt sind. In diesem Fall sind die Daten im Gefallen von dieser Untergruppe gestreut und dieses Bias wird auf die Schätzung übertragen. Um das auszuschließen, wählt man zufällig Objekte aus, die nicht behandelt sind und führt ein Experiment mit diesen Objekten durch, in dem man die Hälfte behandelt und erst dann die Ergebnisvariable bemisst. Es gibt aber zu teure, unmögliche oder unethische Behandlungen, was dazu führt, dass die Daten darüber nur aus Beobachtungsstudien kommen. Diese Daten sind oft gestreut, was nämlich zu einer gestreuten Schätzung von der allereinfachste Methode führt\cite{cox1982biometrics}.\par 
 
 \noindent
-Um dieses Bias zu bekämpfen, hat man unterschiedliche Methoden und Techniken entwickelt. Im ersten  \emph{\hyperref[subsec:allgemeineTechniken]{Unterabschnitt \ref{subsec:allgemeineTechniken}}} werden wir über einige allgemeine, konzeptuelle Techniken erzählen, die zum Schätzen von kausalen Effekten aus Beobachtungsstudien erarbeitet wurden. Es gibt kaum einen konkreten Verfahren, an dem irgendeine davon nicht teilnimmt. Im zweiten \emph{\hyperref[subsec:methodenInImplementierung]{Unterabschnitt \ref{subsec:methodenInImplementierung}}} stellen wir die Methoden vor, die wir in unserer Implementierung von Synth-Validation integriert haben, damit ihre Fähigkeit getestet wird, für einen bestimmten Datensatz die beste Methode zu finden.\par 
+Um dieses Bias zu bekämpfen, hat man unterschiedliche Methoden und Techniken entwickelt. Im ersten  \emph{\hyperref[subsec:allgemeineTechniken]{Unterabschnitt \ref{subsec:allgemeineTechniken}}} werden wir über einige allgemeine, konzeptuelle Techniken erzählen, die zum Schätzen von kausalen Effekten aus Beobachtungsstudien erarbeitet wurden. Es gibt kaum ein konkretes Verfahren, an dem irgendeine davon nicht teilnimmt. Im zweiten \emph{\hyperref[subsec:methodenInImplementierung]{Unterabschnitt \ref{subsec:methodenInImplementierung}}} stellen wir die Methoden vor, die wir in unserer Implementierung von Synth-Validation integriert haben, damit ihre Fähigkeit getestet wird, für einen bestimmten Datensatz die beste Methode zu finden.\par 
   
 \subsection{Allgemeine Techniken}\label{subsec:allgemeineTechniken} 
 \noindent
@@ -474,10 +473,10 @@ Wir schauen uns erstmal die einfachste Methode zum Schätzen von dem durchschnit
 \end{equation}
 
 \noindent
-Die Schätzung bekommen wir, indem wir die Differenz zwischen dem Mittelwert der Ergebnissen der Behandlungsgruppe und dem Mittelwert der Ergebnissen der Kontrollgruppe finden. Man stellt nicht so schwierig fest, dass die Kovariaten $X$ an der Rechnung gar nicht teilnehmen. Wenn die Annahme trifft, dass sie homogen in den beiden Gruppen sind, sollte das nicht problematisch sein. Wenn aber nicht, wird die Schätzung gestreut sein.\par
+Die Schätzung bekommen wir, indem wir die Differenz zwischen dem Mittelwert der Ergebnisse der Behandlungsgruppe und dem Mittelwert der Ergebnisse der Kontrollgruppe finden. Man stellt nicht so schwierig fest, dass die Kovariaten $X$ an der Rechnung gar nicht teilnehmen. Wenn die Annahme zutrifft, dass sie homogen in den beiden Gruppen sind, sollte das nicht problematisch sein. Wenn aber nicht, wird die Schätzung gestreut sein.\par
 
 \noindent
-In diesem Abschnitt erzählen wir über einen Ansatz, der sich darauf basiert, wie $Y$ gebildet ist und wovon es abhängt. Nämlich wissen wir, dass $Y$ sowohl von den Kovariaten $X$, als auch von der Behandlung $W$ abhängen kann. Wenn wir annehmen, das diese Abhängigkeit linear ist, kann $Y$ durch das folgende lineare Model dargestellt werden:\par 
+In diesem Abschnitt erzählen wir über einen Ansatz, der darauf basiert, wie $Y$ gebildet ist und wovon es abhängt. Nämlich wissen wir, dass $Y$ sowohl von den Kovariaten $X$, als auch von der Behandlung $W$ abhängen kann. Wenn wir annehmen, das diese Abhängigkeit linear ist, kann $Y$ durch das folgende lineare Model dargestellt werden:\par 
 
 \begin{equation}\label{eq:2.2}
   Y_i = \alpha + \beta W_i + \gamma X_i + \epsilon_i
@@ -492,20 +491,20 @@ Damit wir aber kein gestreutes Ergebnis bekommen, müssen wir einige Bedingungen
 \begin{itemize}
   \item Nur solche Kovariaten ins Modell nehmen, die $Y$ tatsächlich beeinflussen 
   \item Keine Kovariaten nehmen, die von der Behandlung beeinflusst sind
-  \item Die Anzahl der Objekten in der Stichprobe soll viel größer als die Anzahl gewählten Kovariaten sein.
+  \item Die Anzahl der Objekten in der Stichprobe soll viel größer als die Anzahl gewählter Kovariaten sein.
 \end{itemize}
 
 \noindent
-Wir müssen nur solche Kovariaten in unseren Modell nehmen, die einen Einfluss auf das Ergebnis haben. Ansonsten wird die lineare Regression die Koeffizienten mit Bias anpassen, unter denen auch sich die Schätzung vom unseren durchschnittlichen Behandlungseffekten $\beta$ befindet. Und das wollen wir natürlich nicht. Ein Problem ist aber, dass man nicht immer weiß, welche Variablen Einfluss haben. Eine hohe Korrelation zwischen dem Ergebnis und einem Kovariaten kann ein positives Zeichen dafür sein. Als Faustregel kann angenommen werden, dass diejenigen mit einer absoluten Korrelation kleiner als 0.2 nicht ins Modell genommen werden sollen. Es gilt, dass man die Kovariaten für das Modell bestimmen muss, bevor das Modell mit Daten angepasst ist. Ansonsten könnte man zu dem Ergebnis kommen, zu dem man kommen möchte, ohne dass es in der Grundgesamtheit repräsentativ ist\cite{cox1982biometrics}\cite{WinLin}. \par
+Wir müssen nur solche Kovariaten ins Modell nehmen, die einen Einfluss auf das Ergebnis haben. Ansonsten wird die lineare Regression die Koeffizienten mit Bias anpassen, unter denen sich auch die Schätzung vom unseren durchschnittlichen Behandlungseffekten $\beta$ befindet. Und das wollen wir natürlich nicht. Ein Problem ist aber, dass man nicht immer weiß, welche Variablen Einfluss haben. Eine hohe Korrelation zwischen dem Ergebnis und einem Kovariaten kann ein positives Zeichen dafür sein. Als Faustregel kann angenommen werden, dass diejenigen mit einer absoluten Korrelation kleiner als 0.2 nicht ins Modell genommen werden sollen. Es gilt, dass man die Kovariaten für das Modell bestimmen muss, bevor das Modell mit Daten angepasst wird. Ansonsten könnte man zu dem Ergebnis kommen, zu dem man kommen möchte, ohne dass es in der Grundgesamtheit repräsentativ ist\cite{cox1982biometrics}\cite{WinLin}. \par
 
 \noindent
-Soweit man einen Kovariaten ins Modell nimmt, der von der Behandlung beeinflusst wurde, bekommt man Bias in der Schätzung von dem durchschnittlichen Effekt. Dieses Problem kann bei Experimenten nicht vorkommen, da man die Kovariaten immer vor der Behandlung bemesst. Bei den Beobachtungsstudien muss aufgepasst werden, dass ein Kovariat nicht mit der Behandlung korreliert ist.\cite{LinDol}\par
+Soweit man einen Kovariaten ins Modell nimmt, der von der Behandlung beeinflusst wurde, bekommt man Bias in der Schätzung von dem durchschnittlichen Effekt. Dieses Problem kann bei Experimenten nicht vorkommen, da man die Kovariaten immer vor der Behandlung bemisst. Bei den Beobachtungsstudien muss aufgepasst werden, dass ein Kovariat nicht mit der Behandlung korreliert ist.\cite{LinDol}\par
 
 \subsubsection{Propensity Score Matching}\label{subsubsec:propensityScoreMatching}
-Wenn wir Daten aus einer Beobachtungsstudie zum Finden von kausalen Effekten benutzen, ist es möglich, dass die Objekten, die behandelt sind, sich im Durchschnitt wesentlich oder zumindest in einiger Maßen von den Objekten, die nicht behandelt sind, unterscheiden. Das erklärt sich mit den Confoundingvariablen, die einen Effekt auf den Zustand der Behandlung haben. Wenn wir versuchen den Behandlungseffekt von diesen qualitativ unterschiedenen Gruppen zu schätzen, bekommen wir ein Ergebnis mit Bias. Aus diesem Grund sind die beiden Gruppen nicht direkt vergleichbar.\par
+Wenn wir Daten aus einer Beobachtungsstudie zum Finden von kausalen Effekten benutzen, ist es möglich, dass die Objekte, die behandelt sind, sich im Durchschnitt wesentlich oder zumindest in einigem Maße von den Objekten, die nicht behandelt sind, unterscheiden. Das erklärt sich mit den Confoundingvariablen, die einen Effekt auf den Zustand der Behandlung haben. Wenn wir versuchen den Behandlungseffekt von diesen qualitativ unterschiedenen Gruppen zu schätzen, bekommen wir ein Ergebnis mit Bias. Aus diesem Grund sind die beiden Gruppen nicht direkt vergleichbar.\par
 
 \noindent
-Bevor man den Effekt schätzt, ist es sinnvoll, die beiden Gruppen irgendwie in Gleichgewicht zu bringen. Dieses Gleichgewicht werden wir durch zwei Eigenschaften definieren, die unseren beiden Gruppen erfüllen sollen. Diese Eigenschaften sind bei den Gruppen in Experimenten immer erfüllt und sind ausreichend für eine nicht gestreute Schätzung des durchschnittlichen Behandlungseffekts.\par
+Bevor man den Effekt schätzt, ist es sinnvoll, die beiden Gruppen irgendwie in Gleichgewicht zu bringen. Dieses Gleichgewicht werden wir durch zwei Eigenschaften definieren, die unsere beiden Gruppen erfüllen sollen. Diese Eigenschaften sind bei den Gruppen in Experimenten immer erfüllt und sind ausreichend für eine nicht gestreute Schätzung des durchschnittlichen Behandlungseffekts.\par
 
 \noindent
 Die erste Eigenschaft ist folgende: bedingt von den Kovariaten $X$ sind die geschätzte Werte $Y_0$ und $Y_1$ unabhängig von $W$. Also gegeben $X$ tragen $Y_0$ und $Y_1$ die gleichen Werte sowohl für $W = 1$, als auch für $W = 0$ \cite{rosenbaum1983central}. Formal wird diese Eigenschaft so dargestellt:\par
@@ -522,19 +521,19 @@ Die zweite Eigenschaft besagt, dass jedes Objekt von der Grundgesamtheit die Cha
 \end{equation}
 
 \noindent
-Wir brauchen also irgendeiner Funktion, die unseren Kovariaten normalisiert und nach deren Einsatz die oberen Bedingungen erfüllt sind. Deswegen führen wir die Balancing Score oder die Gleichgewichtsmaßfunktion $b(X)$ ein, die die Kovariaten als Argument nimmt und die folgende Eigenschaft hat: die bedingte Verteilung von $X$ gegeben $b(X)$ ist gleich für $W = 1$ und $W = 0$ oder anders gesagt ist unabhängig von $W$ \cite{dawid1976properties}. Formal wird das so dargestellt:\par
+Wir brauchen also irgendeine Funktion, die unseren Kovariaten normalisiert und nach deren Einsatz die oberen Bedingungen erfüllt sind. Deswegen führen wir die Balancing Score oder die Gleichgewichtsmaßfunktion $b(X)$ ein, die die Kovariaten als Argument nimmt und die folgende Eigenschaft hat: die bedingte Verteilung von $X$ gegeben $b(X)$ ist gleich für $W = 1$ und $W = 0$ oder anders gesagt ist sie unabhängig von $W$ \cite{dawid1976properties}. Formal wird das so dargestellt:\par
 
 \begin{equation}\label{eq:2.5}
   X \independent W|b(X)
 \end{equation}
 
 \noindent     
-Die einfachste und die feinste mögliche Balancing Score ist $b(X) = X$. Eine Balancing Score $b(X)$ ist feiner als eine andere Balancing Score $e(X)$, wenn es eine Funktion $f$ gibt, für die nicht die Identität ist und für die $e(X) = f(b(X))$ gilt. Je feiner eine Balancing Score ist, desto besser, soweit sie natürlich die Eigenschaften von einer Balncing Score trägt. Wenn wir aber viele Kovariaten haben, ist das Finden von der feinsten Balancing score keine leichte Aufgabe. Dazu ist die Schätzung von der grobsten Balancing Score relativ einfach. Die nennen wir Propencity Score oder die Neigungsmaßfunktion $p(X)$. Die Propensity Score ist die Wahrscheinlichkeit für einen Objekt mit bestimmten Kovariaten $X$, dass es behandelt wird. Formal: \par 
+Die einfachste und die feinste mögliche Balancing Score ist $b(X) = X$. Eine Balancing Score $b(X)$ ist feiner als eine andere Balancing Score $e(X)$, wenn es eine Funktion $f$ gibt, die nicht die Identität ist und für die $e(X) = f(b(X))$ gilt. Je feiner eine Balancing Score ist, desto besser, soweit sie natürlich die Eigenschaften von einer Balancing Score trägt. Wenn wir aber viele Kovariaten haben, ist das Finden von der feinsten Balancing Score keine leichte Aufgabe. Dazu ist die Schätzung von der grobsten Balancing Score relativ einfach. Die nennen wir Propencity Score oder die Neigungsmaßfunktion $p(X)$. Die Propensity Score ist die Wahrscheinlichkeit für einen Objekt mit bestimmten Kovariaten $X$, dass es behandelt wird. Formal: \par 
 
 \begin{equation}\label{eq:2.6}
  p(X) = pr(W=1|X)
 \end{equation}
-Dementsprechend kann es mehr unterschiedlichen Objekten geben, die gleiche Wahrscheinlichkeit zur Behandlung haben. Rosenbaum und Rubin haben bewiesen, dass Gruppen, die von Objekten mit einander gleichen Propencity Scores erstellt sind, die obengenannten Eigenschaften erfüllen. Aus diesem Grund folgt, dass der geschätzte durchschnittliche Behandlungseffekt von diesen Gruppen kein Bias hat\cite{rosenbaum1983central}. \par 
+Dementsprechend kann es mehr unterschiedliche Objekte geben, die die gleiche Wahrscheinlichkeit zur Behandlung haben. Rosenbaum und Rubin haben bewiesen, dass Gruppen, die von Objekten mit einander gleichen Propensity Scores erstellt sind, die obengenannten Eigenschaften erfüllen. Aus diesem Grund folgt, dass der geschätzte durchschnittliche Behandlungseffekt von diesen Gruppen kein Bias hat\cite{rosenbaum1983central}. \par 
 
 \noindent 
 Die Propensity Score können wir durch logistische Regression schätzen. Wir haben das Modell:\par
@@ -554,10 +553,10 @@ Wir vereinfachen den Ausdruck, so dass wir die Propensity Score Funktion sauber 
 Hier sind $X$ die Kovariaten, $\alpha$ und $\beta$ sind die Koeffizienten, die wir durch die logistische Regression schätzen, indem $\beta$ ein Vektor ist, da $X$ auch Vektor ist. Hier ist es wichtig, dass wir für die Schätzung nur Confounder benutzen, also Kovariaten, für die wir vermuten, dass sie den Zustand der Behandlung beeinflussen. Ansonsten riskieren wir, dass unsere Propensity Scores von unwesentlichen Kovariaten gestreut sind.\par 
 
 \noindent
-Nachdem wir die Propensity Score Funktion geschätzt haben, können wir die Propensity Scores von allen beobachteten Objekten berechnen. Dann bilden wir unsere Bechandlungsgruppe, indem wir eine Stichprobe von behandelten Objekten ziehen. Jetzt müssen wir die zweite Stichprobe bilden, indem wir jedes Objekt aus der Ersten mit einem oder mehr Kontrollobjekten nach Propensity Score verbinden. Für diese Verbindung können wir unterschiedliche Strategien benutzen. Man kann nach exakt gleichen Propensity Scores verbinden, was schwierig ist, da wir eine sehr große Stichprobe und/oder Kovariaten mit wenigen optionalen Werten haben sollen, damit wir genug gleiche Propensity Scores haben. Andere Option wäre, unterschiedliche Intervallen für die Propensity Score zu bilden und für jedes behandeltes Objekt ein  Kontrollobjek zu wählen, dessen Propensity Score im gleichen Intervall liegt wie die Propensity Score von dem behandelten Objekt. Man kann auch die Methode der nächsten Nachbarn nutzen, in dem man für jedes behandeltes Objekt ein Kontrollobjekt wählt, deren Propensity Score am nächsten zu der Propensity Score des behandelten Objekts liegt. Oder von allen Kontrollobjekten, deren Propensity Score in einem vordefinierten Abstand von der Propensity Score von jedem behandelten Objekt liegt, einen wählen\cite{stuart2010matching}.\par 
+Nachdem wir die Propensity Score Funktion geschätzt haben, können wir die Propensity Scores von allen beobachteten Objekten berechnen. Dann bilden wir unsere Behandlungsgruppe, indem wir eine Stichprobe von behandelten Objekten ziehen. Jetzt müssen wir die zweite Stichprobe bilden, indem wir jedes Objekt aus der ersten mit einem oder mehr Kontrollobjekten nach Propensity Score verbinden. Für diese Verbindung können wir unterschiedliche Strategien benutzen. Man kann nach exakt gleichen Propensity Scores verbinden, was schwierig ist, da wir eine sehr große Stichprobe und/oder Kovariaten mit wenigen optionalen Werten haben sollen, damit wir genug gleiche Propensity Scores haben. Eine andere Option wäre, unterschiedliche Intervalle für die Propensity Score zu bilden und für jedes behandeltes Objekt ein Kontrollobjekt zu wählen, dessen Propensity Score im gleichen Intervall liegt wie die Propensity Score von dem behandelten Objekt. Man kann auch die Methode der nächsten Nachbarn nutzen, in dem man für jedes behandeltes Objekt ein Kontrollobjekt wählt, deren Propensity Score am nächsten zu der Propensity Score des behandelten Objekts liegt. Oder von allen Kontrollobjekten, deren Propensity Score in einem vordefinierten Abstand von der Propensity Score von jedem behandelten Objekt liegt, einen wählen\cite{stuart2010matching}.\par 
 
 \noindent
-Ein Nachteil von den oben vorgestellten direkten Verbindungenstechniken ist die Tatsache, dass einige beobachtete Kontrollobjekte von der Analyse ausgeschlossen werden. Wenn man das nicht will, kann man allen Objekten nach Propensity Score gewichten. Darüber erzählen wir im \refsec{subsubsec:inverseProbabilityWeighting}. \par
+Ein Nachteil von den oben vorgestellten direkten Verbindungstechniken ist die Tatsache, dass einige beobachtete Kontrollobjekte von der Analyse ausgeschlossen werden. Wenn man das nicht will, kann man alle Objekte nach Propensity Score gewichten. Darüber erzählen wir im \refsec{subsubsec:inverseProbabilityWeighting}. \par
 
 \noindent
 Nachdem die beiden Gruppen gebildet sind, bleibt nur die Schätzung von dem durchschnittlichen Behandlungseffekt, die wie üblich stattfindet: die Differenz zwischen den Mittelwerten von der Behandlung - und Kontrollgruppe.
@@ -575,63 +574,63 @@ Inverse probability of treatment weighting (IPTW) oder auf Deutsch Gewichtung mi
 \end{equation}
 
 \noindent
-Hier ist $T_i$ die Behandlung, die wir in dieser Bachelorarbeit sonst mit $W_i$ darstellen. $p(X_i)$ ist die Propensity Score vom Objekt $i$. Wir beobachten, dass ein Gewicht $w_i$ Werte von $1$ bis $\infty$ nimmt, da die Propensity Score eine Wahrscheinlichkeitsmaß ist, die zwischen 0 und 1 liegt. Der Einsatz der Gewichten kann man in diesem Fall als Erstellung von einer Preudopopulation ansehen, in der jedes Objekt von unseren Beobachtungen $w_i$-mal daran teilnimmt. In dieser Preudopopulation sind die Objekten, für die eine Behandlung wahrscheinlicher ist, deutlich weniger als diese, für die sie unwahrscheinlicher ist. Deswegen gibt es in dieser neuen Population keine Confounder mehr, also keine Kovariaten, die Einfluss auf der Behandlung haben, und wir können den durchschnittlichen Behandlungseffekt ungestreut schätzen\cite{robins2000marginal}. 
+Hier ist $T_i$ die Behandlung, die wir in dieser Bachelorarbeit sonst mit $W_i$ darstellen. $p(X_i)$ ist die Propensity Score vom Objekt $i$. Wir beobachten, dass ein Gewicht $w_i$ Werte von $1$ bis $\infty$ nimmt, da die Propensity Score ein Wahrscheinlichkeitsmaß ist, die zwischen 0 und 1 liegt. Der Einsatz der Gewichte kann man in diesem Fall als Erstellung von einer Pseudopopulation ansehen, in der jedes Objekt von unseren Beobachtungen $w_i$-mal daran teilnimmt. In dieser Pseudopopulation sind die Objekten, für die eine Behandlung wahrscheinlicher ist, deutlich weniger als diese, für die sie unwahrscheinlicher ist. Deswegen gibt es in dieser neuen Population keine Confounder mehr, also keine Kovariaten, die Einfluss auf die Behandlung haben, und wir können den durchschnittlichen Behandlungseffekt ungestreut schätzen\cite{robins2000marginal}. 
 \par 
 
 \noindent
-Es gibt eine alternative Weise, die Gewichte berechnen. Da bleibt das Gewicht der behandelten Objekten konstant 1 und das Gewicht der Kontrollobjekten wird durch seine Propensity Score bestimmt. Formal ist für ein Objekt $i$:\par
+Es gibt eine alternative Weise, die Gewichte zu berechnen. Da bleibt das Gewicht der behandelten Objekte konstant 1 und das Gewicht der Kontrollobjekten wird durch seine Propensity Score bestimmt. Formal gilt für ein Objekt $i$:\par
 
 \begin{equation}\label{eq:2.10}
   w_i = T_i + (1-T_i) \frac{p(X_i)}{1-p(X_i)}
 \end{equation}
 
 \noindent
-Die Signatur der Variablen ist wie bei \refeq{eq:2.9}. Jetzt haben wir eine Preudopopulation, in der jedes behandeltes Objekt einmal vorkommt. Je wahrscheinlicher ist es, dass für ein Kontrollobjekt die Behandlung $1$ wäre, desto  öfter kommt es vor\cite{hirano2003efficient}.\par
+Die Signatur der Variablen ist wie bei \refeq{eq:2.9}. Jetzt haben wir eine Pseudopopulation, in der jedes behandelte Objekt einmal vorkommt. Je wahrscheinlicher es ist, dass für ein Kontrollobjekt die Behandlung $1$ wäre, desto öfter kommt dieses Kontrollobjekt vor\cite{hirano2003efficient}.\par
 
 \noindent
-Nachdem wir die Gewichte geschätzt haben, können wir unseren durchschnittlichen Behandlungseffekt schätzen. Im Unterschied zu dem üblichen Fall, wo wir die Mittelwerte der Ergebnisvariable $Y$ für den beiden Gruppen ausrechnen, nehmen wir jetzt die gewichteten Mittelwerte mit dem individuellen Gewicht von jedem Objekt und ziehen diese ab.\par
+Nachdem wir die Gewichte geschätzt haben, können wir unseren durchschnittlichen Behandlungseffekt schätzen. Im Unterschied zu dem üblichen Fall, wo wir die Mittelwerte der Ergebnisvariable $Y$ für die beiden Gruppen ausrechnen, nehmen wir jetzt die gewichteten Mittelwerte mit dem individuellen Gewicht von jedem Objekt und ziehen diese ab.\par
 
 \noindent
-Der Vorteil von einer Gewichtung ist, dass diese Methode alle Objekten für die Schätzung von dem durchschnittlichen Behandlungseffekts nimmt, was bei den üblichen Vebindungsstrategien, die wir kurz am Ende des \refsec{subsubsec:propensityScoreMatching} erwähnt haben, nicht der Fall ist. Der Nachteil ist, dass ein Gewicht bei einer zu hohen oder zu niedrigen Propensity Score sehr groß werden kann, was Varianz in der finalen Schätzung bringt. Wenn die Propensity Scores richtig geschätzt sind, sollte dieser Nachteil keine Rolle spielen. Wenn sie aber gestreut sind, wird dieses Bias noch stärker in der finalen Schätzung übertragen. Deswegen kann man einen Maximumwert einführen, den genommen wird, wenn ein Gewicht es überschreitet \cite{stuart2010matching}.  
+Der Vorteil von einer Gewichtung ist, dass diese Methode alle Objekte für die Schätzung von dem durchschnittlichen Behandlungseffekt nimmt, was bei den üblichen Verbindungsstrategien, die wir kurz am Ende des \refsec{subsubsec:propensityScoreMatching} erwähnt haben, nicht der Fall ist. Der Nachteil ist, dass ein Gewicht bei einer zu hohen oder zu niedrigen Propensity Score sehr groß werden kann, was Varianz in die finalen Schätzung bringt. Wenn die Propensity Scores richtig geschätzt sind, sollte dieser Nachteil keine Rolle spielen. Wenn sie aber gestreut sind, wird dieses Bias noch stärker in der finalen Schätzung übertragen. Deswegen kann man einen Maximumwert einführen, der genommen wird, wenn ein Gewicht ihn überschreitet \cite{stuart2010matching}.  
 \par
 
 \subsection{Methoden in unserer Implementierung}\label{subsec:methodenInImplementierung}
 \noindent
-\emph{In diesem Abschnitt werden wir die Methoden für kausale Inferenz vorstellen, die wir in unserer Implementierung von Synth-Validation integriert haben. Sie sind nach der Entwicklung von Synth-Validation entstanden und zeigen bessere Ergebnisse im Allgemeinen als die älteren Methoden, deswegen haben wir sie genommen. Da die drei getesteten Methoden heterogene Behandlungseffekte schätzen, erklären wir zuerst, wie sich der heterogene Behandlungseffekt von dem durchschnittlichen Behandlungseffekt unterscheidet. Dann deuten wir an, wie wir aus den heterogen Schätzungen den durchschnittlichen Effekt berechnen. Im \refsec{subsubsec:quasioracle} stellen wir die Modellbedingungen der R-learner Methode vor, die sich für die beiden Schätzer (das Lasso und das Gradient Boosting) nicht unterscheiden. Dann stellen wir individuell die beiden Schätzer dar. Im \refsec{subsubsec:kausaleWälder} erzählen wir über eine andere Schätzmethode - die kausale Wälder, die Random Forests für die Schätzung benutzt.}\par
+\emph{In diesem Abschnitt werden wir die Methoden für kausale Inferenz vorstellen, die wir in unserer Implementierung von Synth-Validation integriert haben. Sie sind nach der Entwicklung von Synth-Validation entstanden und zeigen bessere Ergebnisse im Allgemeinen als die älteren Methoden, deswegen haben wir sie genommen. Da die drei getesteten Methoden heterogene Behandlungseffekte schätzen, erklären wir zuerst, wie sich der heterogene Behandlungseffekt von dem durchschnittlichen Behandlungseffekt unterscheidet. Dann deuten wir an, wie wir aus den heterogen Schätzungen den durchschnittlichen Effekt berechnen. Im \refsec{subsubsec:quasioracle} stellen wir die Modellbedingungen der R-learner Methode vor, die sich für die beiden Schätzer (das Lasso und das Gradient Boosting) nicht unterscheiden. Dann stellen wir individuell die beiden Schätzer dar. Im \refsec{subsubsec:kausaleWälder} erzählen wir über eine andere Schätzmethode - die kausalen Wälder, die Random Forests für die Schätzung benutzt.}\par
 
 
-Die Methoden, die wir in unserer Implementierung integriert haben, schätzen den heterogenen Behandlungseffekt. Wir wiederholen, dass der durchschnittlichen Effekt die Differenz zwischen die durchschnittliche Ergebnisvariable aller behandelten Objekten und die durchschnittliche Ergebnisvariable aller Kontrollobjekten ist, wenn wir annehmen, dass keine Counfonder gibt oder ihr Effekt entfernt ist. Wir bringen noch mal \refeq{eq:1.3} zur Bequemlichkeit:\par  
+Die Methoden, die wir in unserer Implementierung integriert haben, schätzen den heterogenen Behandlungseffekt. Wir wiederholen, dass der durchschnittliche Effekt die Differenz zwischen der durchschnittliche Ergebnisvariable aller behandelten Objekte und der durchschnittliche Ergebnisvariable aller Kontrollobjekten ist, wenn wir annehmen, dass es keine Counfonder gibt oder ihr Effekt entfernt ist. Wir bringen noch mal \refeq{eq:1.3} zur Bequemlichkeit:\par  
 
 \begin{equation}\label{eq:2.11}
   \tau = E_{Y,X}[Y|X,W = 1] - E_{Y,X}[Y|X,W = 0]
 \end{equation}
 
 \noindent
-Der heterogene Behandlungseffekt ist nicht der durchschnittliche, sondern der individuelle Effekt, den ein Objekt oder eine Ergebnisvariable dieses Objekts nach einer Behandlung bekommt. Der heterogene Effekt ist die Differenz zwischen die potentiellen Werten dieser Variable mit und ohne Behandlung für ein spezifisches Objekt. Die  Schätzung ist nicht mehr einen einzigen Wert $\tau$, sondern eine Funktion $\tau(x)$, die von den Werten der Kovariaten $x$ eines Objekt abhängt. Formal stellen wir die Funktion folgendermaßen dar:\par
+Der heterogene Behandlungseffekt ist nicht der durchschnittliche, sondern der individuelle Effekt, den ein Objekt oder eine Ergebnisvariable dieses Objekts nach einer Behandlung bekommt. Der heterogene Effekt ist die Differenz zwischen die potentiellen Werten dieser Variable mit und ohne Behandlung für ein spezifisches Objekt. Die  Schätzung ist nicht mehr ein einziger Wert $\tau$, sondern eine Funktion $\tau(x)$, die von den Werten der Kovariaten $x$ eines Objektes abhängt. Formal stellen wir die Funktion folgendermaßen dar:\par
 
 \begin{equation}\label{eq:2.12}
   \tau(x) = E_X \Big [ E_{Y}[Y|W = 1] - E_{Y}[Y|W = 0] \Big | X=x \Big ]
 \end{equation}
 
 \noindent
-Da wir für unsere Implementierung den durchschnittlichen Effekt brauchen, wenden wir die geschätzte Funktion $\tau(x)$ für alle unserer Objekten an und finden dann den Mittelwert von diesen individuellen Behandlungseffekten. Formal:\par
+Da wir für unsere Implementierung den durchschnittlichen Effekt brauchen, wenden wir die geschätzte Funktion $\tau(x)$ für alle unserer Objekte an und finden dann den Mittelwert von diesen individuellen Behandlungseffekten. Formal:\par
 
 \begin{equation}\label{eq:2.13}
   \tau = \frac{1}{N} \sum_{i=1}^{N} \tau(x_i)
 \end{equation}
   
-\subsubsection{Quasi-Oracle Schätung}\label{subsubsec:quasioracle}
+\subsubsection{Quasi-Oracle Schätzung}\label{subsubsec:quasioracle}
 \noindent
 \emph{In diesem Abschnitt werden wir über die Modellrahmen von der Quasi-Oracle Schätzung von heterogenen Behandlungseffekten\cite{nie2017quasi} erzählen, die von Xinkun Nie und Stefan Wager entwickelt wurde. Intern hat die Methode entweder das Lasso oder Gradient Boosting als Schätzer und wir haben die beiden Varianten der Methode in unserer Implementierung von Synth-Validation integriert. Über die beiden Schätzer erzählen wir in den Unterabschnitten.}\par  
 
-Die Methode der Quasi-Oracle Schätzung von heterogenen Behandlungseffekte oder der R-learner, der von Nie und Wager entwickelt wurde, definiert das allgemeine Problem zum Schätzen vom heterogenen Behandlungseffekt als Optimierungsproblem, das man mit einer Menge von unterschiedliche Verfahren lösen kann. Davor muss man zwei Funktionen schätzen, die im Problem eingesetzt sind. Wenn man zum Lösen des Optimierungsproblems das Lasso benutzt, verhält sich die Methode als ein Quasi-Orakel Schätzer - sogar im Fall von einer ungenauen Schätzung von den beiden Funktionen im ersten Schritt ist der Schätzwert der Methode so gut wie dieser von einem Quasi-Orakel. Der Quasi-Orakel kennt die beiden Funktionen und unterscheidet sich mit dem normalen Orakel damit, dass er nur den echten Behandlungseffekt nicht kennt. Wir werden jetzt das von der Methode benutzte Modell formal ausführlich anschauen. Alle mit $*$ hochgestellten Signaturen in diesem Abschnitt sind unbekannt, können aber geschätzt werden. Zuerst stellen wir die potenziellen Ergebnissen $Y_i(1)$ und $Y_i(0)$ vor, die die Variable $Y$ nimmt, wenn man das Objekt $i$ behandelt oder nicht behandelt. Weiter benutzt das Modell die Propensity Score $e^*(x)$, über die wir im \refsec{subsubsec:propensityScoreMatching} erzählt haben:\par
+Die Methode der Quasi-Oracle Schätzung von heterogenen Behandlungseffekten oder der R-learner, der von Nie und Wager entwickelt wurde, definiert das allgemeine Problem zum Schätzen vom heterogenen Behandlungseffekt als Optimierungsproblem, das man mit einer Menge von unterschiedlichen Verfahren lösen kann. Davor muss man zwei Funktionen schätzen, die im Problem eingesetzt sind. Wenn man zum Lösen des Optimierungsproblems das Lasso benutzt, verhält sich die Methode wie ein Quasi-Orakel Schätzer - sogar im Fall von einer ungenauen Schätzung von den beiden Funktionen im ersten Schritt ist der Schätzwert der Methode so gut wie dieser von einem Quasi-Orakel. Der Quasi-Orakel kennt die beiden Funktionen und unterscheidet sich von dem normalen Orakel dadurch, dass er nur den echten Behandlungseffekt nicht kennt. Wir werden jetzt das von der Methode benutzte Modell formal ausführlich anschauen. Alle mit $*$ hochgestellten Signaturen in diesem Abschnitt sind unbekannt, können aber geschätzt werden. Zuerst stellen wir die potenziellen Ergebnisse $Y_i(1)$ und $Y_i(0)$ vor, die die Variable $Y$ nimmt, wenn man das Objekt $i$ behandelt oder nicht behandelt. Weiter benutzt das Modell die Propensity Score $e^*(x)$, über die wir im \refsec{subsubsec:propensityScoreMatching} erzählt haben:\par
 
 \begin{equation}\label{eq:2.14}
   e^*(x) = P \big [W=1|X=x \big ]
 \end{equation}
 
 \noindent
-Danach stellen wir der bedingte Oberfläche vom Ergebnis $\mu^*_{(w)}(x)$ vor, den wir für die Behandlung $w =\{0,1\}$ haben:\par
+Danach stellen wir die bedingte Oberfläche vom Ergebnis $\mu^*_{(w)}(x)$ vor, die wir für die Behandlung $w =\{0,1\}$ haben:\par
 
 \begin{equation}\label{eq:2.15}
  \mu^*_{(w)}(x) = E \big [Y(w)|X=x \big ]
@@ -666,14 +665,14 @@ Diese Darstellung nennt man die Transformation von Robinson\cite{robinson1988roo
 \end{equation}
 
 \noindent
-Man bemerkt, dass der Term von $\epsilon_i(W_i)$ im oberen Ausdruck \ref{eq:2.19} im Vergleich zum Ausdruck \ref{eq:2.18} ausgefallen hat. Das hat ganz gezielt passiert, weil wir beobachten, dass die Confounder genauso dann keinen Einfluss auf den finalen Wert von $Y_i$ habe, wenn gilt:\par
+Man bemerkt, dass der Term von $\epsilon_i(W_i)$ im oberen Ausdruck \ref{eq:2.19} im Vergleich zum Ausdruck \ref{eq:2.18} ausgefallen ist. Das ist ganz gezielt passiert, weil wir beobachten, dass die Confounder genauso dann keinen Einfluss auf den finalen Wert von $Y_i$ haben, wenn gilt:\par
 
 \begin{equation}\label{eq:2.20}
 	 E\big[\epsilon_i(W_i)|X_i,W_i\big] = 0
 \end{equation}
 
 \noindent
-Wir sind jetzt bereit, unser finalen Problem in zwei Schritte zu zerlegen:\par
+Wir sind jetzt bereit, unser finales Problem in zwei Schritte zu zerlegen:\par
 
 \begin{enumerate}
   \item Schätzung von $m^*(x)$ und $e^*(x)$ 
@@ -687,20 +686,20 @@ Wir sind jetzt bereit, unser finalen Problem in zwei Schritte zu zerlegen:\par
 \end{enumerate}
 
 \noindent
-$L_n(r(.))$ ist die Verlustfunktion, für die wir $r(.)$ finden wollen, für die die Funktion minimal ist. $\Lambda_n(r(.))$ ist ein Regulierungsterm, der durch Cross-Validation bestimmt werden kann. Bei einer solchen Definition des Problems hat man die Möglichkeit und die Flexibilität, es mit unterschiedlichen Verfahren zu lösen - lineare Modellen, Boosting, neuronale Netze usw. Die Autoren vom R-learner benutzen das Lasso oder Gradient Boosting für den ersten Schritt und das Lasso für den zweiten. In den folgenden zwei Unterabschnitten werden wir über diese zwei Schätzmethoden erzählen.\par
+$L_n(r(.))$ ist die Verlustfunktion, für die wir $r(.)$ finden wollen, für die die Funktion minimal ist. $\Lambda_n(r(.))$ ist ein Regulierungsterm, der durch Cross-Validation bestimmt werden kann. Bei einer solchen Definition des Problems hat man die Möglichkeit und die Flexibilität, es mit unterschiedlichen Verfahren zu lösen - lineare Modelle, Boosting, neuronale Netze usw. Die Autoren vom R-learner benutzen das Lasso oder Gradient Boosting für den ersten Schritt und das Lasso für den zweiten. In den folgenden zwei Unterabschnitten werden wir über diese zwei Schätzmethoden erzählen.\par
 
 \subsubsubsection{Lasso}\label{subsubsubsec:lasso}
-	Das Lasso oder LASSO steht für Least Absolute Shrinkage and Selection Operator oder auf Deutsch Selektion Operator mit absoluter Schwindung. Es ist eine Erweiterung von der üblichen linearen Regression und hat viele Varianten. Wir stellen hier die allereinfachste Form vor, die aber schon die wichtigsten Charakteristiken der Methode beinhaltet.\par 
+	Das Lasso oder LASSO steht für Least Absolute Shrinkage and Selection Operator oder auf Deutsch Selektionsoperator mit absoluter Schwindung. Es ist eine Erweiterung von der üblichen linearen Regression und hat viele Varianten. Wir stellen hier die allereinfachste Form vor, die aber schon die wichtigsten Charakteristiken der Methode beinhaltet.\par 
 	
 \noindent
-Die lineare Regression oder genauer gesagt die Methode der kleinsten Quadraten ist im Grunde genommen für eine Datenmenge von  $y_i$ und $x_i$ eine Lösung des folgenden Optimierungsproblems:\par	
+Die lineare Regression oder genauer gesagt die Methode der kleinsten Quadrate ist im Grunde genommen für eine Datenmenge von  $y_i$ und $x_i$ eine Lösung des folgenden Optimierungsproblems:\par	
 
 \begin{equation}\label{eq:2.22}
 	 \arg\min_{\alpha, \beta} \bigg\{ \frac{1}{N}\sum_{i=1}^{n} (y_i - \alpha - x_i^T\beta)^2 \bigg\}
 \end{equation}
 
 \noindent
-Dabei sind die Ergebnisse $\alpha$ und $\beta$, die die Methode angepasst hat, die Koeffizienten von einem linearen Model. Durch Anwendung dieser Koeffizienten kann man weitere $y_i$ für gegebene $x_i$ vorhersagen. Der Fehler dieser Vorhersagen bemesst man mit der Größe des Bias und der Varianz. Und soweit die lineare Regression mit wenig Bias schätzt, hat sie oft viel Varianz. Das liegt daran, dass manche von den Inputvariablen in $x$ in der Tat keinen Einfluss auf das Ergebnis $y$ haben. Diese falsche Modellierung führt dazu, dass die $\alpha$ und $\beta$ nicht im allgemein, sondern nur für den Trainingdatensatz stimmen.\par 
+Dabei sind die Ergebnisse $\alpha$ und $\beta$, die die Methode angepasst hat, die Koeffizienten von einem linearen Model. Durch Anwendung dieser Koeffizienten kann man weitere $y_i$ für gegebene $x_i$ vorhersagen. Der Fehler dieser Vorhersagen bemisst man mit der Größe des Bias und der Varianz. Und soweit die lineare Regression mit wenig Bias schätzt, hat sie oft viel Varianz. Das liegt daran, dass manche von den Inputvariablen in $x$ in der Tat keinen Einfluss auf das Ergebnis $y$ haben. Diese falsche Modellierung führt dazu, dass die $\alpha$ und $\beta$ nicht im allgemein, sondern nur für den Trainingdatensatz stimmen.\par 
 
 \noindent
 Um dieses Problem zu vermindern, kann man die Betas begrenzen oder regulieren, so dass sie nicht beliebig viel wachsen und damit Werte nehmen, die das Optimierungsproblem eigentlich besser lösen, aber in der Tat ungültig sind. Man bestimmt einen Parameter $t$, den die absolute Summe von $\beta$ nicht überschreiten soll\cite{tibshirani1996regression}. Wir fügen diese neue Bedingung in das Optimierungsproblem ein:\par   
@@ -717,11 +716,11 @@ Wir geben das Problem auch in seiner Lagrangeform:\par
 \end{equation} 
 
 \noindent
-Durch diese Regulierung erzielen wir folgendes: unwichtige Faktoren bekommen kleinere Werte in ihre Betas. Manche Betas werden zu $0$ und sind somit als unwichtig von dem Modell ausgeschlossen. Das bedeutet, dass wir das Lasso benutzen können, wenn wir unsicher sind, welche $x$ den Wert von $y$ bestimmen\cite{tibshirani1996regression}. Wir müssen nur den passenden Wert von $\lambda$ finden. Je höher $\lambda$ ist, desto mehr Faktoren reduzieren wir. Je kleiner ($0$ als Minimum), desto ähnlich ist das Lasso an der linearen Regression.  Zu niedrige $\lambda$ bedeutet potenzielle hohe Varianz, zu hohe - ein gestreutes Ergebnis. Für ihre Bestimmung können wir Cross-Validation benutzen\cite{tibshirani1996regression}.\par 
+Durch diese Regulierung erzielen wir folgendes: unwichtige Faktoren bekommen kleinere Werte in ihre Betas. Manche Betas werden zu $0$ und sind somit als unwichtig von dem Modell ausgeschlossen. Das bedeutet, dass wir das Lasso benutzen können, wenn wir unsicher sind, welche $x$ den Wert von $y$ bestimmen\cite{tibshirani1996regression}. Wir müssen nur den passenden Wert von $\lambda$ finden. Je höher $\lambda$ ist, desto mehr Faktoren reduzieren wir. Je kleiner ($0$ als Minimum), desto ähnlich ist das Lasso an der linearen Regression.  Zu niedrige $\lambda$ bedeutet potenziell hohe Varianz, zu hohe - ein gestreutes Ergebnis. Für ihre Bestimmung können wir Cross-Validation benutzen\cite{tibshirani1996regression}.\par 
 
 \subsubsubsection{Gradient Boosting}\label{subsubsubsec:gradientBoosting}
 
-Gradient Boosting ist eine Technik aus dem maschinellen Lernen, die als Ziel hat, für gegebenen Daten $y_i$ und $x_i$ eine Funktion $y=F(x)$ zu finden, die ihre Beziehung am besten beschreibt. Dazu benutzt sie viele \enquote{schwache} Lerner, die individuell nicht so gut sind, aber zusammen eine insgesamt gute Schätzung produzieren. Jeder neue Lerner trägt iterativ bei. Wie üblich im maschinellen Lernen haben wir auch hier eine Verlustfunktion $L(y,\hat y)$, in der $y$ für die echten Werten von den Daten und $\hat y$ für die von dem Modell geschätzten Werten steht. Wenn die Summe der Verlustfunktion eingesetzt mit jedem $y_i$ minimal ist, haben wir die beste Anpassung erreicht. Beim Gradient Boosting passiert diese Anpassung iterativ: wir fangen mit einem schwachen Schätzer $F_0(x)$ an, der oft den Mittelwert $\overline{y}$ ist\cite{gradientBoost}. Jeder folgende Schätzer $F_{m+1}$ stellen wir dann so dar:\par
+Gradient Boosting ist eine Technik aus dem maschinellen Lernen, die als Ziel hat, für gegebene Daten $y_i$ und $x_i$ eine Funktion $y=F(x)$ zu finden, die ihre Beziehung am besten beschreibt. Dazu benutzt sie viele \enquote{schwache} Lerner, die individuell nicht so gut sind, aber zusammen eine insgesamt gute Schätzung produzieren. Jeder neue Lerner trägt iterativ bei. Wie üblich im maschinellen Lernen haben wir auch hier eine Verlustfunktion $L(y,\hat y)$, in der $y$ für die echten Werte von den Daten und $\hat y$ für die von dem Modell geschätzten Werte steht. Wenn die Summe der Verlustfunktion eingesetzt mit jedem $y_i$ minimal ist, haben wir die beste Anpassung erreicht. Beim Gradient Boosting passiert diese Anpassung iterativ: wir fangen mit einem schwachen Schätzer $F_0(x)$ an, der oft der Mittelwert $\overline{y}$ ist\cite{gradientBoost}. Jeden folgenden Schätzer $F_{m+1}$ stellen wir dann so dar:\par
 
 \begin{equation}\label{eq:2.25}
 	F_{m+1} = F_m(x) + h(x)
@@ -735,19 +734,19 @@ Hier ist $h(x)$ die Funktion, die den vorherigen Schätzer am besten ergänzt, s
 \end{equation} 
 
 \noindent
-Hier ist $h_i(x)$ die Ergänzung von jedem weiteren schwachen Schätzer und $\gamma_i$ ist sein Gewicht. $const$ ist der Schätzwert von dem allerersten Schätzer. In jedem Schritt schätzen wir dann die $h_m(x)$ mit einem schwachen Schätzer $m$, der als Eingabe alle $x_i$ und die so genanten Pseudorestwerte $r_{im}$ nimmt. Danach wird $\gamma_m$ gefunden, für die die Verlustfunktion $L(y_i,F_{m-1}(x_i)+\gamma_m h_m(x_i))$ mit der geschätzten $h_m(x)$ minimal ist. Die  Pseudorestwerte $r_{im}$ sind der negierte Gradient von der Verlustfunktion  $L(y_i,F_{m-1}(x_i))$ mit den letzten Schätzwerten. Eine oft benutzte Verlustfunktion ist $\frac{1}{2}(y-F(x))^2$, da ihre Preudorestwerte an den üblichen Restwerte entsprechen\cite{gradientBoost}. Wir geben den Algorithmus von Gradient Boosting an:\par 
+Hier ist $h_i(x)$ die Ergänzung von jedem weiteren schwachen Schätzer und $\gamma_i$ ist sein Gewicht. $const$ ist der Schätzwert von dem allerersten Schätzer. In jedem Schritt schätzen wir dann die $h_m(x)$ mit einem schwachen Schätzer $m$, der als Eingabe alle $x_i$ und die so genannten Pseudorestwerte $r_{im}$ nimmt. Danach wird $\gamma_m$ gefunden, für die die Verlustfunktion $L(y_i,F_{m-1}(x_i)+\gamma_m h_m(x_i))$ mit der geschätzten $h_m(x)$ minimal ist. Die  Pseudorestwerte $r_{im}$ sind der negierte Gradient von der Verlustfunktion  $L(y_i,F_{m-1}(x_i))$ mit den letzten Schätzwerten. Eine oft benutzte Verlustfunktion ist $\frac{1}{2}(y-F(x))^2$, da ihre Pseudorestwerte den üblichen Restwerte entsprechen\cite{gradientBoost}. Wir geben den Algorithmus von Gradient Boosting an:\par 
 
 \begin{enumerate}
 \item Konstantenwert für den ersten Schätzer setzen:\\
 $F_0(x) = argmin_{\gamma} \sum_{i=1}^n L(y_i,\gamma)$
 \item Für $m = 1$ bis $M$:
 \begin{enumerate}
-\item Preudorestwerte ausrechnen:\\
+\item Pseudorestwerte ausrechnen:\\
 $r_{im} = - \big [ \frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}\big ]_{F(x)=F_{m-1}(x)} \text{ für } i= 1,\dots,n $
 \item Modell $m$ zur Schätzung von $h_m(x)$ durch $r_{im}$ anpassen
 \item $\gamma_m$ durch das Lösen vom folgenden Optimierungsproblem finden:\\
 $\gamma_m = argmin_{\gamma} \sum_{i=1}^n L(y_i,F_{m-1}(x_i)+\gamma h_m(x_i))$
-\item Model aktualisieren:\\
+\item Modell aktualisieren:\\
 $F_m(x) = F_{m-1}(x) + \gamma_m h_m(x)$	
 \end{enumerate}
 
@@ -755,10 +754,10 @@ $F_m(x) = F_{m-1}(x) + \gamma_m h_m(x)$
 \end{enumerate}
 
 \subsubsection{Kausale Wälder}\label{subsubsec:kausaleWälder}
-Die kausale Wälder oder Causal Forests sind eine Methode zum Schätzen von dem heterogenen Behandlungseffekt $\tau(x)$ von einer Behandlung. Dabei sind sie von den Random Forests inspiriert und von der Struktur her unterscheiden sich mit ihnen nicht. Das \enquote{Kausale} bei den kausalen Wälder ist die Tatsache, dass wir zwei Arten von Kovariaten in den Blätter haben - von behandelten Objekten und von Kontrollobjekten. Das verlangt von uns, dass wir eine andere finale Schätzung von den Blattelementen nutzen, den Baum etwa anders aufspalten und noch einige Bedingungen einhalten\cite{wager2018estimation}. \par
+Die kausalen Wälder oder Causal Forests sind eine Methode zum Schätzen von dem heterogenen Behandlungseffekt $\tau(x)$ von einer Behandlung. Dabei sind sie von den Random Forests inspiriert und von der Struktur her unterscheiden sich von ihnen nicht. Das \enquote{Kausale} bei den kausalen Wäldern ist die Tatsache, dass wir zwei Arten von Kovariaten in den Blättern haben - von behandelten Objekten und von Kontrollobjekten. Das verlangt von uns, dass wir eine andere finale Schätzung von den Blattelementen nutzen, den Baum etwa anders aufspalten und noch einige Bedingungen einhalten\cite{wager2018estimation}. \par
 
 \noindent
-Random Forest ist eine Technik aus dem maschinellem Lernen, die zur Klassifikation von Objekten oder zur Regression von Funktionen benutzt wird. Der Wald besteht aus $N$ Bäume. Jeder Baum ist ein einzelner Schätzer und der Schätzwert des Waldes ist der durchschnittliche Schätzwert von allen Bäumen. So vermindert man die Varianz, die sonst eine Schätzung eines einzigen Baums hat. Ein Baum besteht aus Knoten und Blätter. Bei einer Modellvorhersage läuft man für ein $x$ den Baum durch und sucht, in welchem Blatt dieses $x$ liegen würde. Dann wird der Durchschnitt von allen Elementen in diesem Blatt als Schätzwert für $y$ herausgegeben. Man muss aber zuerst durch den gegebenen Datensatz $(x_i,y_i)$ den Baum anpassen. Dazu wird der Raum von $x$ abhängig von den Daten in Unterräumen aufgespaltet und die Knoten des Bäumes merken diese Aufspaltungregel. Wenn ein Unterraum eine minimale Anzahl $k$ von Trainingdaten in sich hat oder eine weitere Aufspaltung keine Verbesserung bei der Schätzung verspricht, werden die Elementen in diesem Unterraum in ein Blatt gesteckt. Die Daten für jeden Baum werden durch zufälliges Stichprobeziehen ohne Zurücklegen von den gemeinsamen Datensatz erstellt \cite{breiman2001random}.\par
+Random Forest ist eine Technik aus dem maschinellem Lernen, die zur Klassifikation von Objekten oder zur Regression von Funktionen benutzt wird. Der Wald besteht aus $N$ Bäumen. Jeder Baum ist ein einzelner Schätzer und der Schätzwert des Waldes ist der durchschnittliche Schätzwert von allen Bäumen. So vermindert man die Varianz, die sonst eine Schätzung eines einzigen Baums hat. Ein Baum besteht aus Knoten und Blättern. Bei einer Modellvorhersage läuft man für ein $x$ den Baum durch und sucht, in welchem Blatt dieses $x$ liegen würde. Dann wird der Durchschnitt von allen Elementen in diesem Blatt als Schätzwert für $y$ herausgegeben. Man muss aber zuerst durch den gegebenen Datensatz $(x_i,y_i)$ den Baum anpassen. Dazu wird der Raum von $x$ abhängig von den Daten in Unterräume aufgespaltet und die Knoten des Bäumes merken diese Aufspaltungregel. Wenn ein Unterraum eine minimale Anzahl $k$ von Trainingdaten in sich hat oder eine weitere Aufspaltung keine Verbesserung bei der Schätzung verspricht, werden die Elemente in diesem Unterraum in ein Blatt gesteckt. Die Daten für jeden Baum werden durch zufälliges Stichprobeziehen ohne Zurücklegen von den gemeinsamen Datensatz erstellt \cite{breiman2001random}.\par
 
 \noindent
 Die Daten, die die Kausalen Wälder anpassen müssen, haben außer den üblichen $(X_i,Y_i)$ auch die Variable der Behandlung $W_i$. Damit die Schätzung von dem heterogenen Behandlungseffekt nicht gestreut ist, muss jedes Blatt eine minimale Anzahl $k$ von Objekten in sich haben, die sowohl behandelt als auch unbehandelt sind. Dann hat die finale Blattschätzung eine andere Form als bei dem normalen Regressionbaum - wir suchen nach der Differenz zwischen den Mittelwerten von den behandelten und unbehandelten Objekten\cite{wager2018estimation}. Wir stellen formal die beiden Varianten dar: \par 
@@ -775,7 +774,7 @@ Die Daten, die die Kausalen Wälder anpassen müssen, haben außer den üblichen
 \end{equation} 
 
 \noindent
-\refeq{eq:2.27} ist die finale Blattschätzung von dem Regressionsbaum, \refeq{eq:2.28} - von dem kausalen Baum. $L(x)$ ist die Menge von allen $X_i$ aus den Trainingdaten, die in diesem Blatt liegen. Damit die Blattschätzung nicht gestreut ist, muss jeder Baum in unserem Wald \enquote{ehrlich} sein. Wagner und Athey\cite{wager2018estimation} haben die Bedingung der Ehrlichkeit so erklärt: für jedes Objekt $i$ aus den Trainingsdaten wird entweder sein $Y_i$ für die Blattschätzung, oder sein $X_i$ für die Aufspaltung bei dem Erstellen des Baums benutzt, aber nicht beides. Um das zu erzielen, teilt man die Daten für jeden Baum auf 2 Untergruppen $A$ und $B$. Dann darf man für die Aufspaltung des Baums alle Daten aus $A$ und die $X_i$ und $W_i$ aus $B$ benutzen. In den Blättern werden aber nur die Objekten aus $B$ gesteckt, sodass nur seine $Y_i$ für die Blattschätzung benutzt werden. Noch eine sehr wichtige Bedingung ist, dass jedes Blatt mindesten $k$ behandelten und $k$ unbehandelten Objekten enthalten muss. Je kleiner $k$ ist, desto weniger gestreut wird die Schätzung sein. Desto länger wird aber die Anpassung des Baums dauern\cite{wager2018estimation}.   
+\refeq{eq:2.27} ist die finale Blattschätzung von dem Regressionsbaum, \refeq{eq:2.28} - von dem kausalen Baum. $L(x)$ ist die Menge von allen $X_i$ aus den Trainingdaten, die in diesem Blatt liegen. Damit die Blattschätzung nicht gestreut ist, muss jeder Baum in unserem Wald \enquote{ehrlich} sein. Wagner und Athey\cite{wager2018estimation} haben die Bedingung der Ehrlichkeit so erklärt: für jedes Objekt $i$ aus den Trainingsdaten wird entweder sein $Y_i$ für die Blattschätzung, oder sein $X_i$ für die Aufspaltung bei dem Erstellen des Baums benutzt, aber nicht beides. Um das zu erzielen, teilt man die Daten für jeden Baum auf 2 Untergruppen $A$ und $B$. Dann darf man für die Aufspaltung des Baums alle Daten aus $A$ und die $X_i$ und $W_i$ aus $B$ benutzen. In den Blättern werden aber nur die Objekten aus $B$ gesteckt, sodass nur seine $Y_i$ für die Blattschätzung benutzt werden. Noch eine sehr wichtige Bedingung ist, dass jedes Blatt mindestens $k$ behandelte und $k$ unbehandelte Objekten enthalten muss. Je kleiner $k$ ist, desto weniger gestreut wird die Schätzung sein. Desto länger wird aber die Anpassung des Baums dauern\cite{wager2018estimation}.   
 
 \clearpage
 
@@ -784,20 +783,20 @@ Die Daten, die die Kausalen Wälder anpassen müssen, haben außer den üblichen
 \noindent
 \emph{In diesem Abschnitt erzählen wir über die Theorie hinter Synth-Validation - eine Technik, die man zur Auswahl von einer Methode für kausale Inferenz für einen bestimmten Datensatz benutzt und die von Alejandro Schuler, Ken Jung, Robert Tibshirani, Trevor Hastie und Nigam Shah entwickelt wurde\cite{schuler2017synth}. Wir erläutern zuerst die Motivation für die Erstellung von Synth-Validation und gehen grob durch die ganze Methode durch. Dann schauen wir uns die einzelnen Schritte des Verfahrens genauer an und erzählen über die da benutzten Algorithmen und Heuristiken in den Unterabschnitten.}\par
 
-In den vorigen Abschnitten haben wir unser Problem - das Finden von dem durchschnittlichen Behandlungseffekt - definiert und über seine Lösung - unterschiedliche Methoden für kausale Inferenz - erzählt. Wir gehen also davon aus, dass man seine Daten hat und die unterschiedlichen Methoden für kausale Inferenz kennt. Man weiß, dass die Methoden unterschiedliche Schätzwerte liefern werden. Einer von diesen Schätzwerten ist am nächsten zu dem echten Behandlungseffekt, aber man weiß natürlich nicht wer. Noch ist es bekannt, dass es keine allgemeingültige Methode gibt, die für alle Daten der beste Schätzer ist - für die unterschiedlichen Datensätze liefern unterschiedliche Methoden das beste Ergebnis. Das gleiche Problem treffen wir bei den üblichen Schätzverfahren aus dem maschinellen Lernen. Da kann man aber relativ sicher die Erfolgsrate von  jeder Methode ermäßen, indem man ein Teil der Daten bei dem Lernen des Modells verhindert und danach mit diesen Daten die Erfolgsrate des Modells testet. Dieser Trick ist in dem kausalen Fall unmöglich, weil wir den Schätzwert der Methoden (den durchschnittlichen Behandlungseffekt) nicht direkt beobachten können und dementsprechend können wir ihn nicht aus den Testdaten nehmen\cite{schuler2017synth}.\par
+In den vorigen Abschnitten haben wir unser Problem - das Finden von dem durchschnittlichen Behandlungseffekt - definiert und über seine Lösung - unterschiedliche Methoden für kausale Inferenz - erzählt. Wir gehen also davon aus, dass man seine Daten hat und die unterschiedlichen Methoden für kausale Inferenz kennt. Man weiß, dass die Methoden unterschiedliche Schätzwerte liefern werden. Einer von diesen Schätzwerten ist am nächsten zu dem echten Behandlungseffekt, aber man weiß natürlich nicht welcher. Noch ist es bekannt, dass es keine allgemeingültige Methode gibt, die für alle Daten der beste Schätzer ist - für die unterschiedlichen Datensätze liefern unterschiedliche Methoden das beste Ergebnis. Das gleiche Problem treffen wir bei den üblichen Schätzverfahren aus dem maschinellen Lernen. Da kann man aber relativ sicher die Erfolgsrate von  jeder Methode ermessen, indem man einen Teil der Daten bei dem Lernen des Modells verhindert und danach mit diesen Daten die Erfolgsrate des Modells testet. Dieser Trick ist in dem kausalen Fall unmöglich, weil wir den Schätzwert der Methoden (den durchschnittlichen Behandlungseffekt) nicht direkt beobachten können und dementsprechend können wir ihn nicht aus den Testdaten nehmen\cite{schuler2017synth}.\par
 
 \noindent
-Um unterschiedliche Verfahren für kausale Inferenz zu vergleichen, sollte man generative Verteilungen von Hand erstellen. Diese Verteilungen sollen dann Daten generieren, die ähnlich zu den echten Daten sind. Der Behandlungseffekt für die Daten wird von Anfang an vorbestimmt und es werden solche Verteilungen mit solchen Effekten gewählt, die zu den Expertenvermutungen über den Echten entsprechen. Auf den von diesen Verteilungen generierten Daten werden die Methoden ausgeführt und es wird diejenige ausgewählt, die den kleinsten durchschnittlichen Schätzfehler auf  allen Datensätze rausgibt. Diese Vergleichstechnik hat einen großen Nachteil - um gute generative Verteilungen zu erstellen, muss man sowohl sehr gute Statistik-, als auch sehr gute Domainkenntnisse haben. Ansonsten können die generierten Daten nicht an den Echten entsprechen\cite{schuler2017synth}.\par 
+Um unterschiedliche Verfahren für kausale Inferenz zu vergleichen, sollte man generative Verteilungen von Hand erstellen. Diese Verteilungen sollen dann Daten generieren, die ähnlich den echten Daten sind. Der Behandlungseffekt für die Daten wird von Anfang an vorbestimmt und es werden solche Verteilungen mit solchen Effekten gewählt, die zu den Expertenvermutungen über den Echten entsprechen. Auf den von diesen Verteilungen generierten Daten werden die Methoden ausgeführt und es wird diejenige ausgewählt, die den kleinsten durchschnittlichen Schätzfehler auf  allen Datensätze herausgibt. Diese Vergleichstechnik hat einen großen Nachteil - um gute generative Verteilungen zu erstellen, muss man sowohl sehr gute Statistik-, als auch sehr gute Domainkenntnisse haben. Ansonsten können die generierten Daten nicht den Echten entsprechen\cite{schuler2017synth}.\par 
 
 \noindent
-Das motivierte die Erstellung von Synth-Validation. Im Unterschied zu der oberen Vorgehensweise erstellt Synth-Validation die generative Verteilungen automatisch, indem sie die echten Daten benutzt. Das vermindert den notwendigen kognitiven Aufwand und führt zu einer besseren Auswahl. Man generiert dann synthetische Daten durch die Verteilungen, führt alle vorhandenen Methoden für kausale Inferenz auf diesen Daten aus und messt den durchschnittlichen Fehler von jeder Methode. Diejenige mit dem kleinsten Fehler wird ausgewählt. \reffig{fig:synthValidation} veranschauligt, wie Synth-Validation funktioniert. \cite{schuler2017synth}.\par 
+Das motivierte die Erstellung von Synth-Validation. Im Unterschied zu der oberen Vorgehensweise erstellt Synth-Validation die generative Verteilungen automatisch, indem sie die echten Daten benutzt. Das vermindert den notwendigen kognitiven Aufwand und führt zu einer besseren Auswahl. Man generiert dann synthetische Daten durch die Verteilungen, führt alle vorhandenen Methoden für kausale Inferenz auf diesen Daten aus und misst den durchschnittlichen Fehler von jeder Methode. Diejenige mit dem kleinsten Fehler wird ausgewählt. \reffig{fig:synthValidation} veranschaulicht, wie Synth-Validation funktioniert. \cite{schuler2017synth}.\par 
 
 \begin{center}
   \vspace{6mm}
   \begin{figure}[h]
     \centering
     \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/synth-validation.png}
-    \caption[Synth-Validation] {Synth-Validation\cite{schuler2017synth}. Die Daten $(x,w,y)$ und die Methoden für kausale Inferenz $t_A$, $t_B$ und $t_C$ kommen als Eingabe. Man wählt zuerst die synthetischen Effekte $\tau_i$, indem man die Methoden auf die Daten einsetzt. Dann schätzt man für jeden vorgegebenen synthetischen Effekt die bedingten Erwartungswerte $\mu_{0i}(x)$ und $\mu_{1i}(x)$. Man zieht eine Stichprobe von $(x,w)$ und wendet diese auf den bedingten Erwartungswerten. Somit kriegt man die synthetischen Datensätze mit einem vorgegebenen synthetischen Effekt $\tau_i$. Dann werden alle Methoden auf den Daten eingesetzt und da man den Behandlungseffekt von den Daten kennt, wird der durchschnittliche Fehler von jeder Methode ausgerechnet. Am Ende wird diejenige mit dem kleinsten Fehler ausgewählt \cite{schuler2017synth}.}\label{fig:synthValidation}
+    \caption[Synth-Validation] {Synth-Validation\cite{schuler2017synth}. Die Daten $(x,w,y)$ und die Methoden für kausale Inferenz $t_A$, $t_B$ und $t_C$ kommen als Eingabe. Man wählt zuerst die synthetischen Effekte $\tau_i$, indem man die Methoden auf die Daten einsetzt. Dann schätzt man für jeden vorgegebenen synthetischen Effekt die bedingten Erwartungswerte $\mu_{0i}(x)$ und $\mu_{1i}(x)$. Man zieht eine Stichprobe von $(x,w)$ und wendet diese auf den bedingten Erwartungswerten. Somit kriegt man die synthetischen Datensätze mit einem vorgegebenen synthetischen Effekt $\tau_i$. Dann werden alle Methoden auf die Daten eingesetzt und da man den Behandlungseffekt von den Daten kennt, wird der durchschnittliche Fehler von jeder Methode ausgerechnet. Am Ende wird diejenige mit dem kleinsten Fehler ausgewählt \cite{schuler2017synth}.}\label{fig:synthValidation}
   \end{figure}
 \end{center}
 
@@ -805,7 +804,7 @@ Das motivierte die Erstellung von Synth-Validation. Im Unterschied zu der oberen
 In den folgenden \refsec{subsec:generierungSynthDaten} und \refsec{subsec:methodenauswahl} erzählen wir ausführlich wie die synthetischen Daten generiert werden und wie dann mit diesen neuen Daten der beste Methode für kausale Inferenz ausgewählt wird.\par
 
   	\subsection{Generierung von synthetischen Daten}\label{subsec:generierungSynthDaten}
-  	Die generative Verteilung, die wir schätzen möchten, ist nicht die echte Verteilung $P(X,W,Y)$. Wenn man diese schätzen könnte, würden die Auswahl von den Methoden und auch die Methoden an sich umsonst, denn man könnte in diesem Fall den echten Behandlungseffekt direkt berechnen. Stattdessen wählt man zuerst synthetische Behandlungseffekten $\tilde{r_i}$. Wie genau das passiert, erzählen wir im \refsec{subsubsec:auswahlSynthEffekten}. Für unsere generativen Verteilungen  $P(\widetilde{X},\widetilde{W},\widetilde{Y})$ muss gelten, dass die davon generierten Daten maximal ähnlich zu den echten Daten sind und der durchschnittliche Behandlungseffekt von diesen Daten an unseren vorgegebenen $\tilde{r_i}$  entspricht \cite{schuler2017synth}. Formal:\par
+  	Die generative Verteilung, die wir schätzen möchten, ist nicht die echte Verteilung $P(X,W,Y)$. Wenn man diese schätzen könnte, würden die Auswahl von den Methoden und auch die Methoden an sich umsonst, denn man könnte in diesem Fall den echten Behandlungseffekt direkt berechnen. Stattdessen wählt man zuerst synthetische Behandlungseffekten $\tilde{r_i}$. Wie genau das passiert, erzählen wir im \refsec{subsubsec:auswahlSynthEffekten}. Für unsere generativen Verteilungen  $P(\widetilde{X},\widetilde{W},\widetilde{Y})$ muss gelten, dass die davon generierten Daten maximal ähnlich zu den echten Daten sind und der durchschnittliche Behandlungseffekt von diesen Daten unseren vorgegebenen $\tilde{r_i}$  entspricht \cite{schuler2017synth}. Formal:\par
   	
 \begin{equation}\label{eq:3.1}
   \tilde{\tau} = E_{\widetilde{Y},\widetilde{X}}[\widetilde{Y}|\widetilde{X},\widetilde{W} = 1] - E_{\widetilde{Y},\widetilde{X}}[\widetilde{Y}|\widetilde{X},\widetilde{W} = 0]
@@ -829,17 +828,17 @@ $\mu_1(\tilde{x})$ und $\mu_0(\tilde{x})$ sind die von uns angesprochenen beding
 \end{equation}
 
 \noindent
-Durch die bedingten Erwartungswerten können wir ein Modell für die Generierung von $\tilde{y_i}$ erstellen:\par
+Durch die bedingten Erwartungswerte können wir ein Modell für die Generierung von $\tilde{y_i}$ erstellen:\par
 
 \begin{equation}\label{eq:3.4}
  \tilde{y_i} = I_0(\tilde{w_i})\mu_0(\tilde{x}) + I_1(\tilde{w_i})\mu_1(\tilde{x}) + \epsilon_i
 \end{equation}
 
 \noindent
-Hier ist $I_w(w_i)$ die Indikatorfunktion für die Behandlung $w_i$, indem $I_w(w_i) = 1$ für $w_i = w$ und $I_w(w_i) = 0$ für $w_i \neq w$. $\epsilon_i$ ist der Restwert von $y_i$, mit dem unsere Schätzungen von $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ von den echten $y_i$ abweichen. Wir müssen also zuerst die bedingten Erwartungswerten schätzen und mit deren Hilfe die Restwerten $r_i = y_i - I_0(w_i)\mu_1(x) - I_1(w_i)\mu_1(x)$ ausrechnen. Wir benutzen dann die empirische Verteilung der Restwerte $P(R^*)$ als Rauschmodell für die Schätzung von den synthetischen $\tilde{y_i}$\cite{schuler2017synth}.\par 
+Hier ist $I_w(w_i)$ die Indikatorfunktion für die Behandlung $w_i$, indem $I_w(w_i) = 1$ für $w_i = w$ und $I_w(w_i) = 0$ für $w_i \neq w$. $\epsilon_i$ ist der Restwert von $y_i$, mit dem unsere Schätzungen von $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ von den echten $y_i$ abweichen. Wir müssen also zuerst die bedingten Erwartungswerte schätzen und mit deren Hilfe die Restwerten $r_i = y_i - I_0(w_i)\mu_1(x) - I_1(w_i)\mu_1(x)$ ausrechnen. Wir benutzen dann die empirische Verteilung der Restwerte $P(R^*)$ als Rauschmodell für die Schätzung von den synthetischen $\tilde{y_i}$\cite{schuler2017synth}.\par 
 
 \noindent
-Wir betonen, dass $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ nicht die echten bedingten Erwartungswerten von $Y$ sind, sondern die bedingten Erwartungswerten, für die $\widetilde{X}$ und $\widetilde{Y}$ aus unseren Daten kommen und für die der Behandlungseffekt $\tau$ aus \refeq{eq:3.2} an unserem vorgegebenen synthetischen Behandlungseffekt $\tilde{\tau}$ gleich ist. Wie $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ geschätzt werden, erzählen wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten}.\par 
+Wir betonen, dass $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ nicht die echten bedingten Erwartungswerte von $Y$ sind, sondern die bedingten Erwartungswerte, für die $\widetilde{X}$ und $\widetilde{Y}$ aus unseren Daten kommen und für die der Behandlungseffekt $\tau$ aus \refeq{eq:3.2} unserem vorgegebenen synthetischen Behandlungseffekt $\tilde{\tau}$ gleich ist. Wie $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ geschätzt werden, erzählen wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten}.\par 
 
 \noindent
 Zusammenfassend geben wir die Reihenfolge von Aktionen für die Generierung von den synthetischen Daten:\par
@@ -860,10 +859,10 @@ Zusammenfassend geben wir die Reihenfolge von Aktionen für die Generierung von 
 
 \end{enumerate}
   		\subsubsection{Auswahl von synthetischen Effekten}\label{subsubsec:auswahlSynthEffekten}
-  		Damit man die vorhandenen Methoden für kausale Inferenz auf Daten mit bekannten Behandlungseffekten testen kann, muss man zuerst diese Effekten bestimmen. Sie müssen so nah wie möglich an dem echten Behandlungseffekt liegen, damit die Auswahl am Ende sinnvoll ist. Die besten Schätzungen für ihn kriegt man durch den Einsatz von den Methoden. Es ist unklar, welche die Beste ist, deswegen benutzt man eine Heuristik\cite{schuler2017synth}.\par 
+  		Damit man die vorhandenen Methoden für kausale Inferenz auf Daten mit bekannten Behandlungseffekten testen kann, muss man zuerst diese Effekte bestimmen. Sie müssen so nah wie möglich an dem echten Behandlungseffekt liegen, damit die Auswahl am Ende sinnvoll ist. Die besten Schätzungen für ihn kriegt man durch den Einsatz von den Methoden. Es ist unklar, welche die beste ist, deswegen benutzt man eine Heuristik\cite{schuler2017synth}.\par 
   		
 \noindent
-Die Anzahl aller synthetischen Effekten $Q$ und ein Parameter $\gamma$ kommen als Eingabe, indem wir $Q=5$ und $\gamma = 2$ in unserer Implementierung benutzen. Man führt zuerst jede Methode $t$ auf den Daten aus und kriegt die Schätzungen $\hat{\tau_t}$. Dann wird die Median von allen Schätzungen gefunden. Den kleinsten synthetischen Effekt bestimmt man, indem von der Median der Produkt von der Spannweite $R$ aller Schätzungen und dem Parameter $\gamma$ abgezogen wird. Der größte synthetische Effekt ist die Summe von der Median und dieses Produkt. Für den Rest der Effekten nimmt man die Werte, die auf gleichen Intervallen in dieser Spannweite liegen, sodass alle Effekte insgesamt $Q$ sind\cite{schuler2017synth}.
+Die Anzahl aller synthetischen Effekte $Q$ und ein Parameter $\gamma$ kommen als Eingabe, indem wir $Q=5$ und $\gamma = 2$ in unserer Implementierung benutzen. Man führt zuerst jede Methode $t$ auf den Daten aus und kriegt die Schätzungen $\hat{\tau_t}$. Dann wird die Mediane von allen Schätzungen gefunden. Den kleinsten synthetischen Effekt bestimmt man, indem von der Mediane das Produkt von der Spannweite $R$ aller Schätzungen und dem Parameter $\gamma$ abgezogen wird. Der größte synthetische Effekt ist die Summe von der Mediane und diesem Produkt. Für den Rest der Effekte nimmt man die Werte, die auf gleichen Intervallen in dieser Spannweite liegen, sodass alle Effekte insgesamt $Q$ sind\cite{schuler2017synth}.
 
 \begin{equation}\label{eq:3.5}
 \begin{split}
@@ -873,7 +872,7 @@ Die Anzahl aller synthetischen Effekten $Q$ und ein Parameter $\gamma$ kommen al
 \end{equation}
 	
 \subsubsection{Schätzung von bedingten Erwartungswerten}\label{subsubsec:schätzungBedingtenErwartungswerten}
-Wir müssen die bedingten Erwartungswerten $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ schätzen. Es lohnt sich, noch einmal zu wiederholen, dass sie nicht die echten bedingten Erwartungswerten, sondern diejenige, für die unsere Daten einen vorgegebenen Behandlungseffekt $\tilde{\tau}$ haben. Für die Schätzung soll man das folgende Problem lösen\cite{schuler2017synth}:\par
+Wir müssen die bedingten Erwartungswerte $\mu_0(\tilde{x})$ und $\mu_1(\tilde{x})$ schätzen. Es lohnt sich, noch einmal zu wiederholen, dass sie nicht die echten bedingten Erwartungswerte, sondern diejenige, für die unsere Daten einen vorgegebenen Behandlungseffekt $\tilde{\tau}$ haben. Für die Schätzung soll man das folgende Problem lösen\cite{schuler2017synth}:\par
 
 \begin{equation}\label{eq:3.6}
 \begin{split}
@@ -883,10 +882,10 @@ Wir müssen die bedingten Erwartungswerten $\mu_0(\tilde{x})$ und $\mu_1(\tilde{
 \end{equation}
 
 \noindent
-Hier ist $l(y_i,f)$  eine Verlustfunktion z.B. $(y-f)^2$. Für die Lösung des Problem wird Constrained Gradient Boosting eingesetzt. Constrained Boosting ist eine Form von Gradient Boosting (\ref{subsubsubsec:gradientBoosting}), die aber eine Nebenbedingung für die geschätzten Funktionen hat. Im Folgenden werden wir das Algorithmus von Constrained Boosting darstellen\cite{schuler2017synth}.\par
+Hier ist $l(y_i,f)$  eine Verlustfunktion z.B. $(y-f)^2$. Für die Lösung des Problems wird Constrained Gradient Boosting eingesetzt. Constrained Boosting ist eine Form von Gradient Boosting (\ref{subsubsubsec:gradientBoosting}), die aber eine Nebenbedingung für die geschätzten Funktionen hat. Im Folgenden werden wir den Algorithmus von Constrained Boosting darstellen\cite{schuler2017synth}.\par
  
 \noindent
-Man versucht, die bedingten Erwartungswerten als Summe von vielen Basisfunktionen $b_{w_j}(\tilde{x})$ zu berechnen. Formal:\par
+Man versucht, die bedingten Erwartungswerte als Summe von vielen Basisfunktionen $b_{w_j}(\tilde{x})$ zu berechnen. Formal:\par
 
 \begin{equation}\label{eq:3.7}
  \mu_{w_m}(\tilde{x}) = \sum_j^m \upsilon_{w_j}b_{w_j}(\tilde{x})
@@ -932,7 +931,7 @@ Man merkt, dass die Anpassung von den Basisfunktionen ohne die Bedingung über d
     	
 \subsection{Methodenauswahl}\label{subsec:methodenauswahl}
 
-Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische Daten mit bekannten Behandlungseffekten generieren und die Methoden darauf ausführen. Von jeder Verteilung generiert man $K$ Stichproben, was für die $Q$ Verteilungen  insgesamt $Q \times K$ Datensätze $d_{q,k}$ macht. Jeder Methode $t$ wird auf jeden Datensatz $d_{q,k}$ ausgeführt, was insgesamt  $T \times Q \times K$ Schätzungen $\hat{\tilde{\tau}}_{t,q,k}$ von dem synthetischen Behandlungseffekt erzeugt. Es wird dann den absoluten Fehler $\tilde{e_{t,q,k}} = |\tilde{\tau}_q - \hat{\tilde{\tau}}_{t,q,k}|$ von jeder Schätzung  ausgerechnet. Zum Schluss rechnet man den durchschnittlichen Fehler $e_t$ für jede Methode und wählt die Methode mit dem kleinsten Fehler\cite{schuler2017synth}:\par
+Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische Daten mit bekannten Behandlungseffekten generieren und die Methoden darauf ausführen. Von jeder Verteilung generiert man $K$ Stichproben, was für die $Q$ Verteilungen  insgesamt $Q \times K$ Datensätze $d_{q,k}$ macht. Jede Methode $t$ wird auf jeden Datensatz $d_{q,k}$ ausgeführt, was insgesamt  $T \times Q \times K$ Schätzungen $\hat{\tilde{\tau}}_{t,q,k}$ von dem synthetischen Behandlungseffekt erzeugt. Es wird dann der absoluten Fehler $\tilde{e}_{t,q,k} = |\tilde{\tau}_q - \hat{\tilde{\tau}}_{t,q,k}|$ von jeder Schätzung  ausgerechnet. Zum Schluss rechnet man den durchschnittlichen Fehler $e_t$ für jede Methode und wählt die Methode mit dem kleinsten Fehler\cite{schuler2017synth}:\par
 
 \begin{equation}\label{eq:3.12}
  t^{\times} = \arg\min_{t \in T} \sum_{q,k}^{Q,K} \tilde{e}_{t,q,k}
@@ -943,21 +942,21 @@ Nachdem man die generativen Verteilungen geschätzt hat, kann man synthetische D
 \noindent
 \emph{In diesem Abschnitt erzählen wir über unsere Implementierung. Wir erläutern zuerst, was wir genau programmiert haben, welche Technologien wir benutzt haben und warum und stellen einige allgemeinen Angaben bereit. Dann gehen wir konkret durch die einzelnen Bestandteile der Implementierung durch und erläutern, wozu sie dienen, welche Algorithmen und Techniken wir benutzt haben und wie sich die Theorie aus den vorigen Abschnitten in der Implementierung abbildet.}\par
 
-Wir haben Synth-Validation\cite{schuler2017synth} implementiert - ein Auswahlverfahren von Methoden für kausale Inferenz, über den wir im vorigen \refsec{sec:synthValidation} erzählt haben. Den Code kann man unter \url{https://github.com/naskoD/bachelorThesis} frei zugreifen. Wir haben einen wesentlichen Teil des Codes von den Autoren von Synth-Validation bekommen. Er war auf Julia geschrieben und wir haben diesen Code direkt mit winzigen Logikänderungen in R übersetzt. In den Unterabschnitten werden wir für die einzelnen Bestandteilen bezeichnen, ob sie übersetzt sind oder rein von uns kommen.\par 
+Wir haben Synth-Validation\cite{schuler2017synth} implementiert - ein Auswahlverfahren von Methoden für kausale Inferenz, über den wir im vorigen \refsec{sec:synthValidation} erzählt haben. Auf den Code kann man unter \url{https://github.com/naskoD/bachelorThesis} frei zugreifen. Wir haben einen wesentlichen Teil des Codes von den Autoren von Synth-Validation bekommen. Er war auf Julia geschrieben und wir haben diesen Code direkt mit winzigen Logikänderungen in R übersetzt. In den Unterabschnitten werden wir für die einzelnen Bestandteile bezeichnen, ob sie übersetzt sind oder rein von uns kommen.\par 
 
 \noindent
-Die Implementierung hat sich aufwändiger als erwartet erwiesen. Am Ende sind wir mit insgesamt 1650 Codezeilen ohne die Tests und 2200 mit den Tests gekommen. Sie sind in 13 Skripte ohne die Tests und 19 mit den Tests verteilt. Wir könnten wegen Zeitmangel und Streben nach Effizienz nicht alle Bestandteile mit Unittests überdecken. Wenn wir auch die Scripte von unseren Experimenten in der Rechnung hinzufügen, wo wir Synth-Validation mit unterschiedlichen Daten und unter unterschiedlichen Bedingungen benchmarken, kommen wir zu insgesamt 2350 Codezeilen in 25 Scripten.\par 
+Die Implementierung hat sich als aufwändiger als erwartet erwiesen. Am Ende sind wir auf insgesamt 1700 Codezeilen ohne die Tests und 2250 mit den Tests gekommen. Sie sind in 14 Skripte ohne die Tests und 20 mit den Tests verteilt. Wir könnten wegen Zeitmangel und Streben nach Effizienz nicht alle Bestandteile mit Unittests überdecken. Wenn wir auch die Skripte von unseren Experimenten in die Rechnung hinzufügen, wo wir Synth-Validation mit unterschiedlichen Daten und unter unterschiedlichen Bedingungen benchmarken, kommen wir zu insgesamt 2400 Codezeilen in 26 Scripten.\par 
 
 \noindent
-Wir haben R für die Implementierung gewählt, weil diese Scriptsprache sich als Standard für statistikbezogene Projekten durchgesetzt hat. Es gibt eine große Anzahl von fertigen Bibliotheken, die zur Verfügung stehen. Außerdem hat sie einen intuitiven Syntax, der eine schnelle Implementierung erlaubt. Die Sprache wird von vielen Wissenschaftler und Praktiker benutzt und in den seltenen Fällen, in denen eine Bibliothek nicht ausreichend oder gar nicht dokumentiert ist, kann man schnell Unterstützung im Netz finden. R hat natürlich Nachteile -  z.B die niedrigere Geschwindigkeit im Vergleich zu anderen Alternativen wie Python oder Julia. Mehr darüber erzählen wir im \refsec{subsec:methodikDaten}, wo wir unter anderem auch Daten über die Performance von der Implementierung geben.\par    
+Wir haben R für die Implementierung gewählt, weil sich diese Skriptsprache als Standard für statistikbezogene Projekte durchgesetzt hat. Es gibt eine große Anzahl von fertigen Bibliotheken, die zur Verfügung stehen. Außerdem hat sie eine intuitive Syntax, die eine schnelle Implementierung erlaubt. Die Sprache wird von vielen Wissenschaftlern und Praktikern benutzt und in den seltenen Fällen, in denen eine Bibliothek nicht ausreichend oder gar nicht dokumentiert ist, kann man schnell Unterstützung im Netz finden. R hat natürlich Nachteile -  z.B die niedrigere Geschwindigkeit im Vergleich zu anderen Alternativen wie Python oder Julia. Mehr darüber erzählen wir im \refsec{subsec:methodikDaten}, wo wir unter anderem auch Daten über die Performanz von der Implementierung geben.\par    
 
-\subsection{Externe Paketen}\label{subsec:externePaketen}
-
-\noindent
-\emph{In diesem Abschnitt erzählen wir über die externen Paketen, die wir in unserer Implementierung benutzt haben. Wir werden sie in der Reihe des Auftretens im Programm vorstellen.}\par
+\subsection{Externe Pakete}\label{subsec:externePaketen}
 
 \noindent
-Das erste Paket ist \textbf{tictoc}. Es dient zur Zeitbemessung bei der Ausführung von einem Script oder einem Codeteil. Da ein Lauf von Synth-Validation sogar mit Standardparameter relativ lange dauert, ist es sinnvoll zu wissen, wie viel Zeit jeder einzelnen Bestandteil braucht. Das gilt sowohl für die Zeit während des Laufs, als auch für die Analyse nach dem Ende. Dementsprechend ist ein Code aus dem Paket an vielen Stellen in unserer Implementierung vertreten.
+\emph{In diesem Abschnitt erzählen wir über die externen Pakete, die wir in unserer Implementierung benutzt haben. Wir werden sie in der Reihe des Auftretens im Programm vorstellen.}\par
+
+\noindent
+Das erste Paket ist \textbf{tictoc}. Es dient zur Zeitbemessung bei der Ausführung von einem Skript oder einem Codeteil. Da ein Lauf von Synth-Validation sogar mit Standardparametern relativ lange dauert, ist es sinnvoll zu wissen, wie viel Zeit jeder einzelne Bestandteil braucht. Das gilt sowohl für die Zeit während des Laufs, als auch für die Analyse nach dem Ende. Dementsprechend ist ein Code aus dem Paket an vielen Stellen in unserer Implementierung vertreten.
 \par
 
 \noindent
@@ -971,7 +970,7 @@ Aus dem Paket \textbf{psych} benutzen wir einmalig die logistische Funktion.\par
 An mehreren Stellen (z.B intern in unseren Datenstrukturen und in der Logik von Constrained Boosting) benutzen wir Dictionaries, die wir aus dem Packet \textbf{collections} nehmen. Meistens hat die Dictionary zwei Schlüssel für behandelt und unbehandelt und die Werte sind Arrays mit unterschiedlichen Daten.\par
 
 \noindent
-Wir nutzen einmalig die Funktion \emph{fold} aus dem Paket \textbf{mltools} bei der Cross-Validation, die die optimale Anzahl von Schritten für Constrained Boosting feststellt. \emph{fold} teilt den Datensatz auf Training- und Testdata nach bestimmten Kriterien. Ansonsten enthält das Paket Hilfefunktionen, die man in Techniken aus dem maschinellen Lernen benutzt.\par 
+Wir nutzen einmalig die Funktion \emph{fold} aus dem Paket \textbf{mltools} bei der Cross-Validation, die die optimale Anzahl von Schritten für Constrained Boosting feststellt. \emph{fold} teilt den Datensatz in Training- und Testdata nach bestimmten Kriterien. Ansonsten enthält das Paket Hilfefunktionen, die man in Techniken aus dem maschinellen Lernen benutzt.\par 
  
 \noindent
 Durch Funktionen aus dem Paket \textbf{NlcOptim} kann man Optimierungsproblemen lösen. Wir brauchen es bei der Bestimmung von den Koeffizienten $\upsilon_{0_m}$ und $\upsilon_{1_m}$ für die geschätzten Basisfunktionen in Constrained Boosting.\par 
@@ -983,23 +982,23 @@ Das Paket \textbf{devtools} dient zur Arbeit mit Paketen z.B. Entwicklung, Insta
 Mit \textbf{gridExtra} kann man Grids mit Daten schön stilisieren und dann generieren. Wir benutzen es einmal bei der Erstellung von Abbildungen für die Erfolgsrate von Synth-Validation.\par
 
 \noindent
-Mit dem Paket \textbf{testthat} erstellt man Unittests. Wir haben 6 Testskripten, die es benutzen.\par
+Mit dem Paket \textbf{testthat} erstellt man Unittests. Wir haben sechs Testskripte, die es benutzen.\par
 
 \noindent
-Vielleicht die wichtigsten externen Paketen, die wir nutzen, sind \textbf{rlearner} und \textbf{grf}. Sie beinhalten die Schätzer von den Methoden für kausale Inferenz, von denen Synth-Validation wählt. Wir haben die Theorie dahinter im \refsec{subsec:methodenInImplementierung} erläutert. \textbf{rlearner} hat den Quasi-Orakel Schätzer mit Gradient Boosting und Lasso und  \textbf{grf} hat die kausale Wälder. Wir benutzen die Funktionen aus diesen Paketen in unseren Wrapper-Funktionen, die die getestete Methoden für kausale Inferenz darstellen.\par
+Vielleicht die wichtigsten externen Paketen, die wir nutzen, sind \textbf{rlearner} und \textbf{grf}. Sie beinhalten die Schätzer von den Methoden für kausale Inferenz, von denen Synth-Validation wählt. Wir haben die Theorie dahinter im \refsec{subsec:methodenInImplementierung} erläutert. \textbf{rlearner} hat den Quasi-Orakel Schätzer mit Gradient Boosting und Lasso und  \textbf{grf} hat die kausale Wälder. Wir benutzen die Funktionen aus diesen Paketen in unseren Wrapper-Funktionen, die die getesteten Methoden für kausale Inferenz darstellen.\par
 \subsection{Lesen/Schreiben von Daten}\label{subsec:lesenSchreibenDaten}
 
 \noindent
-Im Script \textbf{read\_write\_data.r} haben wir Funktionen implementiert, die sich um das Lesen und Schreiben von Daten in Dateien kümmern. Wir haben sie selbst entwickelt und nicht aus dem Juliacode übersetzt. Grundsätzlich lesen wir unsere Daten aus .csv Dateien und schreiben dann die Ergebnisse aus dem Benchmark wieder in .csv Dateien. Ab dem Moment, in dem wir angefangen haben, Analyseszenarien für die Evaluation auszudenken, haben wir festgestellt, dass es sehr nützlich wäre, wenn wir ein kleines Datenbank eingesetzt hätten. Die Zeit war aber für solche Änderungen knapp, deswegen sind wir mit der einfachen .csv Abspeicherung geblieben.\par 
+Im Script \textbf{read\_write\_data.r} haben wir Funktionen implementiert, die sich um das Lesen und Schreiben von Daten in Dateien kümmern. Wir haben sie selbst entwickelt und nicht aus dem Juliacode übersetzt. Grundsätzlich lesen wir unsere Daten aus .csv Dateien und schreiben dann die Ergebnisse aus dem Benchmark wieder in .csv Dateien. Ab dem Moment, in dem wir angefangen haben, Analyseszenarien für die Evaluation auszudenken, haben wir festgestellt, dass es sehr nützlich wäre, wenn wir eine kleine Datenbank eingesetzt hätten. Die Zeit war aber für solche Änderungen knapp, deswegen sind wir bei der einfachen .csv Abspeicherung geblieben.\par 
 
 \noindent
-Wir haben unterschiedlichen Datenquellen, deren Daten ein unterschiedliches Format hatten, deswegen war die erste Aufgabe, die Daten zu normalisieren. Dann war der echte Behandlungseffekt von einigen Datensätzen nicht direkt gegeben und man sollte ihn aus den echten bedingten Erwartungswerten ausrechnen und in einer Datei abspeichern. Das waren die beiden Vorbereitungsschritten, die wir durchgeführt haben und deren Code im Lauf von Synth-Validation nicht läuft. Dann haben wir Funktionen für das Lesen von den Eingabedaten (Kovariaten, Behandlung, Ergebnisvariable und echten Behandlungseffekt). Weitere Funktionen dienen zum Lesen und Schreiben von Benchmarkdaten. Wenn es einen neuen Dateneintrag gibt, lesen wir zuerst die vorhandenen Daten, fügen ihn dazu ein und speichern alles zusammen. Wir haben eine Funktion, die den normalen Lauf des Programms sichert, indem sie die die Verzeichnisstruktur der Benchmarkdaten neu erstellt, wenn das Programm zum ersten Mal läuft oder wenn man sie gelöscht hat.\par
+Wir haben unterschiedliche Datenquellen, deren Daten ein unterschiedliches Format hatten, deswegen war es die erste Aufgabe, die Daten zu normalisieren. Dann war der echte Behandlungseffekt von einigen Datensätzen nicht direkt gegeben und man sollte ihn aus den echten bedingten Erwartungswerten ausrechnen und in einer Datei abspeichern. Das waren die beiden Vorbereitungsschritten, die wir durchgeführt haben und deren Code im Lauf von Synth-Validation nicht läuft. Dann haben wir Funktionen für das Lesen von den Eingabedaten (Kovariaten, Behandlung, Ergebnisvariable und echten Behandlungseffekt). Weitere Funktionen dienen zum Lesen und Schreiben von Benchmarkdaten. Wenn es einen neuen Dateneintrag gibt, lesen wir zuerst die vorhandenen Daten, fügen ihn dazu ein und speichern alles zusammen. Wir haben eine Funktion, die den normalen Lauf des Programms sichert, indem sie die Verzeichnisstruktur der Benchmarkdaten neu erstellt, wenn das Programm zum ersten Mal läuft oder wenn man sie gelöscht hat.\par
 
 \subsection{Ziehen von Stichproben}\label{subsec:ziehenStichproben}
-Das Ziehen von Stichproben spielt eine sehr wichtige Rolle in unserer Implementierung. Aus den Daten, die wir gelesen haben, nehmen wir für die Schätzung nicht alle, sondern nur einen Teil davon (Standardwert ist 100). So simulieren wir eine echte Beobachtungsstudie, in der man nicht alle Objekte aus der Grundgesamtheit beobachtet, weil das oft unmöglich ist. Wir kennen den durchschnittlichen Behandlungseffekt von allen Beobachtungen und analysieren nur einen Teil davon. So stellen wir die ganze Datenmenge als die Grundgesamtheit, obwohl sie keine echte Grundgesamtheit ist, über die wir den echten Behandlungseffekt kennen. In einem Experiment im \refsec{sec:ergebnisseEvaluation} bemessen wir die Auswirkung von der Anzahl der analysierten Objekten auf die Schätzung von Synth-Validation.\par
+Das Ziehen von Stichproben spielt eine sehr wichtige Rolle in unserer Implementierung. Aus den Daten, die wir gelesen haben, nehmen wir für die Schätzung nicht alle, sondern nur einen Teil davon (Standardwert ist 100). So simulieren wir eine echte Beobachtungsstudie, in der man nicht alle Objekte aus der Grundgesamtheit beobachtet, weil das oft unmöglich ist. Wir kennen den durchschnittlichen Behandlungseffekt von allen Beobachtungen und analysieren nur einen Teil davon. So stellen wir die ganze Datenmenge als die Grundgesamtheit dar, obwohl sie keine echte Grundgesamtheit ist, über die wir den echten Behandlungseffekt kennen. In einem Experiment im \refsec{sec:evaluation} bemessen wir die Auswirkung von der Anzahl der analysierten Objekten auf die Schätzung von Synth-Validation.\par
 
 \noindent
-Wir ziehen Stichproben an noch einer Stelle in der Implementierung und zwar bei der Generierung von synthetischen Daten. Nachdem wir die bedingte Erwartungswerte durch Constrained Boosting geschätzt haben und die entsprechenden Restwerte ausgerechnet haben, ziehen wir $2k$ Stichproben mit Zurücklegen mit der gleichen Anzahl von Elementen für die $k$ synthetischen Datensätze. Es gibt also zwei unabhängige Stichproben für jeden Datensatz - die Erste für die $(\tilde{x_i},\tilde{w_i})$, deren Werte wir dann in den geschätzten bedingten Erwartungswerten einsetzen und die Zweite für die Restwerte, die wir dann mit den vorigen Ergebnissen addieren und die fertigen synthetischen $\tilde{y_i}$ bekommen. Dieser Codebestandteil haben wir auch nicht aus den Juliacode übersetzt, sondern selbst implementiert. Die Logik befindet sich im Script \textbf{sampling.r}.
+Wir ziehen Stichproben an noch einer Stelle in der Implementierung und zwar bei der Generierung von synthetischen Daten. Nachdem wir die bedingte Erwartungswerte durch Constrained Boosting geschätzt haben und die entsprechenden Restwerte ausgerechnet haben, ziehen wir $2k$ Stichproben mit Zurücklegen mit der gleichen Anzahl von Elementen für die $k$ synthetischen Datensätze. Es gibt also zwei unabhängige Stichproben für jeden Datensatz - die erste für die $(\tilde{x_i},\tilde{w_i})$, deren Werte wir dann in den geschätzten bedingten Erwartungswerten einsetzen und die zweite für die Restwerte, die wir dann mit den vorigen Ergebnissen addieren und die fertigen synthetischen $\tilde{y_i}$ bekommen. Dieser Codebestandteil haben wir auch nicht aus den Juliacode übersetzt, sondern selbst implementiert. Die Logik befindet sich im Script \textbf{sampling.r}.
   	\subsection{Methoden für kausale Inferenz}\label{subsec:methodenKausaleInferenz}
   	In unserer Implementierung wählt  Synth-Validation aus vier Methoden für kausale Inferenz - die naive Methode, Quasi-Orakel Schätzer mit Gradient Boosting, Quasi-Orakel Schätzer mit Lasso und Kausale Wälder. Wir haben sie außer der naiven Methode nicht selber implementiert, sondern aus den Paketen \textbf{rlearner} und  \textbf{grf} genommen. Wie schon mal im \refsec{subsec:methodenInImplementierung} angesprochen, schätzen die drei Methoden den heterogenen Behandlungseffekt. Deswegen haben wir in \textbf{causal\_inference\_methods.r} für jede Methode eine Wrapperfunktion geschrieben, in der wir den durchschnittlichen Behandlungseffekt aus allen heterogenen Schätzungen ausrechnen. Wir führen die Methoden an zwei Stellen in der Implementierung aus - einmal am Anfang auf den echten Daten, um die synthetischen Effekten zu bestimmen und einmal auf jeden generierten synthetischen Datensatz. \par
 \subsection{Synth-Validation}\label{subsec:synthValidation}
@@ -1010,10 +1009,10 @@ Wir ziehen Stichproben an noch einer Stelle in der Implementierung und zwar bei 
 Wir könnten für unsere Implementierung nur die einfachen Listen und Vektoren benutzen. So eine Entscheidung würde aber den Code unnötig kompliziert und unleserlich machen. Deswegen haben wir die Datenstrukturen genommen, die im Juliacode waren. Das sind nämlich die Klassen \textbf{Data}, \textbf{Counterfactuals}, \textbf{TreatmentDictionary}, \textbf{NumericTreatmentDictionary} und \textbf{Synth\_Validation\_Result}, die sich im Script \textbf{data\_structures.r} befinden.\par 
 
 \noindent
-Die Klasse \textbf{Data} enthält  eine Matrix $X$ für die Kovariaten, einen logischen Vektor $W$ für die Behandlung und einen Vektor $Y$ für die Ergebnisvaeiable. Wir benutzen die Klasse sowohl für die echten, als auch für die synthetischen Daten.\par 
+Die Klasse \textbf{Data} enthält  eine Matrix $X$ für die Kovariaten, einen logischen Vektor $W$ für die Behandlung und einen Vektor $Y$ für die Ergebnisvariable. Wir benutzen die Klasse sowohl für die echten, als auch für die synthetischen Daten.\par 
 
 \noindent
-Ein Objekt aus der Klasse \textbf{Counterfactuals} ist das Ergebnis aus einem Schritt von Constrained Boosting. Es enthält die bedingten Erwartungswerten für alle Elementen aus \textbf{Data}.\par 
+Ein Objekt aus der Klasse \textbf{Counterfactuals} ist das Ergebnis aus einem Schritt von Constrained Boosting. Es enthält die bedingten Erwartungswerte für alle Elemente aus \textbf{Data}.\par 
 
 \noindent
 \textbf{TreatmentDictionary} hat für die beiden Schlüssel \emph{behandelt} und \emph{unbehandelt} einen Vektor mit irgendwelchen Elementen. Wir benutzen es bei der Schätzung, wo die Elemente z.B. angepasste Regressionsbäume sind.\par	
@@ -1022,50 +1021,277 @@ Ein Objekt aus der Klasse \textbf{Counterfactuals} ist das Ergebnis aus einem Sc
 \textbf{NumericTreatmentDictionary} ist wie \textbf{TreatmentDictionary}, aber seine Elementen dürfen nur numerisch sein. Wir benutzen sie an mehreren Stellen. Ein Objekt aus dieser Klasse ist z.B. das Ergebnis von den Schätzungen der Basisfunktionen bei Constrained Boosting.\par
 
 \noindent
-Die letzte datenbezogene Klasse ist \textbf{Synth\_Validation\_Result} und sie trägt das Ergebnis von Synth-Validation. Wir haben sie selbst entwickelt. Die Klasse enthält drei Felder - der Index der ausgewählten Methode, die Schätzung dieser Methode und ein Vektor mit den Schätzungen von allen Methoden. Wir benutzen sie beim Benchmark. \par
+Die letzte datenbezogene Klasse ist \textbf{Synth\_Validation\_Result} und sie trägt das Ergebnis von Synth-Validation. Wir haben sie selbst entwickelt. Die Klasse enthält drei Felder - den Index der ausgewählten Methode, die Schätzung dieser Methode und einen Vektor mit den Schätzungen von allen Methoden. Wir benutzen sie beim Benchmark. \par
 
 \subsubsection{Schätzung}\label{subsubsec:schätung}
-Im Skript \textbf{estimators.r} haben wir den Regressionsbaum implementiert, den wir im Juliacode gefunden habe. Er schätzt die Basisfunktionen im Constrained Boosting, wobei er die Restwerte von $y_i$ und der vorigen Schätzung nimmt. Wir setzen die minimale Anzahl von Elementen im Blatt auf fünf und die maximale Tiefe des Baums auf drei. Hier haben wir eine winzige Änderung in der Logik des Baums im Vergleich zu dieser im Juliacode - wir haben einen Sonderfall beim Aufspalten behoben, indem wir nicht aufspalten, wenn das maximale MSE null ist und alle $Y$ gleich sind.\par
+Im Skript \textbf{estimators.r} haben wir den Regressionsbaum implementiert, den wir im Juliacode gefunden haben. Er schätzt die Basisfunktionen im Constrained Boosting, wobei er die Restwerte von $y_i$ und der vorigen Schätzung nimmt. Wir setzen die minimale Anzahl von Elementen im Blatt auf fünf und die maximale Tiefe des Baums auf drei. Hier haben wir eine winzige Änderung in der Logik des Baums im Vergleich zu dieser im Juliacode - wir haben einen Sonderfall beim Aufspalten behoben, indem wir nicht aufspalten, wenn das maximale MSE null ist und alle $Y$ gleich sind.\par
 
 \subsubsection{Constrained Boosting}\label{subsubsec:constrainedBoosting}
 
-Das Constrained Gradient Boosting Algorithmus und die Cross-Validation dazu implementieren wir im Script \textbf{constrained\_boosting.r}. Grundsätzlich machen wir das, was wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten} theoretisch beschrieben haben. Im ersten Schritt finden wir die beiden Konstanten für die bedingten Erwartungswerten und berechnen die Restwerte für jedes Element. Dann fängt eine Schleife an, wobei jeder Lauf einen weiteren Schritt aus dem Constrained Boosting ist. Im jedem Lauf passen wir zuerst den Regressionbaum für die Schätzung der Basisfunktionen an. Dann erstellen wir eine Dictionaty, die als Schlüssel die einzigartigen Schätzungen des Baums hat. Die Werte für die Schlüssel sind dann die Indexen von den Elementen, die diese Schätzung haben. Wir nehmen dann diese Dictionaty und benutzen sie in unser Optimierungsproblem, indem wir den allgemeinen Verlust als die Summe von den Verlusten von alle einzigartigen Schätzungen und den Verlust von einer einzigartigen Schätzung als die Summe von den Verlusten von den Elementen mit dieser Schätzung. Für das Optimierungsproblem benutzen wir das externe Paket \textbf{NlcOptim} und finden die Ko­ef­fi­zi­enten, für die unsere Bedingung hält. Dann addieren wir die Basisfunktion mit seinen Koeffizienten zu der alten Schätzung und bekommen die neuen bedingten Erwartungswerten.\par 
+Den Constrained Gradient Boosting Algorithmus und die Cross-Validation dazu implementieren wir im Script \textbf{constrained\_boosting.r}. Grundsätzlich machen wir das, was wir im \refsec{subsubsec:schätzungBedingtenErwartungswerten} theoretisch beschrieben haben. Im ersten Schritt finden wir die beiden Konstanten für die bedingten Erwartungswerte und berechnen die Restwerte für jedes Element. Dann fängt eine Schleife an, wobei jeder Lauf ein weiter Schritt aus dem Constrained Boosting ist. Im jedem Lauf passen wir zuerst den Regressionbaum für die Schätzung der Basisfunktionen an. Dann erstellen wir eine Dictionaty, die als Schlüssel die einzigartigen Schätzungen des Baums hat. Die Werte für die Schlüssel sind dann die Indizes von den Elementen, die diese Schätzung haben. Wir nehmen dann diese Dictionary und benutzen sie in unserem Optimierungsproblem, indem wir den allgemeinen Verlust als die Summe von den Verlusten von allen einzigartigen Schätzungen und den Verlust von einer einzigartigen Schätzung als die Summe von den Verlusten von den Elementen mit dieser Schätzung darstellen. Für das Optimierungsproblem benutzen wir das externe Paket \textbf{NlcOptim} und finden die Ko­ef­fi­zi­enten, für die unsere Bedingung hält. Dann addieren wir die Basisfunktion mit ihren Koeffizienten zu der alten Schätzung und bekommen die neuen bedingten Erwartungswerten.\par 
 
 \noindent
-Bevor wir Constrained Boosting produktiv einsetzen, müssen wir die optimale Anzahl von Schritten bestimmen, sodass die MSE der Schätzung minimal ist. Dazu benutzen wir Cross-Validation. Wir teilen die Daten auf Training- und Testdaten. Dann führen wir Constrained Boosting auf den Trainingdaten mit der Ausnahme, dass wir für die Bedingung über den synthetischen Effekt im Optimierungsproblem alle Daten benutzen. Dann messen wir den Schätzfehler in jedem Schritt mit den Testdaten. Wir wiederholen das vier mal und wählen als Anzahl die Nummer des Schritts mit dem kleinsten durchschnittlichen Testfehler für diese vier Läufe.\par  
+Bevor wir Constrained Boosting produktiv einsetzen, müssen wir die optimale Anzahl von Schritten bestimmen, sodass die MSE der Schätzung minimal ist. Dazu benutzen wir Cross-Validation. Wir teilen die Daten in Training- und Testdaten. Dann führen wir Constrained Boosting auf den Trainingdaten mit der Ausnahme aus, dass wir für die Bedingung über den synthetischen Effekt im Optimierungsproblem alle Daten benutzen. Dann messen wir den Schätzfehler in jedem Schritt mit den Testdaten. Wir wiederholen das vier mal und wählen als Anzahl die Nummer des Schritts mit dem kleinsten durchschnittlichen Testfehler für diese vier Läufe.\par  
 
 \subsubsection{Methodenauswahl}\label{subsubsec:methodenauswahl}
-Die Methodenauswahl findet in der Methode \emph{pick\_best\_method} im Skript \textbf{synth-validation.r} statt. Wir haben sie selber implementiert. Sie nimmt als Argumenten die synthetischen Datensätze und die synthetischen Effekte. Dann führt sie die Methoden für kausale Inferenz auf den Daten aus, bemesst ihren durchschnittlichen Fehler als absoluten Abstand der Schätzung von dem synthetischen Effekt und wählt die Methode mit dem kleinsten Fehler aus.\par 
+Die Methodenauswahl findet in der Methode \emph{pick\_best\_method} im Skript \textbf{synth-validation.r} statt. Wir haben sie selber implementiert. Sie nimmt als Argumenten die synthetischen Datensätze und die synthetischen Effekte. Dann führt sie die Methoden für kausale Inferenz auf den Daten aus, bemisst ihren durchschnittlichen Fehler als absoluten Abstand der Schätzung von dem synthetischen Effekt und wählt die Methode mit dem kleinsten Fehler aus.\par 
   	\subsection{Benchmark von Synth-Validation}\label{subsec:benchmarkSynthValidation}
-Durch den Benchmark prüfen wir, wie die Schätzungen von Synth-Validation im Vergleich zu den Schätzungen von den anderen Methoden verhalten. Das Maß, die wir nutzen, ist der absolute Fehler von dem echten durchschnittlichen Behandlungseffekt. Aus diesem Grund müssen wir ihn vorher kennen. Wir führen also mehrmals ($n>30$) die Synth-Validation mit gleichen Daten und gleichen Paramerter aus und vergleichen ihren durchschnittlichen Fehler mit den durchschnittlichen Fehlern der Methoden. Noch beobachten wir nebeneinander, wie oft eine Methode die Orakel-Schätzung (die beste Schätzung unter allen Methoden) hat und wie oft sie von Synth-Validation ausgewählt wird. Die Orakel-Schätzung kann für einen bestimmten Datensatz unterschiedlich sein, da wir bei jedem Lauf von Synth-Validation immer eine neue Stichprobe aus diesem gleichen, viel größeren Datensatz (unsere Grundgesamtheit) ziehen. Wir beobachten noch, wie erfolgreich Synth-Validation auswählt. Das machen wir im Sinne davon, wie oft die Schätzung von Synth-Validation mit der besten Schätzung (Orakel-Schätzung), mit der zweitbesten usw übereinstimmt. Diese Analysen führen wir auf unterschiedlichen Ebenen - für einen bestimmten Datensatz, für alle Datensätze aus einer Art und für insgesamt alle Datensätze.\par 
+Durch den Benchmark prüfen wir, wie sich die Schätzungen von Synth-Validation im Vergleich zu den Schätzungen von den anderen Methoden verhalten. Das Maß, das wir nutzen, ist der absolute Fehler von dem echten durchschnittlichen Behandlungseffekt. Aus diesem Grund müssen wir ihn vorher kennen. Wir führen also mehrmals ($n>30$) die Synth-Validation mit gleichen Daten und gleichen Paramertern aus und vergleichen ihren durchschnittlichen Fehler mit den durchschnittlichen Fehlern der Methoden. Noch beobachten wir nebenbei, wie oft eine Methode die Orakel-Schätzung (die beste Schätzung unter allen Methoden) hat und wie oft sie von Synth-Validation ausgewählt wird. Die Orakel-Schätzung kann für einen bestimmten Datensatz unterschiedlich sein, da wir bei jedem Lauf von Synth-Validation immer eine neue Stichprobe aus diesem gleichen, viel größeren Datensatz (unsere Grundgesamtheit) ziehen. Wir beobachten noch, wie erfolgreich Synth-Validation auswählt. Das machen wir im Sinne davon, wie oft die Schätzung von Synth-Validation mit der besten Schätzung (Orakel-Schätzung), mit der zweitbesten usw übereinstimmt. Diese Analysen führen wir auf unterschiedlichen Ebenen - für einen bestimmten Datensatz, für alle Datensätze aus einer Art und für insgesamt alle Datensätze.\par 
 
 \noindent
-Im Skript \textbf{synth\_validation\_benchmark.r} haben wir die Struktur von dem Benchmark aufgebaut - wir rufen Funktionen aus anderen Skripten, die die Arbeit erledigen. Da berechnen wir natürlich den absoluten Fehler der Schätzungen aus einem Lauf und leiten ihn zum Speichen und zum Erstellen von Abbildungen weiter. Im Skript \textbf{benchmark\_analysis.r} machen wir die Berechnungen für die im oberen Paragraf beschriebenen Analysen. \par 
+Im Skript \textbf{synth\_validation\_benchmark.r} haben wir die Struktur von dem Benchmark aufgebaut - wir rufen Funktionen aus anderen Skripten, die die Arbeit erledigen. Da berechnen wir natürlich den absoluten Fehler der Schätzungen aus einem Lauf und leiten ihn zum Speichern und zum Erstellen von Abbildungen weiter. Im Skript \textbf{benchmark\_analysis.r} machen wir die Berechnungen für die im oberen Absatz beschriebenen Analysen. Durch das Skript\textbf{hypothesis\_testing.r} prüfen wir einige Hypothesen über Synth-Validation. \par 
 
 \subsection{Erstellung von Abbildungen}\label{subsec:erstellungAbbildungen}
 
-Wir nehmen die Daten aus den Skripten \textbf{benchmark\_analysis.r} und \textbf{synth\_\\validation\_benchmark.r} und erstellen damit im Skript \textbf{plots.r} Abbildungen für unsere Analyse. Es gibt drei Arten, die wir generieren - ein Boxplot, der den Schätzfehler von Synth-Validation und allen Methoden zeigt, ein Balkendiagramm, der die Häufigkeit von der Auswahl jeder Methode aus dem Orakel und aus Synth-Validation zeigt und eine Tabelle, die die kumulative Erfolgsrate von Synth-Validation zeigt. Dazu benutzen wir keine externen Pakete, sondern nur die Standardfunktionen in R. Man kann die drei Abbildungsarten im \refsec{sec:ergebnisseEvaluation} oder im \emph{\hyperref[anhang]{Anhang}} anschauen. 
+Wir nehmen die Daten aus den Skripten \textbf{benchmark\_analysis.r} und \textbf{synth\_\\validation\_benchmark.r} und erstellen damit im Skript \textbf{plots.r} Abbildungen für unsere Analyse. Es gibt drei Arten, die wir generieren - ein Boxplot, der den Schätzfehler von Synth-Validation und allen Methoden zeigt, ein Balkendiagramm, das die Häufigkeit von den Auswahl jeder Methode aus dem Orakel und aus Synth-Validation zeigt und eine Tabelle, die die kumulative Erfolgsrate von Synth-Validation zeigt. Dazu benutzen wir keine externen Pakete, sondern nur die Standardfunktionen in R. Die Abbildungen generieren sich bei jedem Benchmark. Man kann sie nur mit den verfügbaren Benchmarkdaten generieren, ohne Synth-Validation erneut zu benchmarken, indem man den Skript \textbf{regenerate\_plots.r} ausführt. Man kann die drei Abbildungsarten im \refsec{sec:evaluation} oder im \emph{\hyperref[anhang]{Anhang}} anschauen.
 
 
 \subsection{Experimenten}\label{subsec:experimenten}
-In unserer Evaluation wollen wir unterschiedliche Szenarien testen - wie stellt sich Synth-Validation mit unterschiedlichen Daten, mit einer unterschiedlichen Größe der gezogenen Stichprobe und mit einer unterschiedlichen Anzahl von der maximalen Schritten bei Constrained Boosting vor. Die sechs Skripte der Experimente \textbf{experiments*.r} enthalten ausschließlich Aufrufe von der Funktion \emph{benchmark} aus dem Skript \textbf{synth\_validation\_benchmark.r} mit unterschiedlichen Konfigurationsargumenten. Wir stellen die Ergebnisse aus den Experimenten im \refsec{sec:ergebnisseEvaluation} dar.\par
+In unserer Evaluation wollen wir unterschiedliche Szenarien testen - wie stellt sich Synth-Validation mit unterschiedlichen Daten, mit einer unterschiedlichen Größe der gezogenen Stichprobe und mit einer unterschiedlichen Anzahl von der maximalen Schritten bei Constrained Boosting vor. Die sechs Skripte der Experimente \textbf{experiments*.r} enthalten ausschließlich Aufrufe von der Funktion \emph{benchmark} aus dem Skript \textbf{synth\_validation\_benchmark.r} mit unterschiedlichen Konfigurationsargumenten. Wir stellen die Ergebnisse aus den Experimenten im \refsec{sec:evaluation} dar.\par
 
 \subsection{Unittests}\label{subsec:unitTests}
-Wir haben Unittests für die Funktionen aus den Skripten von Synth-Validation geschrieben. Dafür haben wir das externe Paket \textbf{testthat} benutzt. Die Unittest haben keinen besonders großen Nutzen gebracht, aber ihre Entwicklung und vor allem Wartung kosteten Zeit. Und da wir mit unserer Arbeit Effizienz anstreben und die Zeit knapp war, haben wir für den Rest der Implementierung nur manuell getestet.\par 
+Wir haben Unittests für die Funktionen aus den Skripten von Synth-Validation geschrieben. Dafür haben wir das externe Paket \textbf{testthat} benutzt. Die Unittests haben keinen besonders großen Nutzen gebracht, aber ihre Entwicklung und vor allem Wartung kosteten Zeit. Und da wir mit unserer Arbeit Effizienz anstreben und die Zeit knapp war, haben wir für den Rest der Implementierung nur manuell getestet.\par 
       	  	
 \subsection{Anderer Code}\label{subsec:andererCode}
-Wir haben das Skript \textbf{install\_required\_packages.r} geschrieben, das in jedem Experiment als erstes gerufen wird. Er prüft, ob die notwendigen externen Paketen installiert sind und wenn nicht, installiert sie. Im Skript \textbf{utilities.r} haben wir einige allgemein nützliche Funktionen implementiert, die wir an vielen Stellen in der Implementierung nutzen. Eine davon ist z.B. \emph{assert\_integer}.   
+Wir haben das Skript \textbf{inst all\_required\_packages.r} geschrieben, das in jedem Experiment als Erstes gerufen wird. Er prüft, ob die notwendigen externen Pakete installiert sind und wenn nicht, installiert er sie. Im Skript \textbf{utilities.r} haben wir einige allgemein nützliche Funktionen implementiert, die wir an vielen Stellen in der Implementierung nutzen. Eine davon ist z.B. \emph{assert\_integer}.
 
 \clearpage
 
-\section{Ergebnisse und Evaluation}\label{sec:ergebnisseEvaluation}
-  	\subsection{Methodik und Daten}\label{subsec:methodikDaten}
-  	\subsection{TODO}\label{subsec:todo} %TODO
+\section{Evaluation}\label{sec:evaluation}
+\noindent
+\emph{In diesem Abschnitt stellen wir die Ergebnisse von dem Benchmark von Synth-Validation dar. Wir erläutern zuerst die Methodik, die wir für unsere Benchmarkexperimente benutzt haben. Wir erzählen über die Herkunft der Daten, deren kausalen Effekten wir schätzen. Wir sagen ein paar Worte über die Performanz der Software, die wir geschrieben haben. Dann stellen wir die Ergebnisse dar, die wir bekommen haben und evaluieren sie.}\par
+
+\subsection{Methodik und Daten}\label{subsec:methodikDaten}
+Im \refsec{subsec:zieleUndMethodik} haben wir die Ziele von dieser Bachelorarbeit definiert und eins davon war der Benchmark von Synth-Validation mit echten Daten. Das Finden von solchen Daten war eine große Herausforderung, denn der durchschnittliche Behandlungseffekt von ihnen müsste mit einer großen Sicherheit bekannt sein. Nur auf dieser Weise können wir die Schätzfähigkeit von Synth-Validation mit diesen von den anderen Methoden direkt vergleichen. Unser Hauptvergleichskriterium ist der durchschnittliche absolute Fehler $e_t$ von allen Schätzungen einer Methode $t$. Formal berechnen wir ihn folgendermaßen:\par
+
+\begin{equation}\label{eq:5.1}
+ e_t = \frac{1}{n} \sum_{i}^n \big | \hat{\tau}_{t_i} - \tau \big | 
+\end{equation}
+
+\noindent
+Hier ist $\hat{\tau}_{t_i}$ eine Schätzung von dem durchschnittlichen Behandlungseffekt von der Methode $t$ und $\tau$ ist der echte durchschnittliche Behandlungseffekt.\par
+
+\noindent
+Wir haben drei Arten von Daten, auf den wir Synth-Validation testen. Die ersten sind Rohdaten. Sie sind durch eine echte Beobachtungsstudie gesammelt und wurden nicht verarbeitet. Die zweiten sind synthetisch generierte Daten, für deren Generierung aber echte Daten benutzt wurden. Die dritten sind die bekannten maschinell zufällig generierten Daten mit einem vorgegebenen Behandlungseffekt. Und soweit man die letzte Art mit ein paar Codezeilen zur Verfügung hat, ist das Finden von den anderen nicht trivial.\par 
+
+\noindent
+Die Daten kommen aus Wettbewerben für kausale Inferenz. Da stellt man für die Vorbereitung immer einen Testdatensatz zur Verfügung vor, für den der durchschnittliche Behandlungseffekt bekannt ist. Die Rohdaten kommen aus dem \emph{ACIC 2018 Causal Inference Challenge} und sind unter \url{https://www.synapse.org/#!Synapse:syn11294478/wiki/494269} erreichbar. Es ist bekannt, aus welchem Bereich sie kommen - die amerikanische Geburtenstatistik. Die Beschreibung der Kovariate haben wir auf der Webseite der echten Datenquelle (der amerikanische National Center for Health Statistics) gefunden. In der Beschreibung von dem Wettbewerb wird aber nicht explizit vorgegeben, was hinter der Behandlung und der Ergebnisvariable der Daten steht. Also man weiß es nicht, welcher Effekt geschätzt wird. Die Situation bei den synthetisch generierten Daten ist gleich - es ist unbekannt, welche Bedeutung die Behandlugs- und die Ergebnisvariable haben. Ansonsten kommen sie aus dem \emph{ACIC 2019 Causal Inference Challenge} und sind unter \url{https://sites.google.com/view/ACIC2019DataChallenge/data-challenge} erreichbar. Die Autoren des Wettbewerbs geben die Rohdaten, die sie für die Generierung benutzt haben. Sie stammen aus mehreren Bereichen - Finanzwesen, Sozialwissenschaften, Medizin.\par   
+
+\noindent
+Die Daten waren in unterschiedlichen Formaten, deswegen haben wir sie normalisiert. Das Ergebnis ist eine Datei mit Kovariaten, Behandlung und Ergebnisvariable und eine Datei mit dem echten Behandlungseffekt für jeden Datensatz. Insgesamt haben wir sieben Rohdatensätze und drei synthetische Datensätze mit unterschiedlichen Behandlungseffekten. Auf sie, auf den Code und auf die im nächsten Abschnitt vorgestellten Ergebnisse kann man in \url{https://github.com/naskoD/bachelorThesis} frei zugreifen. Die zufälligen Daten mit vorgegebenem  Behandlungseffekt generieren wir immer neu im Programm. Ihr Behandlungseffekt ist immer 0.\par
+
+\noindent
+Wir haben Ideen über den Benchmark- und Evaluationprozess aus dem Synth-Validation Artikel \cite{schuler2017synth} gesammelt. Da wird der absolute durchschnittliche Fehler der Methoden als Maß benutzt. Es wird noch beobachtet, wie oft eine Methode von Synth-Validation und von dem Orakel gewählt wird. Die beiden Analysen sind bei uns auch vertreten. Wir fügen noch die kumulierte Erfolgsrate von Synth-Validation hinzu - wie oft wählt sie eine von den ersten $k$ besten Schätzungen aus. Am interessantesten ist natürlich, wie oft sie die beste (die Orakel Schätzung) auswählt. Weiter haben wir Hypothesentests für die Signifikanz von unseren Ergebnissen in der Evaluation erstellt. \par  
+
+\noindent
+Die oberen Analysen führen wir unter unterschiedlichen Szenarien durch - wir schauen uns zuerst die Ergebnisse von Synth-Validation mit allen Datensätzen zusammen an. Dann betrachten wir getrennt die unterschiedlichen Arten. Wir haben noch weitere Experimente durchgeführt, deren Ergebnisse wir hier wegen der Zeitbeschränkung nicht ausführlich evaluieren können. Die erstellten Graphiken für jeden individuellen Datensatz kann man im \emph{\hyperref[anhang]{Anhang}} anschauen. \par
+
+\noindent
+Wir haben in der Praxis gesehen, was wir noch vorher wussten - R ist nicht besonders performant. Um die Ergebnisse zu bekommen, haben wir Synth-Validation auf Servern laufen gelassen, die uns von der Uni zur Verfügung vorgegeben wurden. Ein einziger Lauf von Synth-Validation mit Standardparameter (100 Elementen in der Stichprobe und 100 maximale Schritte beim Constrained Boosting) dauert abhängig von dem Datensatz durchschnittlich etwa länger als eine Stunde. Für die Ergebnisse, die wir hier darstellen, waren 373 Läufe nötig, ohne die Testläufe während der Implementierung und die Läufe aus den nicht vorgestellten Experimenten einzubeziehen. \par  
+
+\subsection{Ergebnisse}\label{subsec:ergebnisse} 
+\noindent
+\emph{Im Folgenden werden wir die Ergebnisse von dem Benchmark von Synth-Validation vorstellen. Wir haben insgesamt elf Datensätze - sieben Rohdatensätze, drei synthetisch generierte Datensätze, die aus Rohdaten stammen und einen zufällig generierten Datensatz. Mit jedem davon haben wir Synth-Validation mindestens 30 Mal laufen gelassen. Die Ergebnisse von jeder Datenart werden hier vorgestellt und analysiert. Die Ergebnisse und Graphiken von jedem der elf individuellen Datensätze kann man sich im \emph{\hyperref[anhang]{Anhang}} anschauen.}\par
+
+\subsubsection{Alle Daten}\label{subsubsec:ergebnisseAlleDaten} 
+Wir stellen zuerst die Ergebnisse aus allen Läufen von Synth-Validation zusammen dar. Insgesamt sind wir auf 373 Benchmarkläufe gekommen. Wir haben unsere Standardparameter benutzt - Stichprobe aus 100 gezogenen Objekten und maximal 100 Schritte beim Constrained Boosting. Auf \reffig{fig:allRunsBoxplot} sieht man den durchschnittlichen absoluten Schätzfehler (MAE) der Methoden, des Orakels und der Synth-Validation:\par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/allRunsBoxplot.jpeg}
+    \caption[MAE von den Methoden für kausale Inferenz und Synth-Validation für alle Daten]{MAE von den Methoden für kausale Inferenz und Synth-Validation für alle Daten. Je kleiner der durchschnittliche Fehler der Methode ist, desto besser. Der Orakel wählt immer die beste Schätzung aus, ist aber kein realer Schätzer. Die Methoden sind aufsteigend von oben nach unter geordnet. Die Boxplots zeigen die Variaz der Schätzungen. MAEs auf die vierte Stelle gerundet: oracle - $2.4167$, r\_boost - $3.7281$, synth\_validation - $25.4427$, causal\_forest - $26.8746$, raw - $33.0900$, r\_lasso - $45.0627$}\label{fig:allRunsBoxplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Das erste, was man auf \reffig{fig:allRunsBoxplot} beobachtet, ist die große Varianz des Schätzfehlers bei allen Methoden. Das ist ein Zeichen dafür, dass es neben den vielen guten Schätzungen auch sehr viele schlechte und sogar einige sehr schlechte gibt. Die gesamten Ergebnisse sind stark negativ von den Ergebnissen der Rohdaten bestreut. Es gibt zwei Gründe - sie nehmen den größten Anteil (243 von 373) der Läufen und sie haben den größten durchschnittlichen Fehler. Bei einer Rohdatensatz mit einer größeren Grundgesamtheit (50000 Elementen), aus dem wir eine Stichprobe von nur 100 Elementen analysieren, beobachten wir einen durchschnittlichen Fehler von über 100 bei allen Methoden außer r\_boost, was auch die allgemeinen Ergebnisse stark bestreut. Es ist auch auf dem ersten Blick erstaunlich, dass r\_lasso durchschnittlich schlechter als die naive Methode ist. Der Grund - auf einem der Rohdatensätze schätzt es mit einem durchschnittlichen Fehler von 347.9418. Insgesamt hat es öfter eine gute oder sogar beste Schätzung, was auf \reffig{fig:allRunsBarplot} zu sehen ist.\par 
+
+\noindent
+Im Allgemein lassen sich die Schätzungen als sehr schlecht beschreiben. Nur r\_boost zeichnet sich mit einem deutlich niedrigeren durchschnittlichen Fehler im Vergleich zu allen anderen Methoden aus. Wir beobachten, dass das durchschnittliche Ergebnis von Synth-Validation vor allen anderen (außer r\_boost) liegt. Ihre Varianz ist auch die zweitgrößte. Trotzdem ist das für uns nicht ausreichend, um zu behaupten, dass Synth-Validation im allgemeinen Fall durchschnittlich besser schätzt als die von ihr ausgewählten Methoden aus dem maschinellen Lernen. Der Grund dafür - unsere Signifikanztests mit der üblichen $\alpha = 0.05$ sind gescheitert. Nur die p-Werte von dem Lasso und der naiven Methode waren nah -  0.2184 und 0.2009 und bei mehreren Läufen könnte vielleicht die Nullhypothese signifikant abgelehnt werden. Die Nullhypothese lautet in dem Fall, dass Synth-Validation nicht besser als die naive Methode und r\_lasso schätzt. Wir haben wegen der ungleichen Varianz der Schätzungen einen Welch Test benutzt.\par 
+
+\noindent
+Diese schlechten Ergebnisse zeigen uns, dass die Methoden für kausale Inferenz im Allgemein sehr ungenau sein können. Deswegen muss man sowohl sie, als auch den Domain von dem Datensatz sehr gut kennen. Man muss auch eine angemessen große Stichprobe für die Grundgesamtheit ziehen. Auf allgemeinen Datenarten und mit den neuen Methoden aus dem maschinellen Lernen schafft Synth-Validation nicht, die beste durchschnittliche Schätzung zu haben.\par 
+
+\noindent
+Auf \reffig{fig:allRunsBarplot} beobachten wir, wie oft jede Methode von dem Orakel und von Synth-Validation ausgewählt ist. Es bestätigt sich die These, dass keine allgemein beste Methode für alle Datensätze gibt, da jede Methode (sogar die naive in über 10\% der Läufe) von dem Orakel ausgewählt wurde. Die drei Methoden mit Schätzern aus dem maschinellen Lernen sind natürlich besser als die naive vertreten, indem r\_boost im Einklang mit dem durchschnittlichen Fehler aus \reffig{fig:allRunsBoxplot} an der ersten Stelle steht. Für das Lasso sehen wir, dass es in rund 25\% der Läufe die beste Schätzung hat, obwohl es den höchsten durchschnittlichen Fehler trägt, was seine hohe Varianz zeigt. \par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/allRunsBarplot.jpeg}
+    \caption[Methodenauswahlhäufigkeit von Orakel und Synth-Validation für alle Daten]{Methodenauswahlhäufigkeit von Orakel und Synth-Validation für alle Daten. Das Balkendiagramm zeigt für jede getestete Methode für kausale Inferenz, wie oft   sie die tatsächliche beste Schätzung hatte und wie oft sie von Synth-Validation ausgewählt ist. Wenn die beiden Auswahlhäufigkeiten für eine Methode relativ nah aneinander liegen oder sogar gleich sind, bedeutet es nicht unbedingt, dass jede Auswahl von Synth-Validation mit dieser von dem Orakel übereinstimmt.}\label{fig:allRunsBarplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Keine Methode wird von Synth-Validation völlig ausgeschlossen (nie ausgewählt). Man betrachtet, dass die kausale Wälder am häufigsten ausgewählt wurden und gleich danach folgt das Lasso. Leider ist die am häufigsten vom Orakel ausgewählte Methode r\_boost am seltensten von Synth-Validation ausgewählt, was schlecht für die Auswahlfähigkeiten von Synth-Validation im allgemeinen Fall spricht. \par
+
+\noindent
+\reffig{fig:allRunsGrid} ist eine Tabelle, die uns die kumulierte Erfolgsrate vom Synth-Validation beim Auswählen zeigt. In 96 von insgesamt 373 Läufen hat Synth-Validation eine gleiche Schätzung mit dem Orakel. Diese Erfolgsrate von 25.74\% ist nur mit 0.74\% höher als die erwartete Erfolgsrate, wenn man die beste Methode zufällig ausgewählt hätte. Wenn wir das Ziel von Synth-Validation redefinieren - nicht unbedingt die beste Methode, sondern eine unter den zwei besten auswählen - dann stellt sich Synth-Validation etwa besser mit Erfolgsrate von 59.79\% gegen 50\% im Vergleich zu der zufälligen Auswahl vor. Bei den $N=3$ kumulierten besten Schätzungen liegt der Vorteil am höchsten. Wir haben die Signifikanz von diesen Behauptungen mit der Hilfe von der Binomialverteilung für die übliche $\alpha = 0.05$ geprüft und nur bei der Auswahl von den ersten zwei und drei kumulierten Schätzungen ist Synth-Validation signifikant besser als der Zufall. \par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.2\textwidth, width=1\textwidth]{figures/plots/allRunsGrid.jpeg}
+    \caption[Kumulierte Erfolgsrate von Synth-Validation für alle Daten]{Kumulierte Erfolgsrate von Synth-Validation für alle Daten. Die Tabelle zeigt, wie oft Synth-Validation die Methode mit der besten (Orakel), die zweitbesten usw. Schätzung ausgewählt hat. In der dritten Spalte sehen wir die Anzahl der kumulierten ausgewählten Schätzungen (Spalte 2 kumuliert). Die letzte Spalte enthält die kumulierte Erfolgsrate von Synth-Validation - Spalte 3 durch die Anzahl von allen Läufen (373).}\label{fig:allRunsGrid}
+  \end{figure}
+\end{center}
+
+\noindent
+Wenn also unser Ziel ist, die beste Methode zur Schätzung von dem durchschnittlichen Behandlungseffekt auszuwählen, wenn wir wenige/keine Kenntnisse über die Daten und die möglichen Schätzmethoden haben, dann ist der Einsatz von Synth-Validation im allgemeinen Fall nicht besser als die zufällige Auswahl. Natürlich ist die Annahme über die wenige Kenntnisse sehr oft falsch, was die Baseline höher als die zufällige Auswahl aufhebt, was noch schlechter über die Ergebnisse von Synth-Validation im allgemeinen Fall spricht.\par
+
+\noindent
+\emph{In den folgenden Abschnitten beobachten wir die Ergebnisse bei jeder Datenart individuell. Da sich die Art der Abbildungen wiederholt, werden wir sie nur mit Titeln beschriften.}\par
+
+\subsubsection{Rohdaten}\label{subsubsec:ergebnisseRohdaten}
+
+Wir haben sieben Rohdatensätze mit unterschiedlichen Größen und unterschiedlichen durchschnittlichen Behandlungseffekten. Drei von ihnen enthalten 1000 Elementen, andere zwei enthalten 25000 und die letzten zwei haben 50000. Die Datensätze haben eine hohe Anzahl von Kovariaten - 177. Wir haben Synth-Validation auf jedem Datensatz mindestens 30 Mal mit Standardparametern gebenchmarkt. Insgesamt sind wir auf 243 Läufe gekommen. Wir zeigen zuerst den durchschnittlichen absoluten Fehler auf \reffig{fig:rawDataBoxplot}.\par 
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/rawDataBoxplot.jpeg}
+    \caption[MAE von den Methoden für kausale Inferenz und Synth-Validation für Rohdaten]{MAE von den Methoden für kausale Inferenz und Synth-Validation für Rohdaten. MAEs auf die vierte Stelle gerundet: oracle - $2.7420$, r\_boost - $3.2994$, synth\_validation - $37.0656$, causal\_forest - $38.9371$, raw - $45.2470$, r\_lasso - $66.9590$}\label{fig:rawDataBoxplot}
+  \end{figure}
+\end{center}
+   
+\noindent 
+Wir beobachten, dass die durchschnittlichen absoluten Fehler bei den Rohdaten noch höher als im allgemeinen Fall sind. Nur r\_boost hat einen etwa kleineren. Die Boxplots zeigen uns, dass die Varianz der Schätzungen insgesamt sehr hoch ist; bei einigen Methoden (causal\_forest und raw) sogar extrem hoch. Die Mediane der Fehler von allen Methoden ist relativ niedrig, was bedeutet, dass die Hälfte der Schätzungen relativ gut sind. Die hohen Fehler im Durchschnitt sind vor allem auf die Datensätze mit mehreren Elementen zurückzuführen. Eine Stichprobe aus 100 Elementen kann nicht gut genug  einen Datensatz mit 50000 Elementen vorstellen und das führt zu einer stark gestreuten Schätzung und zu einem hohen absoluten Fehler. Vor den Experimenten haben wir vermutetet, dass die kleine Stichprobe problematisch sein könnte. Eine höhere bei den größeren Datensätzen könnten wir uns aber nicht leisten, denn das würde die Ausführungszeit bedeutend erhöhen und wir waren unter Zeitdruck.\par
+
+\noindent 
+Die Methoden sind genauso wie bei dem allgemeinen Fall geordnet. Synth-Validation hat immer noch nicht die beste Schätzung, nimmt aber den zweiten Platz nach r\_boost. Man sieht, dass die Mediane von den Fehlern des Lassos sogar kleiner als diese von den durchschnittlich besseren naiven Methode und Kausalen Wäldern. Das zeigt, dass das Lasso eigentlich besser schätzt, soweit es keine extrem schlechten Schätzungen gibt, wie bei uns der Fall ist.\par
+
+\noindent 
+Obwohl Synth-Validation am zweiten Platz steht (den Orakel nehmen wir als keinen echten Schätzer), bedeutet es jedoch nicht, dass sie besser als alle darunter schätzt. Unsere Hypothesentests auf diesen Ergebnisse mit $\alpha = 0.05$ zeigen, dass wir signifikant für keine Methode behaupten können, dass Synth-Validation durchschnittlich besser als sie schätzt. Wieder sind wir relativ nah mit dem p-Wert des Lassos von $0.2198$. Es lohnt sich zu nennen, dass wir ein Welch Test benutzen, da die Varianzen von den Methoden offensichtlich ungleich sind.\par
+
+\noindent
+Auf \reffig{fig:rawDataBarplot} beobachten wir, wie oft der Orakel und Synth-Validation jede Methode auswählen. Es gibt keine, die vom Orakel nicht ausgewählt wurde, was noch mal bestätigt, dass es keine allgemeinbeste Methode gibt, sondern jede Methode in unterschiedlichen Konstellationen die beste sein kann. Es ist erstaunlich, dass die naive Methode öfter als die Kausale Wälder vom Orakel ausgewählt wird. Ansonsten führt r\_boost deutlich, was mit seinem kleinsten durchschnittlichen Fehler übereinstimmt.\par 
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/rawDataBarplot.jpeg}
+    \caption[Methodenauswahlhäufigkeit von Orakel und Synth-Validation für Rohdaten]{Methodenauswahlhäufigkeit von Orakel und Synth-Validation für Rohdaten}\label{fig:rawDataBarplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Wir betrachten, dass r\_boost am seltensten von Synth-Validation ausgewählt wird, obwohl sie am häufigsten die besten Schätzungen hat. Genauso umgekehrt ist bei den Kausalen Wäldern und das spricht schlecht über Synth-Validation. Bei raw und r\_lasso haben wir näheren Anteilen, was aber nicht unbedingt bedeutet, dass die Methoden von dem Orakel und Synth-Validation im gleichen Lauf ausgewählt wurden. \par
+
+\noindent
+Am Ende des Abschnitts beobachten wir auf \reffig{fig:rawDataGrid}, wie oft Synth-Validation eine unter den $N$ besten Schätzungen auswählt. Für Rohdaten ist ihre Erfolgsrate darüber, die Orakelschätzung auszuwählen, noch niedriger als im allgemeinen Fall und liegt bei 16.46\%. Das ist deutlich schlechter als die erwarteten 25\%, die man bei einer zufälligen Auswahl erreicht. Für $N=2$ und $N=3$ liegen die Erfolgsraten etwa besser als die zufälligen mit entsprechend 3.5\% und 12.65\%. Die durchgeführten Signifikanztests mithilfe der Binominalverteilung bestätigen nur die bessere Auswahl von Synth-Validation von einer der ersten drei besten Schätzungen im Vergleich zur zufälligen Auswahl. Dabei benutzen wir $\alpha = 0.05$. \par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.2\textwidth, width=1\textwidth]{figures/plots/rawDataGrid.jpeg}
+    \caption[Kumulierte Erfolgsrate von Synth-Validation für Rohdaten]{Kumulierte Erfolgsrate von Synth-Validation für Rohdaten}\label{fig:rawDataGrid}
+  \end{figure}
+\end{center}
+
+\subsubsection{Synthetisch generierte Daten aus Rohdaten}\label{subsubsec:ergebnisseSynthetischGeneriertenDaten}
+Wir verfügen über drei synthetisch generierte Datensätze. Zwei davon haben eine Größe von 2000 Elementen und enthalten 185 Kovariaten. Der dritte hat 500 Elementen und 22 Kovariaten. Auf jeden Datensatz haben wir Synth-Validation mindestens 30 Mal ausgeführt und insgesamt gibt es 99 Läufe. Wir fangen mit der Analyse von den durchschnittlichen absoluten Fehlern der Methoden auf \reffig{fig:generatedDataBoxplot} an.\par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/generatedDataBoxplot.jpeg}
+    \caption[MAE von den Methoden für kausale Inferenz und Synth-Validation für synthetisch generiete Daten]{MAE von den Methoden für kausale Inferenz und Synth-Validation für synthetisch generiete Daten. MAEs auf die vierte Stelle gerundet: oracle - $2.3671$, synth\_validation - $4.8606$, r\_lasso - $5.4032$, causal\_forest - $5.6650$, r\_boost - $5.9377$, raw - $13.3760$}\label{fig:generatedDataBoxplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Man stellt zuerst fest, dass die durchschnittlichen absoluten Fehler deutlich niedriger als bei den Rohdaten liegen. Wir haben auch eine andere Ordnung von den Schätzungen. Synth-Validation hat den niedrigsten Fehler und steht deswegen auf Platz 1 von den realen Schätzer. Das Lasso ist an der zweiten Stelle, obwohl es bei den Rohdaten an der letzten war. Diese Beobachtungen bestätigen nochmal, dass die unterschiedlichen Methoden bei unterschiedlichen Datensätzen unterschiedlich gute Schätzungen geben.\par
+
+\noindent
+Der erste Platz von Synth-Validation ist ein gutes Zeichen dafür, dass sie besser als die anderen Methoden den durchschnittlichen Behandlungseffekt schätzen könnte, indem sie für synthetisch generierten Daten öfter die beste Methode auswählt. Das prüfen wir durch einen Welch Test für jede Methode. Unsere Nullhypothese lautet, dass Synth-Validation einen größeren absoluten Fehler als die getestete Methode hat und wir schaffen, sie  mit $\alpha = 0.05$ nur für die naive Methode abzulehnen. Die p-Werten von allen anderen Methoden liegen aber sehr nah an $\alpha$ - r\_boost mit $0.0760$, r\_lasso mit $0.2513$ und causal\_forest mit $0.1535$. Bei mehreren Läufen könnte es sein, dass sie unter die Ablegungsgrenze fallen. Bis dann können wir nur signifikant behaupten, dass Synth-Validation besser als die naive Methode schätzt.\par
+
+\noindent
+Weiter beobachten wir auf \reffig{fig:generatedDataBarplot}, welche Methoden am häufigsten von Synth-Validation und dem Orakel ausgewählt werden. Wie bei den Ergebnissen von den Rohdaten haben auch hier alle Methoden mindestens einmal die beste Schätzung (werden von dem Orakel ausgewählt). Wie erwartet ist der Anteil der naiven Methode mit weniger als 10\% am niedrigsten, weil sie beim Confounding ein gestreuter Schätzer ist. Die anderen Anteile sind stufenweise zwischen den erwartungsgemäß besseren Methoden verteilt.\par 
+
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/generatedDataBarplot.jpeg}
+    \caption[Methodenauswahlhäufigkeit von Orakel und Synth-Validation für synthetisch generiete Daten]{Methodenauswahlhäufigkeit von Orakel und Synth-Validation für synthetisch generiete Daten}\label{fig:generatedDataBarplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Man sieht, dass Synth-Validation r\_boost kaum ausgewählt hat, was eigentlich sehr erstaunlich ist, da sie die internen synthetischen Daten mit Constrained Boosting erstellt. Damit es keine Verwirrung entsteht, erläutern wir, dass wir hier nicht die gebenchmarkten synthetisch generierten Datensätze meinen, sondern die synthetischen  Daten, die Synth-Validation intern generiert. Wir haben erwartet, dass ein Schätzer aus der gleicher Natur wie das Erstellungsverfahren (Constrained Boosting) bessere Schätzungen auf die synthetischen Daten hätte, sein Schätzfehler würde kleiner sein und Synth-Validation würde dazu neigen, ihn häufiger auszuwählen. Wir beobachten stattdessen eine Neigung zu r\_lasso und causal\_forest, die zusammengerechnet in über 90\% der Fälle ausgewählt wurden.\par
+
+\noindent
+Auf \reffig{fig:generatedDataBarplot} kann man sich die Tabelle anschauen, die die kumulierte Erfolgsrate von Synth-Validation zeigt. In 50.51\% der Fälle hat Synth-Validation die beste Schätzung ausgewählt. Im Vergleich zum Ergebnis von den Rohdaten ist die geschätzte Erfolgsrate hier deutlich höher. Das gilt auch für $N=2$ und $N=3$, also wenn das Ziel ist, eine von den ersten $N$ besten Methoden auszuwählen. Nach den Signifikanztests, die wir durchgeführt haben, können wir behaupten, dass Synth-Validation besser bei der Auswahl von der besten Schätzung als eine einfache zufällige Auswahl ist. Wir haben die p-Werten von der Binominalverteilung mit dem vorgegebenen $\alpha = 0.05$ verglichen und die Nullhypothese mit großer Signifikanz abgelehnt, denn die p-Werte sind gleich 0 für alle $N$.
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.2\textwidth, width=1\textwidth]{figures/plots/generatedDataGrid.jpeg}
+    \caption[Kumulierte Erfolgsrate von Synth-Validation für synthetisch generiete Daten]{Kumulierte Erfolgsrate von Synth-Validation für synthetisch generiete Daten}\label{fig:generatedDataGrid}
+  \end{figure}
+\end{center}
+
+\subsubsection{Zufällig generierte Daten}\label{subsubsec:ergebnisseZufälligGeneriertenDaten}
+Zuletzt werden wir die Ergebnisse von den zufällig generierten Daten darstellen. Das war das erste Experiment, das wir durchgeführt haben. Synth-Validation wurde von ihren Autoren auf solche Daten gebenchmarkt. Deswegen war es interessant zu wissen, ob sich irgendetwas geändert hat, wenn Synth-Validation aus den neuen Methoden für kausale Inferenz auswählt, die Algorithmen aus dem maschinellen Lernen zum Schätzen benutzen bzw. ob Synth-Validation immer noch die beste durchschnittliche Schätzung hat. Wir haben 31 Läufe mit zufällig generierten Daten ausgeführt. Die Daten enthalten zwei Kovariaten und haben einen vorgegeben Behandlungseffekt von 0. Der erste Kovariat ist im Intervall $(- \pi,\pi )$ von der Uniformverteilung generiert, der zweite ist konstant 0. Die Ergebnisvariable ist der Sinus von dem ersten Kovariat mit einem normalverteilten Rausch. In der Analyse der Ergebnisse schauen wir uns zuerst die durchschnittlichen Fehler der Methoden auf \reffig{fig:randomBoxplot} an. 
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/randomBoxplot.jpeg}
+    \caption[MAE von den Methoden für kausale Inferenz und Synth-Validation für zufällig generiete Daten]{MAE von den Methoden für kausale Inferenz und Synth-Validation für zufällig generiete Daten. MAEs auf die vierte Stelle gerundet: oracle - $0.0249$, r\_boost - $0.0329$, causal\_forest - $0.0533$, synth\_validation - $0.0636$, r\_lasso - $0.0783$, raw - $0.7528$}\label{fig:randomBoxplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Auf dem ersten Blick hat der Boxplot über die durchschnittlichen Fehler die gleiche Struktur wie der Boxplot im Artikel von Synth-Validation\cite{schuler2017synth}. Auf dem zweiten sieht man aber die Unterschiede: Synth-Validation hat nicht mehr die beste durchschnittliche Schätzung, sondern wird von r\_boost und causal\_forests überholt. Es gibt einige mögliche Gründe, die diesen großen  Unterschied erklären: \par
+
+\noindent
+\textbf{Unterschiede bei den Implementierungen} Die Ergebnisse sind nicht mit dem gleichen Code erzeugt. Obwohl wir den Kernteil von Synth-Validation zur Verfügung hatten, ist es möglich, dass die unverfügbare Logik einige Unterschiede mit unserer selbst implementierten hat. Auch kann es sein, dass es ein Bug in unserer Implementierung gibt.
+\par
+
+\noindent
+\textbf{Andere Parameter} Nach der Angaben der Autoren von Synth-Validation haben sie Experimente mit mehreren unterschiedlichen Parametern durchgeführt und den Durchschnitt für die Ergebnisse genommen\cite{schuler2017synth}. Wir haben aber in allen 30 Läufen nur Standardparameter benutzt. Eine andere Anzahl der maximalen Schritte beim Constrained Boosting oder breiter ausgewählte synthetische Effekte können einen Einfluss haben.  
+\par
+
+\noindent
+\textbf{Synth-Validation wählt die neuen Methoden schlechter aus} Vielleicht haben die neuen Methoden einen niedrigeren durchschnittlichen Schätzfehler. Wir sind unsicher, denn die Autoren zeigen nur den Boxplot, geben aber nicht die Zahlenwerte der durchschnittlichen Fehler der Methoden. Wenn also die neuen Methoden tatsächlich besser schätzen, kann es sein, dass die ausgewählten synthetischen Effekte wegen der benutzten Heuristik viel gestreuter als früher sind. Alle erstellten synthetischen Daten werden dann für die Auswahl der Methode genommen, obwohl jetzt einige sehr viel Bias in der Schätzung der Fehler bringen, die im Endeffekt die ausgewählte Methode feststellen. Einfacher gesagt hat die abweichende schlechte Schätzung der naiven Methode deutlich mehr Einfluss auf die Auswahl, wenn alle anderen Schätzungen viel besser sind und sehr nah aneinander liegen. 
+\par
+
+\noindent
+Im Vergleich zu den anderen Datensätzen haben wir hier deutlich niedrigere Schätzfehler. Wir erklären es mit der kleineren Anzahl der Kovariaten und die Existenz von nur einem, der keine Bedeutung für die Schätzung hat. Mit diesen Ergebnissen und den Signifikanztests, die wir durchgeführt haben, können wir nur behaupten, dass Synth-Validation besser als die naive Methode schätzt. Der p-Wert des Lassos von $0.08458$ liegt nah an unserem Signifikanzniveau $\alpha=0.05$. Wie üblich haben wir einen Welch Test eingesetzt.\par
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textwidth, width=1\textwidth]{figures/plots/randomBarplot.jpeg}
+    \caption[Methodenauswahlhäufigkeit von Orakel und Synth-Validation für zufällig generiete Daten]{Methodenauswahlhäufigkeit von Orakel und Synth-Validation für zufällig generiete Daten}\label{fig:randomBarplot}
+  \end{figure}
+\end{center}
+
+\noindent
+Auf \reffig{fig:randomBarplot} beobachten wir die Methodenauswahlhäufigkeit von dem Orakel und Synth-Validation. Die naive Methode wird kaum ausgewählt - weder vom Orakel, noch von Synth-Validation und das überrascht uns nicht. Schon von dieser Abbildung kann man erkennen, dass die Erfolgsrate von Synth-Validation niedrig sein wird - r\_boost hat in 60\% der Fälle die beste Schätzung, wird aber kaum von Synth-Validation ausgewählt. Dagegen wurde das Lasso in über 60\% der Fälle von Synth-Validation als die beste Methode ausgewählt, obwohl es nur in weniger als 10\% tatsächlich war. Bei den kausalen Wäldern sind die Balken relativ auf der gleichen Höhe. Wir haben unsere Theorie für dieses falschen Auswählen schon in einem der oberen Absätze gegeben, dass bei solchen niedrigen Differenzen zwischen den guten Schätzungen die richtige Auswahl viel schwieriger ist, insbesondere wenn es eine schlechte Schätzung gibt, die die synthetischen Effekten streut.\par   
+
+\begin{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.2\textwidth, width=1\textwidth]{figures/plots/randomGrid.jpeg}
+    \caption[Kumulierte Erfolgsrate von Synth-Validation für zufällig generiete Daten]{Kumulierte Erfolgsrate von Synth-Validation für zufällig generiete Daten}\label{fig:randomGrid}
+  \end{figure}
+\end{center}
+
+\noindent
+Zuletzt betrachten wir die kumulierte Erfolgsrate auf \reffig{fig:randomGrid}. Etwas fällt schnell auf: in 17 von 31 Läufen (54.84\%) hat Synth-Validation die dritte beste Schätzung ausgewählt. Wenn man sich \reffig{fig:randomBarplot} kurz anschaut, stellt man fest, dass diese Schätzung meistens aus dem Lasso kommt. Trotzdem glauben wir, dass das Problem nicht an der Natur des Lassos liegt, sondern an der Nähe von den drei besten Schätzungen und der Existenz von einer vierten schlechteren, die von der Dreiergruppe abweicht. Das strahlt sich auf die synthetischen Effekte und dann auf die Auswahl aus.\par
+
+\noindent
+Für diesen Datensatz lehnen wir die Nullhypothese, dass Synth-Validation nicht besser als die zufällige Auswahl ist, nur für $N=3$ ab, also wenn das Ziel ist, eine von den besten drei Methoden auszuwählen. Dabei haben wir durch die Binominalverteilung einen p-Wert von 0 gekriegt, was die Behauptung hochsignifikant macht.\par
+
 \clearpage
 
 \section{Schlussfolgerung}\label{sec:schlussfolgerung}
+	\subsection{Diskussion}\label{subsec:diskussion}
   	\subsection{Zusammenfassung}\label{subsec:zusammenfassung}
-  	\subsection{Diskussion}\label{subsec:diskussion}
 \clearpage
 	
 %main content ends here

@@ -15,7 +15,7 @@
 \contentsline {subsubsection}{\numberline {2.1.2}Propensity Score Matching}{11}{subsubsection.2.1.2}
 \contentsline {subsubsection}{\numberline {2.1.3}Inverse Probability Weighting}{13}{subsubsection.2.1.3}
 \contentsline {subsection}{\numberline {2.2}Methoden in unserer Implementierung}{14}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Quasi-Oracle Sch\IeC {\"a}tung}{15}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.1}Quasi-Oracle Sch\IeC {\"a}tzung}{15}{subsubsection.2.2.1}
 \contentsline {subsubsubsection}{\numberline {2.2.1.1}Lasso}{17}{subsubsubsection.2.2.1.1}
 \contentsline {subsubsubsection}{\numberline {2.2.1.2}Gradient Boosting}{18}{subsubsubsection.2.2.1.2}
 \contentsline {subsubsection}{\numberline {2.2.2}Kausale W\IeC {\"a}lder}{19}{subsubsection.2.2.2}
@@ -25,7 +25,7 @@
 \contentsline {subsubsection}{\numberline {3.1.2}Sch\IeC {\"a}tzung von bedingten Erwartungswerten}{26}{subsubsection.3.1.2}
 \contentsline {subsection}{\numberline {3.2}Methodenauswahl}{27}{subsection.3.2}
 \contentsline {section}{\numberline {4}Implementierung}{28}{section.4}
-\contentsline {subsection}{\numberline {4.1}Externe Paketen}{28}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Externe Pakete}{28}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Lesen/Schreiben von Daten}{29}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Ziehen von Stichproben}{30}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Methoden f\IeC {\"u}r kausale Inferenz}{31}{subsection.4.4}
@@ -39,11 +39,15 @@
 \contentsline {subsection}{\numberline {4.8}Experimenten}{34}{subsection.4.8}
 \contentsline {subsection}{\numberline {4.9}Unittests}{34}{subsection.4.9}
 \contentsline {subsection}{\numberline {4.10}Anderer Code}{34}{subsection.4.10}
-\contentsline {section}{\numberline {5}Ergebnisse und Evaluation}{35}{section.5}
+\contentsline {section}{\numberline {5}Evaluation}{35}{section.5}
 \contentsline {subsection}{\numberline {5.1}Methodik und Daten}{35}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}TODO}{35}{subsection.5.2}
-\contentsline {section}{\numberline {6}Schlussfolgerung}{36}{section.6}
-\contentsline {subsection}{\numberline {6.1}Zusammenfassung}{36}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Diskussion}{36}{subsection.6.2}
-\contentsline {section}{Anhang}{37}{section*.6}
-\contentsline {section}{Literatur}{38}{section*.6}
+\contentsline {subsection}{\numberline {5.2}Ergebnisse}{37}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Alle Daten}{37}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Rohdaten}{40}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Synthetisch generierte Daten aus Rohdaten}{43}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}Zuf\IeC {\"a}llig generierte Daten}{45}{subsubsection.5.2.4}
+\contentsline {section}{\numberline {6}Schlussfolgerung}{49}{section.6}
+\contentsline {subsection}{\numberline {6.1}Diskussion}{49}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Zusammenfassung}{49}{subsection.6.2}
+\contentsline {section}{Anhang}{50}{section*.18}
+\contentsline {section}{Literatur}{51}{section*.18}
