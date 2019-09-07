@@ -5,6 +5,7 @@
 \backcite {lewis1974causation}{{3}{1.1}{figure.caption.1}}
 \backcite {rubin1974estimating}{{4}{1.3.1}{subsubsection.1.3.1}}
 \backcite {ttest}{{5}{1.3.1}{equation.1.6}}
+\backcite {schuler2017synth}{{6}{1.3.2}{subsubsection.1.3.2}}
 \backcite {schuler2017synth}{{7}{1.4}{subsection.1.4}}
 \backcite {schuler2017synth}{{7}{1.4}{subsection.1.4}}
 \backcite {cox1982biometrics}{{9}{2}{section.2}}
@@ -25,7 +26,7 @@
 \backcite {tibshirani1996regression}{{18}{2.2.1.1}{equation.2.22}}
 \backcite {tibshirani1996regression}{{18}{2.2.1.1}{equation.2.24}}
 \backcite {tibshirani1996regression}{{18}{2.2.1.1}{equation.2.24}}
-\backcite {gradientBoost}{{18}{2.2.1.2}{subsubsubsection.2.2.1.2}}
+\backcite {gradientBoost}{{19}{2.2.1.2}{subsubsubsection.2.2.1.2}}
 \backcite {gradientBoost}{{19}{2.2.1.2}{equation.2.26}}
 \backcite {wager2018estimation}{{20}{2.2.2}{subsubsection.2.2.2}}
 \backcite {breiman2001random}{{20}{2.2.2}{subsubsection.2.2.2}}

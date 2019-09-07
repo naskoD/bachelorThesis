@@ -16,3 +16,33 @@
 \contentsline {figure}{\numberline {12}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{46}{figure.caption.15}
 \contentsline {figure}{\numberline {13}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{47}{figure.caption.16}
 \contentsline {figure}{\numberline {14}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r zuf\IeC {\"a}llig generiete Daten}}{47}{figure.caption.17}
+\contentsline {figure}{\numberline {15}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_1}}{50}{figure.caption.19}
+\contentsline {figure}{\numberline {16}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_1}}{51}{figure.caption.20}
+\contentsline {figure}{\numberline {17}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_1}}{51}{figure.caption.21}
+\contentsline {figure}{\numberline {18}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_2}}{52}{figure.caption.22}
+\contentsline {figure}{\numberline {19}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_2}}{52}{figure.caption.23}
+\contentsline {figure}{\numberline {20}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_2}}{53}{figure.caption.24}
+\contentsline {figure}{\numberline {21}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_3}}{53}{figure.caption.25}
+\contentsline {figure}{\numberline {22}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_3}}{54}{figure.caption.26}
+\contentsline {figure}{\numberline {23}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_1000\_3}}{54}{figure.caption.27}
+\contentsline {figure}{\numberline {24}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_1}}{55}{figure.caption.28}
+\contentsline {figure}{\numberline {25}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_1}}{55}{figure.caption.29}
+\contentsline {figure}{\numberline {26}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_1}}{56}{figure.caption.30}
+\contentsline {figure}{\numberline {27}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_2}}{56}{figure.caption.31}
+\contentsline {figure}{\numberline {28}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_2}}{57}{figure.caption.32}
+\contentsline {figure}{\numberline {29}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_25000\_2}}{57}{figure.caption.33}
+\contentsline {figure}{\numberline {30}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_1}}{58}{figure.caption.34}
+\contentsline {figure}{\numberline {31}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_1}}{58}{figure.caption.35}
+\contentsline {figure}{\numberline {32}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_1}}{59}{figure.caption.36}
+\contentsline {figure}{\numberline {33}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_2}}{59}{figure.caption.37}
+\contentsline {figure}{\numberline {34}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_2}}{60}{figure.caption.38}
+\contentsline {figure}{\numberline {35}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_50000\_2}}{60}{figure.caption.39}
+\contentsline {figure}{\numberline {36}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_1}}{61}{figure.caption.40}
+\contentsline {figure}{\numberline {37}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_1}}{62}{figure.caption.41}
+\contentsline {figure}{\numberline {38}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_1}}{62}{figure.caption.42}
+\contentsline {figure}{\numberline {39}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_2}}{63}{figure.caption.43}
+\contentsline {figure}{\numberline {40}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_2}}{63}{figure.caption.44}
+\contentsline {figure}{\numberline {41}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_hd\_2}}{64}{figure.caption.45}
+\contentsline {figure}{\numberline {42}{\ignorespaces MAE von den Methoden f\IeC {\"u}r kausale Inferenz und Synth-Validation f\IeC {\"u}r den Datensatz data\_ld\_1}}{64}{figure.caption.46}
+\contentsline {figure}{\numberline {43}{\ignorespaces Methodenauswahlh\IeC {\"a}ufigkeit von Orakel und Synth-Validation f\IeC {\"u}r den Datensatz data\_ld\_1}}{65}{figure.caption.47}
+\contentsline {figure}{\numberline {44}{\ignorespaces Kumulierte Erfolgsrate von Synth-Validation f\IeC {\"u}r den Datensatz data\_ld\_1}}{65}{figure.caption.48}
